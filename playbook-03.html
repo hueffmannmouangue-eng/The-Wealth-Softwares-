@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Code — Playbook 03: Personal Finance & Tax Optimizer</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   THE CAPITAL CODE — Self-Contained Font System
+   No internet connection required
+═══════════════════════════════════════════════════ */
+
+/* ─── SYSTEM FONT STACK: NO INTERNET REQUIRED ─── */
+:root {
+  --font-serif: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:  'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+}
+
+
+/* Display / Serif → Palatino family (elegant, available on all OS) */
+/* Body → System UI font stack (crisp on all platforms) */
+/* Mono → Courier/Consolas family */
+
+</style>
+<style>
+:root {
+  --navy:#08152A; --navy-mid:#0F2040; --navy-light:#183060; --navy-soft:#1E3A6E;
+  --white:#FFFFFF; --off-white:#F7F6F2; --cream:#F0EDE4; --parch:#EAE5D8;
+  --gold:#C8922A; --gold-l:#E4AF56; --gold-pale:#F5E6C0; --gold-d:#9A6E1A;
+  --sapphire:#1A52A8; --sapp-l:#3B7FD4; --sapp-p:#E8F0FB;
+  --emerald:#186848; --em-l:#28A870; --em-p:#E4F5ED;
+  --ruby:#A82828; --ruby-l:#D84848; --ruby-p:#FAEAEA;
+  --amethyst:#5C2A8C; --am-l:#8C4FBF; --am-p:#F0E8F8;
+  --copper:#B05020; --cop-l:#D87040; --cop-p:#FAEEE8;
+  --teal:#0E6B6B; --teal-l:#1A9A9A; --teal-p:#E4F4F4;
+  --forest:#1A5C2A; --for-l:#2E8C44; --for-p:#E8F5EB;
+  --slate:#3A5070; --slate-m:#5A7090; --slate-l:#8AAABB;
+  --border:#DDD8CC; --bsoft:#EAE7E0;
+  --sh-sm:0 2px 16px rgba(8,21,42,.07);
+  --sh-md:0 8px 48px rgba(8,21,42,.11);
+  --sh-lg:0 20px 80px rgba(8,21,42,.15);
+  --sh-xl:0 32px 120px rgba(8,21,42,.20);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--off-white);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.72;overflow-x:hidden;}
+
+#prog{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--emerald),var(--gold),var(--teal));z-index:9999;}
+
+.sb{position:fixed;left:0;top:0;bottom:0;width:66px;background:var(--navy);z-index:200;display:flex;flex-direction:column;align-items:center;padding:2rem 0;}
+.sb-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:var(--gold);font-size:.95rem;font-weight:700;letter-spacing:.08em;writing-mode:vertical-lr;transform:rotate(180deg);margin-bottom:auto;}
+.sb-dots{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:auto;}
+.sd{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .25s;position:relative;}
+.sd:hover,.sd.on{background:var(--gold);transform:scale(1.5);}
+.sd::after{content:attr(data-tip);position:absolute;left:17px;top:50%;transform:translateY(-50%);background:var(--navy-mid);color:#fff;font-size:.58rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.08em;padding:.22rem .6rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s;border-left:2px solid var(--emerald);}
+.sd:hover::after{opacity:1;}
+.sb-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:rgba(255,255,255,.22);font-size:.62rem;writing-mode:vertical-lr;transform:rotate(180deg);letter-spacing:.22em;margin-top:.5rem;}
+
+.wrap{margin-left:66px;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--navy);position:relative;display:flex;flex-direction:column;overflow:hidden;}
+.cv-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 55% at 65% 30%,rgba(24,104,72,.3) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 45% at 18% 78%,rgba(200,146,42,.16) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 35% at 82% 78%,rgba(14,107,107,.18) 0%,transparent 50%),
+  linear-gradient(160deg,#08152A 0%,#0F2040 45%,#081A18 100%);}
+.cv-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:68px 68px;}
+.cv-ring1{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:620px;height:620px;border-radius:50%;border:1px solid rgba(24,104,72,.12);}
+.cv-ring2{position:absolute;right:-75px;top:50%;transform:translateY(-50%);width:460px;height:460px;border-radius:50%;border:1px solid rgba(200,146,42,.07);}
+.cv-ring3{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;border:1px solid rgba(14,107,107,.07);}
+.cv-body{position:relative;z-index:5;padding:5.5rem 6rem;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.cv-pre{display:flex;align-items:center;gap:1rem;margin-bottom:2.8rem;animation:fadeUp .8s ease both;}
+.cv-pre-line{width:34px;height:1px;background:var(--em-l);}
+.cv-pre-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--em-l);letter-spacing:.35em;text-transform:uppercase;}
+.cv-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(3.2rem,6vw,6.5rem);font-weight:600;color:#fff;line-height:1.02;margin-bottom:1.6rem;animation:fadeUp .8s ease .1s both;max-width:780px;}
+.cv-title em{font-style:italic;color:var(--gold-l);}
+.cv-title .c-green{color:var(--em-l);}
+.cv-sub{font-size:1.02rem;color:rgba(255,255,255,.48);font-weight:300;max-width:520px;line-height:1.84;margin-bottom:3.2rem;animation:fadeUp .8s ease .2s both;}
+.cv-tags{display:flex;gap:.7rem;flex-wrap:wrap;animation:fadeUp .8s ease .3s both;margin-bottom:4rem;}
+.cv-tag{padding:.38rem .95rem;border:1px solid rgba(24,104,72,.38);color:rgba(255,255,255,.55);font-size:.62rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.14em;text-transform:uppercase;}
+.cv-metrics{display:flex;gap:3rem;animation:fadeUp .8s ease .4s both;}
+.cv-mval{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.4rem;font-weight:700;color:var(--em-l);display:block;line-height:1;}
+.cv-mlbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;display:block;}
+.cv-bignum{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(8rem,16vw,16rem);font-weight:300;color:rgba(255,255,255,.025);position:absolute;right:5rem;bottom:3rem;line-height:1;letter-spacing:-.03em;animation:fadeUp 1.4s ease .5s both;pointer-events:none;}
+.cv-foot{position:relative;z-index:5;padding:1.8rem 6rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;}
+.cv-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.1em;}
+.cv-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:rgba(255,255,255,.2);letter-spacing:.1em;text-align:right;line-height:1.9;}
+
+/* SECTIONS */
+.sec{padding:6rem;position:relative;transition:opacity .7s ease,transform .7s ease;}
+.sec.vis{opacity:1;transform:none;}
+.s-white{background:var(--white);}
+.s-off{background:var(--off-white);}
+.s-cream{background:var(--cream);}
+.s-parch{background:var(--parch);}
+.s-navy{background:var(--navy);color:#fff;}
+.s-forest{background:#0C1F10;color:#fff;}
+
+/* LABELS */
+.sec-label{display:flex;align-items:center;gap:.9rem;margin-bottom:1.1rem;}
+.sec-label::before{content:'';width:24px;height:2px;background:var(--emerald);flex-shrink:0;}
+.sec-label-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--emerald);letter-spacing:.32em;text-transform:uppercase;}
+.sec-label.gold::before{background:var(--gold);}
+.sec-label.gold .sec-label-txt{color:var(--gold);}
+.sec-label.teal::before{background:var(--teal);}
+.sec-label.teal .sec-label-txt{color:var(--teal);}
+.sec-label.pur::before{background:var(--amethyst);}
+.sec-label.pur .sec-label-txt{color:var(--amethyst);}
+
+.sec-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(2.1rem,3.6vw,3.4rem);font-weight:600;line-height:1.12;color:var(--navy);margin-bottom:1.4rem;}
+.s-navy .sec-title,.s-forest .sec-title{color:#fff;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-title .c-green{color:var(--em-l);}
+.sec-title .c-teal{color:var(--teal-l);}
+.sec-body{font-size:.96rem;line-height:1.86;color:var(--slate);max-width:680px;}
+.s-navy .sec-body,.s-forest .sec-body{color:rgba(255,255,255,.52);}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:2rem;margin:0 6rem;padding:3rem 0;}
+.div-line{flex:1;height:1px;background:var(--bsoft);}
+.div-diamond{width:8px;height:8px;background:var(--emerald);transform:rotate(45deg);flex-shrink:0;}
+.divider.on-dark .div-line{background:rgba(255,255,255,.1);}
+
+/* CALLOUTS */
+.callout{padding:1.8rem 2rem;border-left:4px solid;margin:2rem 0;}
+.co-gold{background:var(--gold-pale);border-color:var(--gold);}
+.co-green{background:var(--em-p);border-color:var(--emerald);}
+.co-blue{background:var(--sapp-p);border-color:var(--sapphire);}
+.co-teal{background:var(--teal-p);border-color:var(--teal);}
+.co-pur{background:var(--am-p);border-color:var(--amethyst);}
+.co-copper{background:var(--cop-p);border-color:var(--copper);}
+.co-ruby{background:var(--ruby-p);border-color:var(--ruby);}
+.co-forest{background:var(--for-p);border-color:var(--forest);}
+.co-icon{font-size:1.1rem;margin-bottom:.4rem;display:block;}
+.co-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+.co-body{font-size:.84rem;color:var(--slate);line-height:1.76;}
+
+/* ── INCOME OPTIMIZER ── */
+.optimizer-engine{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-xl);overflow:hidden;margin:2.5rem 0;}
+.opt-hd{background:var(--navy-mid);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.opt-hd-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.28rem;font-weight:600;color:#fff;}
+.opt-badge{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--em-l);letter-spacing:.18em;border:1px solid rgba(24,104,72,.45);padding:.28rem .8rem;text-transform:uppercase;}
+.opt-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
+.opt-tab{padding:1rem 1.5rem;text-align:center;cursor:pointer;transition:all .2s;border-right:1px solid var(--border);background:var(--off-white);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate-m);position:relative;}
+.opt-tab:last-child{border-right:none;}
+.opt-tab.active{background:var(--white);color:var(--navy);}
+.opt-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--emerald);}
+.opt-tab-icon{font-size:1.1rem;display:block;margin-bottom:.2rem;}
+.opt-body{padding:2.5rem;}
+.opt-panel{display:none;}
+.opt-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.opt-col-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.1rem;font-weight:600;color:var(--navy);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:2px solid var(--emerald);}
+.ig{margin-bottom:1.5rem;}
+.ig-label{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-m);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.45rem;display:block;}
+.ig-field{width:100%;padding:.7rem 1rem;border:1.5px solid var(--bsoft);background:var(--white);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.9rem;outline:none;transition:all .2s;}
+.ig-field:focus{border-color:var(--em-l);box-shadow:0 0 0 3px rgba(24,104,72,.08);}
+.ig-sel{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235A7090' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem;}
+.ig-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.btn-calc{width:100%;padding:.9rem;background:var(--navy);color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;margin-top:.5rem;}
+.btn-calc::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--emerald),var(--gold),var(--teal));transform:scaleX(0);transition:transform .35s;}
+.btn-calc:hover{background:var(--navy-light);transform:translateY(-1px);box-shadow:var(--sh-md);}
+.btn-calc:hover::after{transform:scaleX(1);}
+
+/* RESULT CARDS */
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:1.2rem;}
+.res-cell{background:var(--off-white);padding:1.1rem 1.3rem;}
+.res-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;}
+.res-val{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.5rem;font-weight:700;line-height:1;}
+.rv-green{color:var(--emerald);}
+.rv-gold{color:var(--gold);}
+.rv-navy{color:var(--navy);}
+.rv-teal{color:var(--teal);}
+.rv-red{color:var(--ruby);}
+.rv-pur{color:var(--amethyst);}
+.res-note{font-size:.7rem;color:var(--slate-l);margin-top:.15rem;font-style:italic;}
+
+/* OPT FOOTER */
+.opt-ft{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);background:var(--navy);}
+.ef-cell{padding:1.2rem 1.4rem;text-align:center;position:relative;}
+.ef-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:22%;bottom:22%;width:1px;background:rgba(255,255,255,.09);}
+.ef-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:rgba(255,255,255,.28);letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:.28rem;}
+.ef-val{font-size:.84rem;color:#fff;font-weight:500;display:block;}
+.ef-green{color:var(--em-l);}
+.ef-gold{color:var(--gold-l);}
+.ef-teal{color:var(--teal-l);}
+
+/* BUDGET TRACKER */
+.budget-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2.5rem;}
+.budget-col{background:var(--white);border:1px solid var(--bsoft);padding:2rem;}
+.bud-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:2px solid;display:flex;justify-content:space-between;align-items:center;}
+.bud-title.income-t{border-color:var(--emerald);}
+.bud-title.expense-t{border-color:var(--ruby);}
+.bud-item{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bsoft);}
+.bud-item:last-child{border-bottom:none;}
+.bud-cat{font-size:.83rem;color:var(--slate);}
+.bud-amt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.8rem;font-weight:500;}
+.bud-bar-wrap{margin-top:1.5rem;}
+.bud-bar-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;}
+.bud-bar-lbl{font-size:.75rem;color:var(--slate-m);}
+.bud-bar-pct{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.65rem;color:var(--slate-l);}
+.bud-bar{height:6px;background:var(--bsoft);margin-bottom:.75rem;position:relative;overflow:hidden;}
+.bud-fill{height:100%;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.bf-green{background:linear-gradient(90deg,var(--emerald),var(--em-l));}
+.bf-ruby{background:linear-gradient(90deg,var(--ruby),var(--ruby-l));}
+.bf-gold{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.bf-blue{background:linear-gradient(90deg,var(--sapphire),var(--sapp-l));}
+.bf-teal{background:linear-gradient(90deg,var(--teal),var(--teal-l));}
+.bf-pur{background:linear-gradient(90deg,var(--amethyst),var(--am-l));}
+.bf-slate{background:linear-gradient(90deg,var(--slate),var(--slate-m));}
+
+/* TAX SECTION */
+.tax-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.tax-card{padding:2rem;background:var(--white);border:1px solid var(--bsoft);position:relative;overflow:hidden;transition:all .22s;}
+.tax-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.tax-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.tc-gold::before{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.tc-green::before{background:linear-gradient(90deg,var(--emerald),var(--em-l));}
+.tc-teal::before{background:linear-gradient(90deg,var(--teal),var(--teal-l));}
+.tc-pur::before{background:linear-gradient(90deg,var(--amethyst),var(--am-l));}
+.tc-blue::before{background:linear-gradient(90deg,var(--sapphire),var(--sapp-l));}
+.tc-copper::before{background:linear-gradient(90deg,var(--copper),var(--cop-l));}
+.tc-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.8rem;font-weight:700;color:rgba(8,21,42,.05);position:absolute;top:.9rem;right:1.3rem;line-height:1;}
+.tc-icon{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.tc-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;}
+.tc-body{font-size:.8rem;color:var(--slate);line-height:1.75;}
+.tc-saving{margin-top:.8rem;padding:.5rem .8rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--em-p);background:var(--em-p);color:var(--emerald);display:inline-block;}
+
+/* 50/30/20 RULE */
+.rule-display{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin:2.5rem 0;overflow:hidden;border:1px solid var(--border);}
+.rule-cell{padding:2rem 1.5rem;text-align:center;position:relative;}
+.rule-cell:not(:last-child){border-right:1px solid var(--border);}
+.rc-needs{background:var(--navy);}
+.rc-wants{background:var(--navy-mid);}
+.rc-invest{background:var(--emerald);}
+.rule-pct{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:4rem;font-weight:700;line-height:1;display:block;margin-bottom:.3rem;}
+.rc-needs .rule-pct{color:var(--sapp-l);}
+.rc-wants .rule-pct{color:var(--gold-l);}
+.rc-invest .rule-pct{color:#fff;}
+.rule-name{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.4rem;display:block;}
+.rc-needs .rule-name,.rc-wants .rule-name{color:rgba(255,255,255,.4);}
+.rc-invest .rule-name{color:rgba(255,255,255,.7);}
+.rule-desc{font-size:.8rem;line-height:1.6;}
+.rc-needs .rule-desc,.rc-wants .rule-desc{color:rgba(255,255,255,.45);}
+.rc-invest .rule-desc{color:rgba(255,255,255,.8);}
+
+/* SAVINGS RATE THERMOMETER */
+.thermo-row{display:flex;gap:2rem;align-items:center;margin:2rem 0;}
+.thermo-bar{flex:1;height:24px;background:var(--bsoft);position:relative;overflow:hidden;}
+.thermo-fill{height:100%;transition:width 1s cubic-bezier(.4,0,.2,1);}
+.thermo-markers{display:flex;justify-content:space-between;margin-top:.3rem;}
+.tm{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:var(--slate-l);letter-spacing:.04em;}
+.thermo-label{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.68rem;color:var(--slate-m);white-space:nowrap;}
+.thermo-val{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.8rem;font-weight:700;min-width:80px;text-align:right;}
+
+/* COMPOUND TABLE */
+.compound-table{width:100%;border-collapse:collapse;margin:2rem 0;background:var(--white);box-shadow:var(--sh-sm);}
+.compound-table th{background:var(--navy);color:#fff;padding:.95rem 1.3rem;text-align:left;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;font-weight:400;}
+.compound-table td{padding:.88rem 1.3rem;border-bottom:1px solid var(--bsoft);font-size:.84rem;color:var(--slate);vertical-align:top;}
+.compound-table tr:last-child td{border-bottom:none;}
+.compound-table tr:hover td{background:var(--off-white);}
+.td-b{font-weight:600;color:var(--navy);}
+.td-green{color:var(--emerald);font-weight:600;}
+.td-gold{color:var(--gold-d);font-weight:600;}
+
+/* WEALTH WATERFALL */
+.waterfall{margin:2.5rem 0;}
+.wf-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:1px;}
+.wf-label{font-size:.82rem;color:var(--slate);width:180px;flex-shrink:0;text-align:right;}
+.wf-bar-wrap{flex:1;display:flex;align-items:center;gap:.75rem;}
+.wf-bar{height:32px;transition:width .9s cubic-bezier(.4,0,.2,1);min-width:4px;}
+.wf-val{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.72rem;font-weight:500;white-space:nowrap;}
+.wfb-income{background:linear-gradient(90deg,var(--sapphire),var(--sapp-l));}
+.wfb-tax{background:linear-gradient(90deg,var(--ruby),var(--ruby-l));}
+.wfb-fixed{background:linear-gradient(90deg,var(--copper),var(--cop-l));}
+.wfb-var{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.wfb-invest{background:linear-gradient(90deg,var(--emerald),var(--em-l));}
+.wfb-save{background:linear-gradient(90deg,var(--teal),var(--teal-l));}
+.wfb-free{background:linear-gradient(90deg,var(--amethyst),var(--am-l));}
+
+/* PRINCIPLE GRID (dark) */
+.prin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.prin-card{padding:2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden;transition:all .22s;}
+.prin-card:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.prin-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.prin-card:hover::after{transform:scaleX(1);}
+.pc-green::after{background:var(--em-l);}
+.pc-gold::after{background:var(--gold-l);}
+.pc-teal::after{background:var(--teal-l);}
+.pc-pur::after{background:var(--am-l);}
+.pc-blue::after{background:var(--sapp-l);}
+.pc-copper::after{background:var(--cop-l);}
+.p-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.8rem;font-weight:700;color:rgba(255,255,255,.05);position:absolute;top:.8rem;right:1.2rem;line-height:1;}
+.p-ico{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.p-ttl{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-weight:700;color:#fff;margin-bottom:.45rem;}
+.p-bdy{font-size:.8rem;color:rgba(255,255,255,.48);line-height:1.72;}
+
+/* WORKSHEET */
+.ws{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-lg);overflow:hidden;margin:2.5rem 0;}
+.ws-head{background:linear-gradient(135deg,var(--emerald),var(--forest));padding:1.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.ws-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.2rem;color:#fff;font-weight:600;}
+.ws-body{padding:2.5rem;}
+.ws-row{display:grid;grid-template-columns:240px 1fr;align-items:start;gap:1.5rem;padding:1.2rem 0;border-bottom:1px solid var(--bsoft);}
+.ws-row:last-child{border-bottom:none;}
+.ws-lbl{font-size:.84rem;font-weight:600;color:var(--navy);padding-top:.15rem;}
+.ws-hint{font-size:.7rem;color:var(--slate-l);margin-top:.1rem;font-style:italic;font-weight:300;}
+.ws-inp{width:100%;padding:.65rem 1rem;border:1.5px solid var(--bsoft);background:var(--off-white);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.88rem;outline:none;transition:all .2s;}
+.ws-inp:focus{border-color:var(--em-l);background:var(--white);box-shadow:0 0 0 3px rgba(24,104,72,.07);}
+.ws-ta{min-height:78px;resize:vertical;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.62;}
+.ws-radios{display:flex;gap:.65rem;flex-wrap:wrap;}
+.wr{display:none;}
+.wrl{padding:.4rem .88rem;border:1.5px solid var(--bsoft);font-size:.72rem;cursor:pointer;transition:all .2s;color:var(--slate);font-weight:500;}
+.wr:checked+.wrl{background:var(--navy);border-color:var(--navy);color:#fff;}
+.ws-foot{padding:1.5rem 2.5rem;background:var(--off-white);border-top:1px solid var(--bsoft);display:flex;justify-content:space-between;align-items:center;}
+.ws-save{padding:.7rem 2rem;background:var(--navy);color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.ws-save:hover{background:var(--emerald);}
+.ws-note{font-size:.72rem;color:var(--slate-l);font-style:italic;}
+
+/* CHECKLIST */
+.chk{list-style:none;margin:1.5rem 0;}
+.chk li{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bsoft);font-size:.86rem;color:var(--slate);line-height:1.62;cursor:pointer;}
+.chk li:last-child{border-bottom:none;}
+.chk li:hover{color:var(--navy);}
+.chk-box{width:18px;height:18px;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;background:var(--white);position:relative;transition:all .2s;}
+.chk li.done .chk-box{background:var(--emerald);border-color:var(--emerald);}
+.chk li.done .chk-box::after{content:'';position:absolute;left:4px;top:5px;width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-3px);}
+.chk li.done .chk-txt{text-decoration:line-through;color:var(--slate-l);}
+
+/* CLOSING */
+.closing{background:var(--navy);color:#fff;padding:7rem 6rem;text-align:center;position:relative;overflow:hidden;}
+.closing::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;border:1px solid rgba(24,104,72,.08);}
+.closing::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:450px;border-radius:50%;border:1px solid rgba(200,146,42,.07);}
+.cl-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.cl-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:3.2rem;font-weight:600;color:#fff;margin-bottom:1rem;}
+.cl-title em{color:var(--gold-l);font-style:italic;}
+.cl-div{width:40px;height:1px;background:var(--emerald);margin:2rem auto;}
+.cl-body{font-size:.94rem;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:2.5rem;}
+.cl-next{display:inline-block;padding:1rem 2.5rem;border:1px solid rgba(24,104,72,.4);color:var(--em-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:all .22s;cursor:pointer;background:transparent;}
+.cl-next:hover{background:rgba(24,104,72,.12);border-color:var(--em-l);}
+.cl-brand{display:block;margin-top:2.5rem;font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;color:var(--gold);letter-spacing:.3em;text-transform:uppercase;}
+.cl-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:rgba(255,255,255,.18);margin-top:.4rem;letter-spacing:.13em;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+@media(max-width:1100px){
+  .wrap{margin-left:0;} .sb{display:none;}
+  .sec{padding:4.5rem 3.5rem;} .cv-body{padding:4rem 3.5rem;} .cv-foot{padding:1.8rem 3.5rem;}
+  .opt-panel.active{grid-template-columns:1fr;}
+  .tax-grid{grid-template-columns:1fr 1fr;} .prin-grid{grid-template-columns:1fr 1fr;}
+  .rule-display{grid-template-columns:1fr;} .budget-wrap{grid-template-columns:1fr;}
+  .opt-ft{grid-template-columns:1fr 1fr;} .closing{padding:5rem 3.5rem;} .divider{margin:0 3.5rem;}
+}
+@media(max-width:680px){
+  .sec{padding:3.5rem 1.5rem;} .cv-body{padding:3.5rem 1.5rem;} .cv-foot{padding:1.5rem 1.5rem;}
+  .tax-grid{grid-template-columns:1fr;} .prin-grid{grid-template-columns:1fr;}
+  .ws-row{grid-template-columns:1fr;} .opt-tabs{grid-template-columns:1fr 1fr;}
+  .opt-ft{grid-template-columns:1fr;} .ef-cell:not(:last-child)::after{display:none;}
+  .closing{padding:4rem 1.5rem;} .divider{margin:0 1.5rem;} .ig-row{grid-template-columns:1fr;}
+}
+</style>
+
+<script>
+// iPad/Safari fix: reveal all sections immediately on load
+window.addEventListener('load', function() {
+  document.querySelectorAll('.sec').forEach(function(s) {
+    s.classList.add('vis');
+    s.style.opacity = '1';
+    s.style.transform = 'none';
+  });
+});
+</script>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav class="sb">
+  <div class="sb-brand">TCC</div>
+  <div class="sb-dots">
+    <div class="sd on"  data-tip="Cover"             onclick="toTop()"></div>
+    <div class="sd"     data-tip="Introduction"      onclick="goTo('s-intro')"></div>
+    <div class="sd"     data-tip="Finance Optimizer" onclick="goTo('s-optimizer')"></div>
+    <div class="sd"     data-tip="Budget Architecture" onclick="goTo('s-budget')"></div>
+    <div class="sd"     data-tip="Savings Rate"      onclick="goTo('s-savings')"></div>
+    <div class="sd"     data-tip="Tax Strategies"    onclick="goTo('s-tax')"></div>
+    <div class="sd"     data-tip="Wealth Waterfall"  onclick="goTo('s-waterfall')"></div>
+    <div class="sd"     data-tip="8 Principles"      onclick="goTo('s-prin')"></div>
+    <div class="sd"     data-tip="Worksheet"         onclick="goTo('s-ws')"></div>
+    <div class="sd"     data-tip="Closing"           onclick="goTo('s-close')"></div>
+  </div>
+  <div class="sb-num">03 / 05</div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════ COVER ══════ -->
+<section class="cover">
+  <div class="cv-bg"></div><div class="cv-mesh"></div>
+  <div class="cv-ring1"></div><div class="cv-ring2"></div><div class="cv-ring3"></div>
+  <div class="cv-body">
+    <div class="cv-pre">
+      <div class="cv-pre-line"></div>
+      <div class="cv-pre-txt">The Capital Code · Playbook 03 of 05 · Architect Edition</div>
+    </div>
+    <h1 class="cv-title">Personal Finance &<br><span class="c-green">Tax</span> <em>Optimizer</em></h1>
+    <p class="cv-sub">Optimize every euro flowing through your financial system — from income architecture and expense engineering to tax efficiency and compound wealth acceleration.</p>
+    <div class="cv-tags">
+      <div class="cv-tag">Income Optimization</div>
+      <div class="cv-tag">Expense Architecture</div>
+      <div class="cv-tag">Tax Efficiency</div>
+      <div class="cv-tag">Savings Rate Mastery</div>
+      <div class="cv-tag">Wealth Waterfall</div>
+    </div>
+    <div class="cv-metrics">
+      <div><span class="cv-mval">40%</span><span class="cv-mlbl">Avg. tax overpayment</span></div>
+      <div><span class="cv-mval">×3</span><span class="cv-mlbl">Savings rate impact</span></div>
+      <div><span class="cv-mval">€0</span><span class="cv-mlbl">Needed to start</span></div>
+    </div>
+  </div>
+  <div class="cv-bignum">03</div>
+  <div class="cv-foot">
+    <div class="cv-brand">The Capital Code</div>
+    <div class="cv-meta"><div>ARCHITECT EDITION — PLAYBOOK 03 OF 05</div><div>EXCLUSIVE · NOT FOR REDISTRIBUTION</div></div>
+  </div>
+</section>
+
+<!-- ══════ INTRODUCTION ══════ -->
+<section class="sec s-white" id="s-intro">
+  <div class="sec-label"><span class="sec-label-txt">Introduction</span></div>
+  <h2 class="sec-title">The wealth you build is not<br><em>what you earn — it's what you keep.</em></h2>
+
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start;">
+    <div>
+      <p class="sec-body">Most people approach wealth building from the wrong end. They search for the next hot stock, the best crypto trade, the superior fund — while ignoring the financial infrastructure that determines how much capital ever reaches their investment accounts in the first place.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">The truth is elegant and uncomfortable in equal measure: your investment returns are multiplied by your savings rate. A 12% annual return on €5,000 generates €600. The same 12% on €20,000 generates €2,400. The difference is not the investment — it is the capital deployed. And the capital deployed is determined entirely by your financial system.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">This playbook attacks the problem at the source. We will optimize your income, restructure your expenses, eliminate unnecessary tax drag, and design a wealth waterfall that automatically routes every euro to its highest-value use — so that your investment engine is always running at full capacity.</p>
+
+      <div class="callout co-green" style="margin-top:2rem;">
+        <span class="co-icon">💡</span>
+        <div class="co-title">The Fundamental Equation</div>
+        <div class="co-body"><strong>Wealth = (Income − Expenses) × Time × Return Rate</strong><br>Most people try to optimize the Return Rate (the smallest lever). The highest-impact levers are Income (up), Expenses (down), and Time (start earlier). This playbook maximizes all three simultaneously.</div>
+      </div>
+
+      <div class="callout co-teal" style="margin-top:1.2rem;">
+        <span class="co-icon">🎯</span>
+        <div class="co-title">What You Will Build</div>
+        <div class="co-body">A complete personal financial operating system: optimized income structure → engineered expense architecture → automated savings routing → tax-minimized investment pipeline. Every component designed to maximize the capital flowing to your investment strategy from Playbook 01.</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="background:var(--navy);padding:2.8rem 2.5rem;color:#fff;margin-bottom:1.5rem;">
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--em-l);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1rem;">The Savings Rate Multiplier</div>
+        <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.35rem;font-style:italic;font-weight:300;line-height:1.72;margin-bottom:1.4rem;">"Do not save what is left after spending, but spend what is left after saving. The system, not the willpower, is what separates the wealthy from the rest."</div>
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;">— Warren Buffett</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--emerald);display:block;line-height:1;margin-bottom:.25rem;">10<span style="color:var(--gold)">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Savings rate<br>→ retire in 43 years</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--emerald);display:block;line-height:1;margin-bottom:.25rem;">30<span style="color:var(--gold)">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Savings rate<br>→ retire in 28 years</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--teal);display:block;line-height:1;margin-bottom:.25rem;">50<span style="color:var(--gold)">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Savings rate<br>→ retire in 17 years</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--amethyst);display:block;line-height:1;margin-bottom:.25rem;">70<span style="color:var(--gold)">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Savings rate<br>→ retire in 8 years</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ FINANCE OPTIMIZER ENGINE ══════ -->
+<section class="sec s-off" id="s-optimizer">
+  <div class="sec-label"><span class="sec-label-txt">Interactive Optimizer</span></div>
+  <h2 class="sec-title">Your 4-Module<br><em>Financial Optimizer</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Four interconnected modules — Income, Expenses, Tax, and Scenario Analysis — each calculating your optimal financial position and generating precise, personalized recommendations.</p>
+
+  <div class="optimizer-engine">
+    <div class="opt-hd">
+      <span class="opt-hd-title">Personal Finance & Tax Optimizer</span>
+      <span class="opt-badge">Live Calculation · 4 Modules</span>
+    </div>
+
+    <div class="opt-tabs">
+      <div class="opt-tab active" onclick="switchTab(0,this)">
+        <span class="opt-tab-icon">💰</span>Income
+      </div>
+      <div class="opt-tab" onclick="switchTab(1,this)">
+        <span class="opt-tab-icon">📊</span>Expenses
+      </div>
+      <div class="opt-tab" onclick="switchTab(2,this)">
+        <span class="opt-tab-icon">🏛</span>Tax
+      </div>
+      <div class="opt-tab" onclick="switchTab(3,this)">
+        <span class="opt-tab-icon">🔮</span>Scenario
+      </div>
+    </div>
+
+    <div class="opt-body">
+
+      <!-- MODULE 0: INCOME -->
+      <div class="opt-panel active" id="panel-0">
+        <div>
+          <div class="opt-col-title">Income Sources</div>
+          <div class="ig">
+            <label class="ig-label">Primary Income (gross monthly, €)</label>
+            <input type="number" class="ig-field" id="m-salary" value="4500" min="0" step="100">
+          </div>
+          <div class="ig">
+            <label class="ig-label">Secondary Income (freelance / side income, €)</label>
+            <input type="number" class="ig-field" id="m-side" value="800" min="0" step="50">
+          </div>
+          <div class="ig">
+            <label class="ig-label">Passive Income (dividends / rental, €)</label>
+            <input type="number" class="ig-field" id="m-passive" value="200" min="0" step="50">
+          </div>
+          <div class="ig">
+            <label class="ig-label">Country / Tax System</label>
+            <select class="ig-field ig-sel" id="m-country">
+              <option value="de">Germany</option>
+              <option value="at">Austria</option>
+              <option value="ch">Switzerland</option>
+              <option value="uk">United Kingdom</option>
+              <option value="us">United States</option>
+            </select>
+          </div>
+          <div class="ig">
+            <label class="ig-label">Employment Type</label>
+            <select class="ig-field ig-sel" id="m-emptype">
+              <option value="employed">Employed (PAYE)</option>
+              <option value="self">Self-Employed / Freelance</option>
+              <option value="business">Business Owner</option>
+            </select>
+          </div>
+          <button class="btn-calc" onclick="calcIncome()">Calculate Income Optimization →</button>
+        </div>
+        <div>
+          <div class="opt-col-title">Optimization Results</div>
+          <div id="income-results">
+            <div style="text-align:center;padding:3rem 1rem;color:var(--slate-l);font-size:.85rem;">Enter your income details and click Calculate to see your optimized breakdown.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 1: EXPENSES -->
+      <div class="opt-panel" id="panel-1">
+        <div>
+          <div class="opt-col-title">Monthly Expenses</div>
+          <div class="ig-row">
+            <div class="ig"><label class="ig-label">Housing (rent/mortgage, €)</label><input type="number" class="ig-field" id="e-housing" value="1200" min="0"></div>
+            <div class="ig"><label class="ig-label">Food & Groceries (€)</label><input type="number" class="ig-field" id="e-food" value="400" min="0"></div>
+            <div class="ig"><label class="ig-label">Transport (€)</label><input type="number" class="ig-field" id="e-transport" value="250" min="0"></div>
+            <div class="ig"><label class="ig-label">Insurance (€)</label><input type="number" class="ig-field" id="e-insurance" value="180" min="0"></div>
+            <div class="ig"><label class="ig-label">Subscriptions (€)</label><input type="number" class="ig-field" id="e-subs" value="120" min="0"></div>
+            <div class="ig"><label class="ig-label">Dining / Entertainment (€)</label><input type="number" class="ig-field" id="e-dining" value="300" min="0"></div>
+            <div class="ig"><label class="ig-label">Health & Fitness (€)</label><input type="number" class="ig-field" id="e-health" value="80" min="0"></div>
+            <div class="ig"><label class="ig-label">Miscellaneous (€)</label><input type="number" class="ig-field" id="e-misc" value="200" min="0"></div>
+          </div>
+          <button class="btn-calc" onclick="calcExpenses()">Analyze Expense Architecture →</button>
+        </div>
+        <div>
+          <div class="opt-col-title">Expense Analysis</div>
+          <div id="expense-results">
+            <div style="text-align:center;padding:3rem 1rem;color:var(--slate-l);font-size:.85rem;">Enter your expenses and click Analyze to see your breakdown and optimization opportunities.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 2: TAX -->
+      <div class="opt-panel" id="panel-2">
+        <div>
+          <div class="opt-col-title">Tax Optimization Inputs</div>
+          <div class="ig"><label class="ig-label">Annual Gross Income (€)</label><input type="number" class="ig-field" id="t-income" value="65000" min="0" step="1000"></div>
+          <div class="ig"><label class="ig-label">Investment Income (dividends/gains, €)</label><input type="number" class="ig-field" id="t-invest" value="3000" min="0" step="100"></div>
+          <div class="ig"><label class="ig-label">Freelance / Business Income (€)</label><input type="number" class="ig-field" id="t-free" value="9600" min="0" step="100"></div>
+          <div class="ig"><label class="ig-label">Current Monthly Pension Contribution (€)</label><input type="number" class="ig-field" id="t-pension" value="300" min="0" step="50"></div>
+          <div class="ig"><label class="ig-label">Home Office (days/year)</label><input type="number" class="ig-field" id="t-office" value="120" min="0" max="365"></div>
+          <div class="ig">
+            <label class="ig-label">Marital Status</label>
+            <select class="ig-field ig-sel" id="t-marital">
+              <option value="single">Single</option>
+              <option value="married">Married / Civil Partnership</option>
+              <option value="divorced">Divorced / Separated</option>
+            </select>
+          </div>
+          <button class="btn-calc" onclick="calcTax()">Calculate Tax Savings →</button>
+        </div>
+        <div>
+          <div class="opt-col-title">Tax Optimization Report</div>
+          <div id="tax-results">
+            <div style="text-align:center;padding:3rem 1rem;color:var(--slate-l);font-size:.85rem;">Enter your tax details and click Calculate to see your optimization opportunities.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODULE 3: SCENARIO -->
+      <div class="opt-panel" id="panel-3">
+        <div>
+          <div class="opt-col-title">Scenario Inputs</div>
+          <div class="ig"><label class="ig-label">Current Monthly Net Income (€)</label><input type="number" class="ig-field" id="s-net" value="3200" min="0" step="100"></div>
+          <div class="ig"><label class="ig-label">Current Monthly Total Expenses (€)</label><input type="number" class="ig-field" id="s-exp" value="2400" min="0" step="100"></div>
+          <div class="ig"><label class="ig-label">Current Monthly Investment (€)</label><input type="number" class="ig-field" id="s-inv" value="500" min="0" step="50"></div>
+          <div class="ig">
+            <label class="ig-label">Scenario to Analyze</label>
+            <select class="ig-field ig-sel" id="s-type">
+              <option value="raise">+20% Income Raise</option>
+              <option value="cut">−20% Expense Reduction</option>
+              <option value="both">Both: Raise + Cut</option>
+              <option value="tax">Tax Optimization (−€200/mo)</option>
+              <option value="side">Add €1,000/mo Side Income</option>
+            </select>
+          </div>
+          <div class="ig"><label class="ig-label">Investment Horizon (years)</label><input type="number" class="ig-field" id="s-years" value="10" min="1" max="40"></div>
+          <button class="btn-calc" onclick="calcScenario()">Run Scenario Analysis →</button>
+        </div>
+        <div>
+          <div class="opt-col-title">Scenario Impact</div>
+          <div id="scenario-results">
+            <div style="text-align:center;padding:3rem 1rem;color:var(--slate-l);font-size:.85rem;">Configure your scenario and click Run to see the long-term wealth impact.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="opt-ft">
+      <div class="ef-cell"><span class="ef-lbl">Monthly Investable</span><span class="ef-val ef-green" id="ef-inv">—</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Savings Rate</span><span class="ef-val ef-teal" id="ef-sr">—</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Annual Tax Saving</span><span class="ef-val ef-gold" id="ef-ts">—</span></div>
+      <div class="ef-cell"><span class="ef-lbl">10-Year Projection</span><span class="ef-val ef-green" id="ef-10y">—</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ BUDGET ARCHITECTURE ══════ -->
+<section class="sec s-white" id="s-budget">
+  <div class="sec-label"><span class="sec-label-txt">Budget Architecture</span></div>
+  <h2 class="sec-title">The <em>50/30/20 Framework</em><br>and how to master it</h2>
+  <p class="sec-body" style="margin-bottom:1.5rem;">The 50/30/20 rule is the most time-tested personal finance framework in existence. But the standard version misses the most important insight: the 20% investment allocation should be treated as a fixed cost — paid first, automatically, before all other expenses are categorized.</p>
+
+  <div class="rule-display">
+    <div class="rule-cell rc-needs">
+      <span class="rule-pct">50%</span>
+      <span class="rule-name">Needs</span>
+      <div class="rule-desc">Essential, non-negotiable expenses: housing, food, transport, utilities, insurance, minimum debt payments. These are not flexible — they are survival costs. If this exceeds 50%, housing or transport costs need addressing first.</div>
+    </div>
+    <div class="rule-cell rc-wants">
+      <span class="rule-pct">30%</span>
+      <span class="rule-name">Wants</span>
+      <div class="rule-desc">Discretionary spending: dining, entertainment, travel, subscriptions, clothing, hobbies. This is the primary optimization lever — small reductions here compound enormously over time. Every €100 redirected from wants to investments = €1,600 in 10 years at 8% return.</div>
+    </div>
+    <div class="rule-cell rc-invest">
+      <span class="rule-pct">20%</span>
+      <span class="rule-name">Invest</span>
+      <div class="rule-desc">This is the number that changes your life. Treated as the first expense paid — not the last. Automated on payday. Non-negotiable. If you can exceed 20%, every additional percentage point accelerates your financial freedom date dramatically.</div>
+    </div>
+  </div>
+
+  <div class="callout co-gold" style="margin-top:2rem;">
+    <span class="co-icon">⚡</span>
+    <div class="co-title">The Capital Code Version: Pay Yourself First — Always</div>
+    <div class="co-body">On the day you receive your income, an automatic transfer moves your investment amount to a separate investment account before any other transaction. This is not discipline — it is automation. You cannot spend what you never see. The system removes willpower from the equation entirely and makes wealth building the default behavior.</div>
+  </div>
+
+  <div class="budget-wrap">
+    <div class="budget-col">
+      <div class="bud-title income-t">
+        Monthly Income <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.75rem;color:var(--emerald);">€5,500</span>
+      </div>
+      <div class="bud-item"><span class="bud-cat">Primary Salary</span><span class="bud-amt" style="color:var(--emerald);">+€4,500</span></div>
+      <div class="bud-item"><span class="bud-cat">Side Income / Freelance</span><span class="bud-amt" style="color:var(--emerald);">+€800</span></div>
+      <div class="bud-item"><span class="bud-cat">Dividends / Passive</span><span class="bud-amt" style="color:var(--emerald);">+€200</span></div>
+      <div class="bud-bar-wrap">
+        <div class="bud-bar-row"><span class="bud-bar-lbl">Investment Allocation (20%)</span><span class="bud-bar-pct">€1,100</span></div>
+        <div class="bud-bar"><div class="bud-fill bf-green" style="width:0" data-w="20"></div></div>
+        <div class="bud-bar-row"><span class="bud-bar-lbl">Emergency Fund (5%)</span><span class="bud-bar-pct">€275</span></div>
+        <div class="bud-bar"><div class="bud-fill bf-teal" style="width:0" data-w="5"></div></div>
+        <div class="bud-bar-row"><span class="bud-bar-lbl">Needs (50%)</span><span class="bud-bar-pct">€2,750</span></div>
+        <div class="bud-bar"><div class="bud-fill bf-blue" style="width:0" data-w="50"></div></div>
+        <div class="bud-bar-row"><span class="bud-bar-lbl">Wants (25%)</span><span class="bud-bar-pct">€1,375</span></div>
+        <div class="bud-bar"><div class="bud-fill bf-gold" style="width:0" data-w="25"></div></div>
+      </div>
+    </div>
+
+    <div class="budget-col">
+      <div class="bud-title expense-t">
+        Expense Categories <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.75rem;color:var(--ruby);">€4,125</span>
+      </div>
+      <div class="bud-item"><span class="bud-cat">Housing (rent/mortgage)</span><span class="bud-amt" style="color:var(--slate);">€1,200 <span style="color:var(--slate-l);">(21.8%)</span></span></div>
+      <div class="bud-item"><span class="bud-cat">Food & Groceries</span><span class="bud-amt" style="color:var(--slate);">€400 <span style="color:var(--slate-l);">(7.3%)</span></span></div>
+      <div class="bud-item"><span class="bud-cat">Transport</span><span class="bud-amt" style="color:var(--slate);">€250 <span style="color:var(--slate-l);">(4.5%)</span></span></div>
+      <div class="bud-item"><span class="bud-cat">Insurance</span><span class="bud-amt" style="color:var(--slate);">€180 <span style="color:var(--slate-l);">(3.3%)</span></span></div>
+      <div class="bud-item"><span class="bud-cat">Dining / Entertainment</span><span class="bud-amt" style="color:var(--slate);">€300 <span style="color:var(--slate-l);">(5.5%)</span></span></div>
+      <div class="bud-item"><span class="bud-cat">Subscriptions</span><span class="bud-amt" style="color:var(--ruby);">€120 ⚠️</span></div>
+      <div class="bud-item"><span class="bud-cat">Health & Fitness</span><span class="bud-amt" style="color:var(--slate);">€80 <span style="color:var(--slate-l);">(1.5%)</span></span></div>
+      <div class="bud-item"><span class="bud-cat">Miscellaneous</span><span class="bud-amt" style="color:var(--slate);">€200 <span style="color:var(--slate-l);">(3.6%)</span></span></div>
+      <div class="callout co-teal" style="margin:1.2rem 0 0;padding:1rem 1.2rem;">
+        <div class="co-title" style="font-size:.85rem;">Optimization Opportunity: Subscriptions</div>
+        <div class="co-body" style="font-size:.75rem;">Audit every subscription quarterly. The average household has 12+ active subscriptions they do not fully use. Reducing to 6–8 essential ones saves €40–80/month — €480–960/year compounding into €7,800+ over 10 years at 8%.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ SAVINGS RATE ══════ -->
+<section class="sec s-off" id="s-savings">
+  <div class="sec-label gold"><span class="sec-label-txt">Savings Rate Science</span></div>
+  <h2 class="sec-title">The single number that<br><em>determines your financial freedom date</em></h2>
+  <p class="sec-body" style="margin-bottom:1.5rem;">Your savings rate — the percentage of your net income you invest — is the most powerful variable in your wealth equation. Not your investment returns. Not your income level. Your savings rate. Here is why, and how to engineer it systematically.</p>
+
+  <div class="callout co-blue">
+    <span class="co-icon">🧮</span>
+    <div class="co-title">The Math That Changes Everything</div>
+    <div class="co-body">The Trinity Study (Bengen, 1994) established that a 4% annual withdrawal from a diversified portfolio is sustainable indefinitely. This means: Financial Independence occurs when your portfolio = 25× your annual expenses. Your savings rate determines how fast you reach that number. At 50% savings rate with 7% real returns: 17 years. At 10%: 43 years. The difference is 26 years of your life.</div>
+  </div>
+
+  <table class="compound-table">
+    <thead>
+      <tr>
+        <th>Savings Rate</th>
+        <th>Years to FI (7% return)</th>
+        <th>Monthly on €4,000 net</th>
+        <th>10-Year Portfolio</th>
+        <th>20-Year Portfolio</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-b">10%</td>
+        <td>43 years</td>
+        <td>€400/month</td>
+        <td class="td-green">€69,000</td>
+        <td class="td-gold">€208,000</td>
+        <td><span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;background:var(--ruby-p);color:var(--ruby);padding:.2rem .5rem;">STARTER</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">20%</td>
+        <td>37 years</td>
+        <td>€800/month</td>
+        <td class="td-green">€138,000</td>
+        <td class="td-gold">€416,000</td>
+        <td><span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;background:var(--sapp-p);color:var(--sapphire);padding:.2rem .5rem;">STANDARD</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">30%</td>
+        <td>28 years</td>
+        <td>€1,200/month</td>
+        <td class="td-green">€208,000</td>
+        <td class="td-gold">€624,000</td>
+        <td><span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;background:var(--em-p);color:var(--emerald);padding:.2rem .5rem;">ACCELERATED</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">50%</td>
+        <td>17 years</td>
+        <td>€2,000/month</td>
+        <td class="td-green">€346,000</td>
+        <td class="td-gold">€1.04M</td>
+        <td><span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;background:var(--teal-p);color:var(--teal);padding:.2rem .5rem;">OPTIMIZER</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">70%</td>
+        <td>8 years</td>
+        <td>€2,800/month</td>
+        <td class="td-green">€485,000</td>
+        <td class="td-gold">€1.46M</td>
+        <td><span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;background:var(--am-p);color:var(--amethyst);padding:.2rem .5rem;">EXTREME</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ TAX STRATEGIES ══════ -->
+<section class="sec s-white" id="s-tax">
+  <div class="sec-label teal"><span class="sec-label-txt">Tax Optimization</span></div>
+  <h2 class="sec-title">The 6 tax strategies<br><em>that legally reduce your bill</em></h2>
+  <p class="sec-body" style="margin-bottom:1.5rem;">Tax optimization is the highest-certainty return available to any investor. A €2,000 annual tax saving invested at 8% over 20 years compounds to €98,000 in additional wealth. Every euro saved in tax is a euro that compounds — not a euro that disappears. These strategies are legal, documented, and used by every serious wealth-builder.</p>
+
+  <div class="callout co-ruby">
+    <span class="co-icon">⚠️</span>
+    <div class="co-title">Important Disclaimer</div>
+    <div class="co-body">This playbook provides general educational information about widely-used, legal tax optimization strategies. Tax laws vary significantly by country and individual circumstance. Always consult a qualified tax advisor before implementing any tax strategy. The goal is to structure your affairs intelligently within the law — not to engage in avoidance schemes.</div>
+  </div>
+
+  <div class="tax-grid">
+    <div class="tax-card tc-gold">
+      <div class="tc-num">01</div>
+      <span class="tc-icon">🏦</span>
+      <div class="tc-title">Pension & Retirement Accounts</div>
+      <div class="tc-body">Contributions to pension plans (401k, RRSP, pension in Germany/UK) reduce taxable income directly. At a 35% marginal tax rate, a €6,000 contribution saves €2,100 in taxes — an instant 35% guaranteed return before any investment growth. Max your tax-advantaged contribution limits every year before any other investment vehicle.</div>
+      <span class="tc-saving">Potential saving: €1,500–€8,000/year</span>
+    </div>
+
+    <div class="tax-card tc-green">
+      <div class="tc-num">02</div>
+      <span class="tc-icon">💼</span>
+      <div class="tc-title">Home Office Deduction</div>
+      <div class="tc-body">If you work from home — employed or self-employed — a portion of your housing, internet, electricity, and equipment costs are deductible. In Germany: €6/day working from home, up to €1,260/year. Self-employed workers can deduct the proportional share of their home office space. Document every qualifying day meticulously.</div>
+      <span class="tc-saving">Potential saving: €400–€3,000/year</span>
+    </div>
+
+    <div class="tax-card tc-teal">
+      <div class="tc-num">03</div>
+      <span class="tc-icon">📊</span>
+      <div class="tc-title">Investment Loss Harvesting</div>
+      <div class="tc-body">Strategically realize investment losses to offset taxable gains. In Germany, capital gains are taxed at 25% (Abgeltungssteuer). Selling a position with unrealized losses and immediately rebuying similar assets "harvests" the loss for tax purposes while maintaining market exposure. Reduces your capital gains tax bill with zero impact on your portfolio strategy.</div>
+      <span class="tc-saving">Potential saving: €500–€5,000/year</span>
+    </div>
+
+    <div class="tax-card tc-pur">
+      <div class="tc-num">04</div>
+      <span class="tc-icon">👫</span>
+      <div class="tc-title">Spousal Income Splitting</div>
+      <div class="tc-body">In progressive tax systems, splitting income between spouses can significantly reduce the combined tax burden. Transfer investment assets, use the savings allowance (Sparerpauschbetrag) for both partners (€2,000 combined in Germany), and structure business income across both spouses where legitimately possible. This is one of the highest-impact strategies for married couples.</div>
+      <span class="tc-saving">Potential saving: €800–€6,000/year</span>
+    </div>
+
+    <div class="tax-card tc-blue">
+      <div class="tc-num">05</div>
+      <span class="tc-icon">🏢</span>
+      <div class="tc-title">Business Expense Optimization</div>
+      <div class="tc-body">For freelancers and business owners: professional development (books, courses, conferences), hardware and software, professional services (accountant, legal), business travel, and marketing are all deductible. Many employees can also deduct work-related expenses (Werbungskosten) above the standard deduction. Review every qualifying expense category annually with your tax advisor.</div>
+      <span class="tc-saving">Potential saving: €1,000–€15,000/year</span>
+    </div>
+
+    <div class="tax-card tc-copper">
+      <div class="tc-num">06</div>
+      <span class="tc-icon">⏰</span>
+      <div class="tc-title">Holding Period Optimization</div>
+      <div class="tc-body">In certain tax systems, holding periods affect tax treatment. Crypto assets held for more than 1 year in Germany are fully tax-free on disposal. Real estate held for 10+ years is exempt from capital gains tax. Long-term equity holdings may qualify for reduced rates in some jurisdictions. Structure your exit timing around these thresholds wherever the investment thesis supports it.</div>
+      <span class="tc-saving">Potential saving: Variable — can be very large</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ WEALTH WATERFALL ══════ -->
+<section class="sec s-off" id="s-waterfall">
+  <div class="sec-label pur"><span class="sec-label-txt">Wealth Waterfall System</span></div>
+  <h2 class="sec-title">The <em>automated architecture</em><br>that routes every euro perfectly</h2>
+  <p class="sec-body" style="margin-bottom:1.5rem;">The Wealth Waterfall is the system that makes financial discipline automatic. On payday, your money flows through a pre-defined cascade — each account receiving its allocation before the next level, with zero manual intervention required. This is how wealth is built systematically, not accidentally.</p>
+
+  <div class="callout co-pur">
+    <span class="co-icon">🌊</span>
+    <div class="co-title">Why Automation is the Ultimate Financial Upgrade</div>
+    <div class="co-body">Behavioral research consistently shows that automated savings outperform manual savings by 2–3x over time. The reason: automation removes the decision from your future emotional self. When a correction arrives, an automated investment transfer executes regardless of your feelings. This is the structural advantage that separates systematic wealth builders from the majority.</div>
+  </div>
+
+  <div class="waterfall" id="wf">
+    <div class="wf-row">
+      <span class="wf-label">Gross Income</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-income" style="width:0" data-w="100"></div>
+        <span class="wf-val" style="color:var(--sapphire);">100% · €5,500</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label" style="color:var(--ruby);">− Tax & Social</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-tax" style="width:0" data-w="30"></div>
+        <span class="wf-val" style="color:var(--ruby);">−30% · −€1,650</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label">Net Income</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-income" style="width:0" data-w="70"></div>
+        <span class="wf-val" style="color:var(--sapphire);">70% · €3,850</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label" style="color:var(--emerald);font-weight:600;">→ Investments (AUTO)</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-invest" style="width:0" data-w="20"></div>
+        <span class="wf-val" style="color:var(--emerald);font-weight:600;">20% · €1,100 ★</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label" style="color:var(--teal);font-weight:600;">→ Emergency Fund (AUTO)</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-save" style="width:0" data-w="5"></div>
+        <span class="wf-val" style="color:var(--teal);">5% · €275 (until target)</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label">Fixed Costs (Housing etc.)</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-fixed" style="width:0" data-w="30"></div>
+        <span class="wf-val" style="color:var(--copper);">30% · €1,650</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label">Variable Expenses</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-var" style="width:0" data-w="10"></div>
+        <span class="wf-val" style="color:var(--gold-d);">10% · €550</span>
+      </div>
+    </div>
+    <div class="wf-row">
+      <span class="wf-label">Discretionary / Free</span>
+      <div class="wf-bar-wrap">
+        <div class="wf-bar wfb-free" style="width:0" data-w="5"></div>
+        <span class="wf-val" style="color:var(--amethyst);">5% · €275</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout co-green" style="margin-top:2rem;">
+    <span class="co-icon">⚙️</span>
+    <div class="co-title">Implementation: Set Up in 30 Minutes</div>
+    <div class="co-body">1. Open a dedicated investment account (separate from your current account). 2. Set up an automatic transfer for payday + 1 day for your investment amount. 3. Set up a separate emergency fund account with auto-transfer for your emergency allocation. 4. All remaining funds cover living costs. You will adapt to the remainder — this is proven by behavioral research. Start with 10% if 20% feels impossible, then increase by 1% every 3 months.</div>
+  </div>
+</section>
+
+<!-- ══════ 8 PRINCIPLES (DARK) ══════ -->
+<section class="sec s-forest" id="s-prin">
+  <div class="sec-label"><span class="sec-label-txt" style="color:var(--em-l)">The 8 Laws</span></div>
+  <h2 class="sec-title">The <em>universal laws</em><br>of personal finance mastery</h2>
+  <p class="sec-body" style="margin-bottom:.5rem;">Extracted from the top 100 sources on wealth building, entrepreneurial finance, and personal economics — these are the eight laws that govern every high-net-worth individual's relationship with money.</p>
+
+  <div class="prin-grid">
+    <div class="prin-card pc-green">
+      <div class="p-num">01</div>
+      <span class="p-ico">🔄</span>
+      <div class="p-ttl">Automate Everything</div>
+      <div class="p-bdy">Willpower is finite and unreliable. Systems are infinite and consistent. Every financial behavior you automate — savings, investments, bill payment — removes it from the domain of decision and emotion. Design a system that executes perfectly even on your worst days.</div>
+    </div>
+    <div class="prin-card pc-gold">
+      <div class="p-num">02</div>
+      <span class="p-ico">📈</span>
+      <div class="p-ttl">Income Growth Compounds Too</div>
+      <div class="p-bdy">A 10% income increase deployed entirely into investments has more long-term impact than a 1% improvement in investment returns. Skill development, career advancement, side income creation, and business building are all investment decisions with extraordinary compounding potential.</div>
+    </div>
+    <div class="prin-card pc-teal">
+      <div class="p-num">03</div>
+      <span class="p-ico">✂️</span>
+      <div class="p-ttl">Lifestyle Inflation is the Silent Killer</div>
+      <div class="p-bdy">The pattern that destroys most people financially: income rises → lifestyle immediately expands to match → savings rate stays flat forever. Guard against this relentlessly. When income grows, allocate at least 50% of every raise to investments before upgrading any lifestyle element.</div>
+    </div>
+    <div class="prin-card pc-pur">
+      <div class="p-num">04</div>
+      <span class="p-ico">🏛</span>
+      <div class="p-ttl">Tax is the Largest Expense — Optimize It</div>
+      <div class="p-bdy">For most people, tax is their single largest annual expense — exceeding rent, food, and transport combined. Yet most spend zero time optimizing it. A few hours annually with a qualified tax advisor typically returns 5–50× the cost in tax savings. This is the highest ROI activity in personal finance.</div>
+    </div>
+    <div class="prin-card pc-blue">
+      <div class="p-num">05</div>
+      <span class="p-ico">🎯</span>
+      <div class="p-ttl">Target a Specific Number, Not a Feeling</div>
+      <div class="p-bdy">"Financial security" is not a goal — it is a feeling, and feelings move. Define your Financial Independence Number: your annual expenses × 25. This is the specific portfolio size at which your investment returns fund your life indefinitely. Work backward from this number to your required savings rate and timeline.</div>
+    </div>
+    <div class="prin-card pc-copper">
+      <div class="p-num">06</div>
+      <span class="p-ico">💳</span>
+      <div class="p-ttl">Debt is a Wealth Accelerator or Destroyer</div>
+      <div class="p-bdy">High-interest consumer debt (credit cards at 15–25%) destroys wealth exponentially. Low-interest investment debt (mortgage at 2–4%) can accelerate wealth when the return on deployed capital exceeds the cost of debt. The rule: eliminate all debt above 5–6% before serious investing. Below that threshold, evaluate on a case-by-case basis.</div>
+    </div>
+    <div class="prin-card pc-green">
+      <div class="p-num">07</div>
+      <span class="p-ico">🌊</span>
+      <div class="p-ttl">Build Multiple Income Streams</div>
+      <div class="p-bdy">Single-income dependency is financial fragility. The wealthiest individuals consistently have 3–7 income streams: primary employment/business, dividends, rental income, royalties, consulting, licensing. Start with one side income stream and build from there. Diversified income means no single event can eliminate your investment capacity.</div>
+    </div>
+    <div class="prin-card pc-teal">
+      <div class="p-num">08</div>
+      <span class="p-ico">📋</span>
+      <div class="p-ttl">Review Quarterly, Adjust Annually</div>
+      <div class="p-bdy">A financial system that is never reviewed drifts from its optimal configuration. Set a quarterly calendar review to check savings rate, tax position, and expense categories. Conduct an annual comprehensive review: income growth opportunities, tax filing optimization, insurance adequacy, and investment allocation alignment. The system requires maintenance to perform.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider on-dark"><div class="div-line" style="background:rgba(255,255,255,.1);"></div><div class="div-diamond"></div><div class="div-line" style="background:rgba(255,255,255,.1);"></div></div>
+
+<!-- ══════ WORKSHEET ══════ -->
+<section class="sec s-parch" id="s-ws">
+  <div class="sec-label"><span class="sec-label-txt">Interactive Worksheet</span></div>
+  <h2 class="sec-title">Your Financial Operating<br><em>System — Build It Now</em></h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">This worksheet builds your complete personal financial architecture. Fill in every field honestly and completely. The precision of your output is determined entirely by the honesty of your input.</p>
+
+  <div class="ws">
+    <div class="ws-head">
+      <span class="ws-title">Personal Financial Operating System — Confidential</span>
+      <span style="font-size:1.4rem;">💰</span>
+    </div>
+    <div class="ws-body">
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Monthly Net Income</div><div class="ws-hint">All sources combined — after tax</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+          <input class="ws-inp" type="number" placeholder="Primary income (net €)">
+          <input class="ws-inp" type="number" placeholder="All other sources (€)">
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Fixed Monthly Costs</div><div class="ws-hint">Non-negotiable expenses</div></div>
+        <input class="ws-inp" type="number" placeholder="Total fixed costs per month (€)">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Current Monthly Investment</div><div class="ws-hint">What you actually invest now</div></div>
+        <input class="ws-inp" type="number" placeholder="Current monthly investment amount (€)">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Target Savings Rate</div><div class="ws-hint">Your commitment going forward</div></div>
+        <div class="ws-radios">
+          <input type="radio" name="sr" id="sr1" class="wr"><label for="sr1" class="wrl">10% (starter)</label>
+          <input type="radio" name="sr" id="sr2" class="wr" checked><label for="sr2" class="wrl">20% (standard)</label>
+          <input type="radio" name="sr" id="sr3" class="wr"><label for="sr3" class="wrl">30% (accelerated)</label>
+          <input type="radio" name="sr" id="sr4" class="wr"><label for="sr4" class="wrl">50%+ (optimizer)</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Payday Auto-Transfer Setup</div><div class="ws-hint">Your automation date</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. On the 1st of each month, auto-transfer €800 to investment account [IBAN], €200 to emergency fund [IBAN]..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Top 3 Expense Cuts</div><div class="ws-hint">Where will you reduce?</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. 1. Cancel unused streaming services (€40/mo), 2. Meal prep instead of daily lunch purchases (€120/mo), 3. Renegotiate phone contract (€25/mo)..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Tax Strategy Priority</div><div class="ws-hint">Which optimization will you implement first?</div></div>
+        <div class="ws-radios">
+          <input type="radio" name="tax" id="tx1" class="wr" checked><label for="tx1" class="wrl">Max pension contribution</label>
+          <input type="radio" name="tax" id="tx2" class="wr"><label for="tx2" class="wrl">Home office deduction</label>
+          <input type="radio" name="tax" id="tx3" class="wr"><label for="tx3" class="wrl">Loss harvesting</label>
+          <input type="radio" name="tax" id="tx4" class="wr"><label for="tx4" class="wrl">Book a tax advisor</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Financial Independence Number</div><div class="ws-hint">Annual expenses × 25</div></div>
+        <input class="ws-inp" type="number" placeholder="Your FI number (annual expenses × 25) = €">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Target FI Date</div><div class="ws-hint">The year you reach your FI number</div></div>
+        <input class="ws-inp" type="text" placeholder="e.g. 2038 — 14 years from now at 30% savings rate">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Next Income Growth Action</div><div class="ws-hint">One concrete step to increase income</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Request a salary review in Q1, launch freelance service by March 15, start dividend portfolio with €200/month..."></textarea>
+      </div>
+
+    </div>
+    <div class="ws-foot">
+      <span class="ws-note">Your entries are stored locally only — never transmitted.</span>
+      <button class="ws-save" onclick="saveW(this)">Save My Financial Plan ↓</button>
+    </div>
+  </div>
+
+  <div style="margin-top:4rem;">
+    <div class="sec-label"><span class="sec-label-txt">Financial System Checklist</span></div>
+    <h3 style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.65rem;color:var(--navy);margin-bottom:.5rem;font-weight:600;">Your 12-Step Financial Architecture</h3>
+    <p style="font-size:.87rem;color:var(--slate);margin-bottom:1.8rem;line-height:1.72;">Each item should be fully implemented — not planned. A partially built financial system has unpredictable holes.</p>
+    <ul class="chk">
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Complete income audit: all sources documented and quantified (monthly net total)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Complete expense audit: every monthly cost categorized and totaled</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Savings rate calculated and target set in writing</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Automatic investment transfer set up (payday + 1 day, dedicated account)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Emergency fund auto-transfer active (target: 3–6 months expenses)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Subscription audit completed — all unused services cancelled</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Tax allowances fully utilized (savings exemption, pension contributions)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Home office deduction claimed (if applicable)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Tax advisor consultation scheduled (or self-review completed)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Financial Independence Number calculated and written down</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Income growth action plan defined (at least one concrete step)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Quarterly review date scheduled in calendar</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════ CLOSING ══════ -->
+<div class="closing" id="s-close">
+  <div class="cl-inner">
+    <div class="sec-label" style="justify-content:center;margin-bottom:1.5rem;"><span class="sec-label-txt">Closing</span></div>
+    <h2 class="cl-title">Every euro saved<br><em>is a euro deployed.</em></h2>
+    <div class="cl-div"></div>
+    <p class="cl-body">
+      Your financial system is now designed. Income optimized, expenses engineered, taxes minimized, and capital flowing automatically toward your investment engine. The Wealth Waterfall runs whether you think about it or not — because you built the infrastructure today.
+      <br><br>
+      The difference between financial struggle and financial freedom is rarely income. It is almost always system. The highest earners without a system run out of money. The moderate earners with a system reach financial independence decades early.
+      <br><br>
+      In Playbook 04: <strong style="color:var(--gold-l)">Investment Case Library</strong> — we study the 6 most instructive real-world investment cases in modern history, extracting the exact decision frameworks and lessons that separate winning investments from costly mistakes.
+    </p>
+    <div class="cl-div"></div>
+    <button class="cl-next">Proceed to Playbook 04: Investment Case Library →</button>
+    <span class="cl-brand">The Capital Code · Architect Edition</span>
+    <div class="cl-meta">PLAYBOOK 03 OF 05 — PERSONAL FINANCE & TAX OPTIMIZER</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// SCROLL
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(window.scrollY/h*100)+'%';
+  document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.87)s.classList.add('vis');});
+  updDots();
+  animateBars();
+});
+setTimeout(()=>{
+  document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight)s.classList.add('vis');});
+  animateBars();
+},120);
+
+window.toTop = function(){window.scrollTo({top:0,behavior:'smooth'});}
+window.goTo = function(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+
+window.updDots = function(){
+  const ids=['','s-intro','s-optimizer','s-budget','s-savings','s-tax','s-waterfall','s-prin','s-ws','s-close'];
+  let a=0;
+  ids.forEach((id,i)=>{if(id&&document.getElementById(id)?.getBoundingClientRect().top<=220)a=i;});
+  document.querySelectorAll('.sd').forEach((d,i)=>d.classList.toggle('on',i===a));
+}
+
+let barsAnimated=false;
+window.animateBars = function(){
+  if(barsAnimated)return;
+  const wf=document.getElementById('wf');
+  if(!wf)return;
+  const r=wf.getBoundingClientRect();
+  if(r.top<window.innerHeight*.9){
+    document.querySelectorAll('.wf-bar[data-w]').forEach(el=>{el.style.width=el.getAttribute('data-w')+'%';});
+    document.querySelectorAll('.bud-fill[data-w]').forEach(el=>{el.style.width=el.getAttribute('data-w')+'%';});
+    barsAnimated=true;
+  }
+}
+
+// TABS
+window.switchTab = function(idx,el){
+  document.querySelectorAll('.opt-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.opt-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-'+idx).classList.add('active');
+}
+
+// TAX RATES
+const TAX={de:{rate:.35,si:.2},at:{rate:.38,si:.18},ch:{rate:.22,si:.13},uk:{rate:.32,si:.12},us:{rate:.28,si:.08}};
+
+// MODULE 0: INCOME
+window.calcIncome = function(){
+  const salary=parseFloat(document.getElementById('m-salary').value)||4500;
+  const side=parseFloat(document.getElementById('m-side').value)||0;
+  const passive=parseFloat(document.getElementById('m-passive').value)||0;
+  const country=document.getElementById('m-country').value;
+  const tx=TAX[country];
+  const gross=(salary+side+passive);
+  const taxAmt=salary*tx.rate+side*tx.rate*.8;
+  const siAmt=salary*tx.si;
+  const net=gross-taxAmt-siAmt;
+  const investable=net*.2;
+  const savingsRate=((investable/net)*100).toFixed(0);
+
+  document.getElementById('income-results').innerHTML=`
+    <div class="result-grid">
+      <div class="res-cell"><div class="res-lbl">Gross Monthly Income</div><div class="res-val rv-navy">€${Math.round(gross).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Estimated Tax</div><div class="res-val rv-red">−€${Math.round(taxAmt).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Social Insurance</div><div class="res-val rv-red">−€${Math.round(siAmt).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Net Monthly Income</div><div class="res-val rv-green">€${Math.round(net).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">20% Investment Target</div><div class="res-val rv-teal">€${Math.round(investable).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Annual Investable</div><div class="res-val rv-gold">€${Math.round(investable*12).toLocaleString('de-DE')}</div></div>
+    </div>
+    <div class="callout co-green" style="margin-top:1.2rem;padding:1rem 1.2rem;">
+      <div class="co-title" style="font-size:.85rem;">Key Optimization: Side Income Tax Efficiency</div>
+      <div class="co-body" style="font-size:.75rem;">Your €${side.toLocaleString('de-DE')}/mo side income has optimization potential. Consider invoicing through a registered business entity — business expenses reduce the taxable base significantly. A freelancer with €${side.toLocaleString('de-DE')}/mo income and €${Math.round(side*.3).toLocaleString('de-DE')}/mo legitimate expenses reduces their side income tax bill by ~€${Math.round(side*.3*tx.rate).toLocaleString('de-DE')}/month.</div>
+    </div>`;
+
+  document.getElementById('ef-inv').textContent='€'+Math.round(investable).toLocaleString('de-DE')+'/mo';
+  document.getElementById('ef-sr').textContent=savingsRate+'%';
+  const r=.07/12, n=120;
+  const fv=investable*((Math.pow(1+r,n)-1)/r);
+  document.getElementById('ef-10y').textContent='€'+Math.round(fv).toLocaleString('de-DE');
+}
+
+// MODULE 1: EXPENSES
+window.calcExpenses = function(){
+  const housing=parseFloat(document.getElementById('e-housing').value)||1200;
+  const food=parseFloat(document.getElementById('e-food').value)||400;
+  const transport=parseFloat(document.getElementById('e-transport').value)||250;
+  const insurance=parseFloat(document.getElementById('e-insurance').value)||180;
+  const subs=parseFloat(document.getElementById('e-subs').value)||120;
+  const dining=parseFloat(document.getElementById('e-dining').value)||300;
+  const health=parseFloat(document.getElementById('e-health').value)||80;
+  const misc=parseFloat(document.getElementById('e-misc').value)||200;
+  const total=housing+food+transport+insurance+subs+dining+health+misc;
+  const cats=[
+    {n:'Housing',v:housing,c:'bf-blue'},
+    {n:'Food',v:food,c:'bf-green'},
+    {n:'Transport',v:transport,c:'bf-teal'},
+    {n:'Insurance',v:insurance,c:'bf-slate'},
+    {n:'Subscriptions',v:subs,c:'bf-ruby',warn:subs>150},
+    {n:'Dining/Ent.',v:dining,c:'bf-gold',warn:dining>400},
+    {n:'Health',v:health,c:'bf-pur'},
+    {n:'Misc',v:misc,c:'bf-slate'}
+  ];
+  const subsOpp=subs>80?subs-80:0;
+  const diningOpp=dining>250?dining-250:0;
+  const totalOpp=subsOpp+diningOpp+misc*.3;
+
+  document.getElementById('expense-results').innerHTML=`
+    <div style="margin-bottom:1.2rem;">
+      ${cats.map(c=>`
+        <div style="margin-bottom:.7rem;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.2rem;">
+            <span style="font-size:.78rem;color:${c.warn?'var(--ruby)':'var(--slate)'};font-weight:${c.warn?'600':'400'};">${c.n}${c.warn?' ⚠️':''}</span>
+            <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.7rem;color:var(--slate-m);">€${c.v} · ${(c.v/total*100).toFixed(0)}%</span>
+          </div>
+          <div class="bud-bar"><div class="bud-fill ${c.c}" style="width:${Math.min(100,c.v/total*100).toFixed(0)}%"></div></div>
+        </div>`).join('')}
+    </div>
+    <div class="result-grid">
+      <div class="res-cell"><div class="res-lbl">Total Monthly</div><div class="res-val rv-navy">€${total.toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Annual Total</div><div class="res-val rv-red">€${(total*12).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Optimization Potential</div><div class="res-val rv-green">−€${Math.round(totalOpp)}/mo</div></div>
+      <div class="res-cell"><div class="res-lbl">Annual Savings Potential</div><div class="res-val rv-gold">+€${Math.round(totalOpp*12)}</div></div>
+    </div>`;
+}
+
+// MODULE 2: TAX
+window.calcTax = function(){
+  const income=parseFloat(document.getElementById('t-income').value)||65000;
+  const invest=parseFloat(document.getElementById('t-invest').value)||3000;
+  const free=parseFloat(document.getElementById('t-free').value)||9600;
+  const pension=parseFloat(document.getElementById('t-pension').value)||300;
+  const office=parseFloat(document.getElementById('t-office').value)||120;
+  const marital=document.getElementById('t-marital').value;
+  const rate=.35;
+  const pensionSaving=(pension*12)*rate;
+  const officeSaving=office*6*rate;
+  const investSaving=Math.max(0,invest-1000)*.25;
+  const maritalBonus=marital==='married'?1200:0;
+  const totalSaving=pensionSaving+officeSaving+investSaving+maritalBonus;
+
+  document.getElementById('tax-results').innerHTML=`
+    <div class="result-grid">
+      <div class="res-cell"><div class="res-lbl">Pension Contribution Saving</div><div class="res-val rv-green">€${Math.round(pensionSaving).toLocaleString('de-DE')}/yr</div><div class="res-note">Increase pension contributions</div></div>
+      <div class="res-cell"><div class="res-lbl">Home Office Saving</div><div class="res-val rv-teal">€${Math.round(officeSaving).toLocaleString('de-DE')}/yr</div><div class="res-note">${office} home office days × €6</div></div>
+      <div class="res-cell"><div class="res-lbl">Investment Allowance</div><div class="res-val rv-gold">€${Math.round(investSaving).toLocaleString('de-DE')}/yr</div><div class="res-note">Above €1,000 exemption threshold</div></div>
+      <div class="res-cell"><div class="res-lbl">Marital Benefit</div><div class="res-val rv-pur">€${maritalBonus.toLocaleString('de-DE')}/yr</div><div class="res-note">${marital==='married'?'Splitting benefit applied':'Not applicable'}</div></div>
+    </div>
+    <div style="margin-top:1rem;padding:1.2rem;background:var(--em-p);border-left:3px solid var(--emerald);">
+      <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--emerald);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem;">Total Annual Tax Optimization</div>
+      <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--emerald);">€${Math.round(totalSaving).toLocaleString('de-DE')}</div>
+      <div style="font-size:.75rem;color:var(--slate);margin-top:.3rem;">This is what the unoptimized version of you overpays annually. These are all legal, documented strategies.</div>
+    </div>`;
+  document.getElementById('ef-ts').textContent='€'+Math.round(totalSaving).toLocaleString('de-DE')+'/yr';
+}
+
+// MODULE 3: SCENARIO
+window.calcScenario = function(){
+  const net=parseFloat(document.getElementById('s-net').value)||3200;
+  const exp=parseFloat(document.getElementById('s-exp').value)||2400;
+  const inv=parseFloat(document.getElementById('s-inv').value)||500;
+  const type=document.getElementById('s-type').value;
+  const years=parseInt(document.getElementById('s-years').value)||10;
+  const scenarios={
+    raise:{label:'+20% Raise',dInv:net*.2,dSave:net*.2*12},
+    cut:{label:'−20% Expense Cut',dInv:exp*.2,dSave:exp*.2*12},
+    both:{label:'Raise + Expense Cut',dInv:net*.2+exp*.2,dSave:(net*.2+exp*.2)*12},
+    tax:{label:'Tax Optimization',dInv:200,dSave:2400},
+    side:{label:'+€1,000 Side Income',dInv:700,dSave:8400}
+  };
+  const sc=scenarios[type];
+  const newInv=inv+sc.dInv;
+  const r=.07/12, n=years*12;
+  const fvBefore=inv*((Math.pow(1+r,n)-1)/r);
+  const fvAfter=newInv*((Math.pow(1+r,n)-1)/r);
+  const diff=fvAfter-fvBefore;
+
+  document.getElementById('scenario-results').innerHTML=`
+    <div style="padding:.8rem 1rem;background:var(--navy);margin-bottom:1rem;">
+      <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--em-l);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.3rem;">Scenario: ${sc.label}</div>
+      <div style="font-size:.82rem;color:rgba(255,255,255,.6);">Additional monthly investment: <span style="color:var(--em-l);font-weight:600;">+€${Math.round(sc.dInv).toLocaleString('de-DE')}/mo</span></div>
+    </div>
+    <div class="result-grid">
+      <div class="res-cell"><div class="res-lbl">Current ${years}yr Portfolio</div><div class="res-val rv-navy">€${Math.round(fvBefore).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Optimized ${years}yr Portfolio</div><div class="res-val rv-green">€${Math.round(fvAfter).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">Additional Wealth Created</div><div class="res-val rv-gold">+€${Math.round(diff).toLocaleString('de-DE')}</div></div>
+      <div class="res-cell"><div class="res-lbl">New Monthly Investment</div><div class="res-val rv-teal">€${Math.round(newInv).toLocaleString('de-DE')}/mo</div></div>
+    </div>
+    <div style="margin-top:1rem;font-size:.8rem;color:var(--slate);line-height:1.7;padding:.8rem;background:var(--gold-pale);border-left:3px solid var(--gold);">
+      <strong>Key Insight:</strong> The scenario "<strong>${sc.label}</strong>" creates €${Math.round(diff).toLocaleString('de-DE')} in additional wealth over ${years} years — purely through optimizing your financial system, not your investment returns. This is the leverage point most investors never use.
+    </div>`;
+}
+
+window.tick = function(li){li.classList.toggle('done');}
+window.saveW = function(btn){
+  const orig=btn.textContent;
+  btn.textContent='✓ Saved!';
+  btn.style.background='var(--emerald)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2500);
+}
+</script>
+</body>
+</html>

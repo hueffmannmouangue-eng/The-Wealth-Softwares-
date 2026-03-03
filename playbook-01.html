@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Code — Playbook 01: AI-Driven Investment Playbooks</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   THE CAPITAL CODE — Self-Contained Font System
+   No internet connection required
+═══════════════════════════════════════════════════ */
+
+/* ─── SYSTEM FONT STACK: NO INTERNET REQUIRED ─── */
+:root {
+  --font-serif: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:  'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+}
+
+
+/* Display / Serif → Palatino family (elegant, available on all OS) */
+/* Body → System UI font stack (crisp on all platforms) */
+/* Mono → Courier/Consolas family */
+
+</style>
+<style>
+:root {
+  /* Core Palette */
+  --navy:       #08152A;
+  --navy-mid:   #0F2040;
+  --navy-light: #183060;
+  --navy-soft:  #1E3A6E;
+  --white:      #FFFFFF;
+  --off-white:  #F7F6F2;
+  --cream:      #F0EDE4;
+  --parchment:  #EAE5D8;
+
+  /* Gold System */
+  --gold:       #C8922A;
+  --gold-light: #E4AF56;
+  --gold-pale:  #F5E6C0;
+  --gold-deep:  #9A6E1A;
+
+  /* Sapphire */
+  --sapphire:       #1A52A8;
+  --sapphire-light: #3B7FD4;
+  --sapphire-pale:  #E8F0FB;
+
+  /* Emerald */
+  --emerald:       #186848;
+  --emerald-light: #28A870;
+  --emerald-pale:  #E4F5ED;
+
+  /* Ruby */
+  --ruby:       #A82828;
+  --ruby-light: #D84848;
+  --ruby-pale:  #FAEAEA;
+
+  /* Amethyst */
+  --amethyst:       #5C2A8C;
+  --amethyst-light: #8C4FBF;
+  --amethyst-pale:  #F0E8F8;
+
+  /* Copper */
+  --copper:       #B05020;
+  --copper-light: #D87040;
+  --copper-pale:  #FAEEE8;
+
+  /* Teal */
+  --teal:       #0E6B6B;
+  --teal-light: #1A9A9A;
+  --teal-pale:  #E4F4F4;
+
+  /* Neutrals */
+  --slate:       #3A5070;
+  --slate-mid:   #5A7090;
+  --slate-light: #8AAABB;
+  --border:      #DDD8CC;
+  --border-soft: #EAE7E0;
+
+  /* Shadows */
+  --sh-sm: 0 2px 16px rgba(8,21,42,.07);
+  --sh-md: 0 8px 48px rgba(8,21,42,.11);
+  --sh-lg: 0 20px 80px rgba(8,21,42,.15);
+  --sh-xl: 0 32px 120px rgba(8,21,42,.20);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+body {
+  background: var(--off-white);
+  color: var(--navy);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.72;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════
+   SCROLL PROGRESS
+═══════════════════════════════════════ */
+#prog {
+  position: fixed; top:0; left:0; height:3px; width:0%;
+  background: linear-gradient(90deg, var(--gold), var(--amethyst-light), var(--sapphire-light));
+  z-index: 9999; transition: width .08s linear;
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════ */
+.sidebar {
+  position: fixed; left:0; top:0; bottom:0; width:66px;
+  background: var(--navy); z-index:200;
+  display:flex; flex-direction:column; align-items:center; padding:2rem 0;
+}
+.sb-brand {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; color:var(--gold);
+  font-size:.95rem; font-weight:700; letter-spacing:.08em;
+  writing-mode:vertical-lr; transform:rotate(180deg); margin-bottom:auto;
+}
+.sb-dots { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:auto; }
+.sd {
+  width:7px; height:7px; border-radius:50%;
+  background:rgba(255,255,255,.18); cursor:pointer; transition:all .25s;
+  position:relative;
+}
+.sd:hover, .sd.on { background:var(--gold); transform:scale(1.5); }
+.sd::after {
+  content:attr(data-tip);
+  position:absolute; left:17px; top:50%; transform:translateY(-50%);
+  background:var(--navy-mid); color:#fff;
+  font-size:.58rem; font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; letter-spacing:.08em;
+  padding:.22rem .6rem; white-space:nowrap; opacity:0;
+  pointer-events:none; transition:opacity .18s; border-left:2px solid var(--gold);
+}
+.sd:hover::after { opacity:1; }
+.sb-num {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; color:rgba(255,255,255,.22);
+  font-size:.62rem; writing-mode:vertical-lr; transform:rotate(180deg);
+  letter-spacing:.22em; margin-top:.5rem;
+}
+
+/* ═══════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════ */
+.wrap { margin-left:66px; }
+
+/* ═══════════════════════════════════════
+   COVER
+═══════════════════════════════════════ */
+.cover {
+  min-height:100vh; background:var(--navy);
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+}
+.cv-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 75% 60% at 68% 32%, rgba(26,82,168,.32) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 45% at 18% 80%, rgba(92,42,140,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 85% 75%, rgba(24,104,72,.15) 0%, transparent 50%),
+    linear-gradient(158deg, #08152A 0%, #0F2040 42%, #0A1A32 100%);
+}
+.cv-mesh {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size:68px 68px;
+}
+.cv-ring1 {
+  position:absolute; right:-120px; top:50%; transform:translateY(-50%);
+  width:640px; height:640px; border-radius:50%;
+  border:1px solid rgba(200,146,42,.1);
+}
+.cv-ring2 {
+  position:absolute; right:-80px; top:50%; transform:translateY(-50%);
+  width:480px; height:480px; border-radius:50%;
+  border:1px solid rgba(200,146,42,.07);
+}
+.cv-ring3 {
+  position:absolute; right:-40px; top:50%; transform:translateY(-50%);
+  width:320px; height:320px; border-radius:50%;
+  border:1px solid rgba(200,146,42,.05);
+}
+.cv-body {
+  position:relative; z-index:5;
+  padding:5.5rem 6rem; flex:1;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.cv-pre {
+  display:flex; align-items:center; gap:1rem; margin-bottom:2.8rem;
+  animation:fadeUp .8s ease both;
+}
+.cv-pre-line { width:34px; height:1px; background:var(--gold); }
+.cv-pre-txt {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.6rem;
+  color:var(--gold); letter-spacing:.35em; text-transform:uppercase;
+}
+.cv-title {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size: clamp(3.2rem, 6vw, 6.5rem);
+  font-weight:600; color:#fff; line-height:1.02;
+  margin-bottom:1.6rem;
+  animation:fadeUp .8s ease .1s both; max-width:760px;
+}
+.cv-title em { font-style:italic; color:var(--gold-light); }
+.cv-title .accent-blue { color:var(--sapphire-light); }
+.cv-sub {
+  font-size:1.02rem; color:rgba(255,255,255,.48); font-weight:300;
+  max-width:520px; line-height:1.84; margin-bottom:3.2rem;
+  animation:fadeUp .8s ease .2s both;
+}
+.cv-tags {
+  display:flex; gap:.7rem; flex-wrap:wrap;
+  animation:fadeUp .8s ease .3s both; margin-bottom:4rem;
+}
+.cv-tag {
+  padding:.38rem .95rem;
+  border:1px solid rgba(200,146,42,.32);
+  color:rgba(255,255,255,.55);
+  font-size:.62rem; font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+  letter-spacing:.14em; text-transform:uppercase;
+}
+.cv-metrics {
+  display:flex; gap:3rem;
+  animation:fadeUp .8s ease .4s both;
+}
+.cv-metric-val {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:2.4rem; font-weight:700; color:var(--gold-light);
+  display:block; line-height:1;
+}
+.cv-metric-lbl {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.58rem;
+  color:rgba(255,255,255,.35); letter-spacing:.1em;
+  text-transform:uppercase; margin-top:.25rem; display:block;
+}
+.cv-bignum {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:clamp(8rem,16vw,16rem); font-weight:300;
+  color:rgba(255,255,255,.025); position:absolute;
+  right:5rem; bottom:3rem; line-height:1; letter-spacing:-.03em;
+  animation:fadeUp 1.4s ease .5s both; pointer-events:none;
+}
+.cv-foot {
+  position:relative; z-index:5;
+  padding:1.8rem 6rem; border-top:1px solid rgba(255,255,255,.06);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.cv-foot-brand {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.15rem;
+  font-weight:600; color:var(--gold); letter-spacing:.1em;
+}
+.cv-foot-meta {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.56rem;
+  color:rgba(255,255,255,.2); letter-spacing:.1em;
+  text-align:right; line-height:1.9;
+}
+
+/* ═══════════════════════════════════════
+   SECTION BASE
+═══════════════════════════════════════ */
+.sec {
+  padding:6rem; position:relative;
+  }
+.sec.vis { opacity:1; transform:none; }
+.s-white   { background:var(--white); }
+.s-off     { background:var(--off-white); }
+.s-cream   { background:var(--cream); }
+.s-parch   { background:var(--parchment); }
+.s-navy    { background:var(--navy); color:#fff; }
+.s-navy-m  { background:var(--navy-mid); color:#fff; }
+
+/* ═══════════════════════════════════════
+   SECTION LABELS & TITLES
+═══════════════════════════════════════ */
+.sec-label {
+  display:flex; align-items:center; gap:.9rem; margin-bottom:1.1rem;
+}
+.sec-label::before {
+  content:''; width:24px; height:2px;
+  background:var(--gold); flex-shrink:0;
+}
+.sec-label-txt {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.58rem;
+  color:var(--gold); letter-spacing:.32em; text-transform:uppercase;
+}
+.sec-title {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:clamp(2.1rem, 3.6vw, 3.4rem);
+  font-weight:600; line-height:1.12; color:var(--navy);
+  margin-bottom:1.4rem;
+}
+.s-navy .sec-title, .s-navy-m .sec-title { color:#fff; }
+.sec-title em { font-style:italic; color:var(--gold); }
+.sec-title .c-blue  { color:var(--sapphire-light); }
+.sec-title .c-pur   { color:var(--amethyst-light); }
+.sec-title .c-teal  { color:var(--teal-light); }
+.sec-body {
+  font-size:.96rem; line-height:1.86; color:var(--slate);
+  max-width:680px;
+}
+.s-navy .sec-body, .s-navy-m .sec-body { color:rgba(255,255,255,.52); }
+
+/* ═══════════════════════════════════════
+   PAGE DIVIDER
+═══════════════════════════════════════ */
+.divider {
+  display:flex; align-items:center; gap:2rem;
+  margin:0 6rem; padding:3rem 0;
+}
+.div-line { flex:1; height:1px; background:var(--border-soft); }
+.div-diamond {
+  width:8px; height:8px; background:var(--gold);
+  transform:rotate(45deg); flex-shrink:0;
+}
+.divider.on-navy .div-line { background:rgba(255,255,255,.1); }
+
+/* ═══════════════════════════════════════
+   INTRO SECTION
+═══════════════════════════════════════ */
+.intro-layout {
+  display:grid; grid-template-columns:1.1fr 1fr;
+  gap:5rem; align-items:start;
+}
+.intro-text p { margin-bottom:1.2rem; }
+.intro-text p:last-child { margin-bottom:0; }
+
+.pull-quote {
+  position:relative; padding:3rem 2.5rem 2.5rem;
+  background:var(--navy); color:#fff;
+  box-shadow:var(--sh-lg);
+}
+.pull-quote::before {
+  content:'"';
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:9rem; color:var(--gold); opacity:.15;
+  position:absolute; top:-1.5rem; left:1.4rem; line-height:1;
+}
+.pq-text {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:1.38rem; font-style:italic; font-weight:300;
+  line-height:1.72; position:relative; z-index:1; margin-bottom:1.4rem;
+}
+.pq-author {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.6rem;
+  color:var(--gold); letter-spacing:.2em; text-transform:uppercase;
+}
+
+.stat-strip {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:1px; background:var(--border); margin-top:2.2rem;
+}
+.stat-cell {
+  background:var(--white); padding:1.5rem; text-align:center;
+}
+.stat-val {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:2.3rem; font-weight:700; color:var(--navy);
+  display:block; line-height:1; margin-bottom:.25rem;
+}
+.stat-val .accent { color:var(--gold); }
+.stat-lbl {
+  font-size:.62rem; color:var(--slate-light);
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; line-height:1.5; letter-spacing:.04em;
+}
+
+/* COLOR-CODED CALLOUTS */
+.callout {
+  padding:1.8rem 2rem; border-left:4px solid;
+  margin:2rem 0; position:relative;
+}
+.co-gold  { background:var(--gold-pale);      border-color:var(--gold); }
+.co-blue  { background:var(--sapphire-pale);  border-color:var(--sapphire); }
+.co-green { background:var(--emerald-pale);   border-color:var(--emerald); }
+.co-pur   { background:var(--amethyst-pale);  border-color:var(--amethyst); }
+.co-teal  { background:var(--teal-pale);      border-color:var(--teal); }
+.co-copper{ background:var(--copper-pale);    border-color:var(--copper); }
+.co-ruby  { background:var(--ruby-pale);      border-color:var(--ruby); }
+
+.co-icon  { font-size:1.1rem; margin-bottom:.4rem; display:block; }
+.co-title {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:.35rem;
+}
+.co-body  { font-size:.84rem; color:var(--slate); line-height:1.76; }
+
+/* ═══════════════════════════════════════
+   FRAMEWORK TIMELINE
+═══════════════════════════════════════ */
+.timeline {
+  position:relative; padding-left:2rem; margin-top:2.5rem;
+}
+.timeline::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:2px;
+  background:linear-gradient(180deg,
+    var(--gold) 0%, var(--sapphire) 30%,
+    var(--amethyst) 55%, var(--teal) 75%, var(--emerald) 100%);
+}
+.tl-item {
+  position:relative; padding:0 0 3.2rem 3rem;
+}
+.tl-item:last-child { padding-bottom:0; }
+.tl-dot {
+  position:absolute; left:-2.38rem; top:.25rem;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--white); border:2.5px solid var(--gold);
+  box-shadow:0 0 0 5px rgba(200,146,42,.12);
+}
+.tl-dot.d-blue   { border-color:var(--sapphire);    box-shadow:0 0 0 5px rgba(26,82,168,.12); }
+.tl-dot.d-pur    { border-color:var(--amethyst);    box-shadow:0 0 0 5px rgba(92,42,140,.12); }
+.tl-dot.d-teal   { border-color:var(--teal);        box-shadow:0 0 0 5px rgba(14,107,107,.12); }
+.tl-dot.d-green  { border-color:var(--emerald);     box-shadow:0 0 0 5px rgba(24,104,72,.12); }
+
+.tl-phase {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.58rem;
+  letter-spacing:.22em; text-transform:uppercase; margin-bottom:.38rem;
+}
+.tp-gold   { color:var(--gold); }
+.tp-blue   { color:var(--sapphire); }
+.tp-pur    { color:var(--amethyst); }
+.tp-teal   { color:var(--teal); }
+.tp-green  { color:var(--emerald); }
+
+.tl-title {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:1.32rem; font-weight:600; color:var(--navy);
+  margin-bottom:.45rem;
+}
+.tl-body {
+  font-size:.87rem; color:var(--slate); line-height:1.78; max-width:580px;
+}
+.tl-tags {
+  display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.8rem;
+}
+.tl-tag {
+  padding:.2rem .55rem; font-size:.6rem; font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+  letter-spacing:.08em; text-transform:uppercase; border:1px solid;
+}
+.tt-gold   { border-color:var(--gold);      color:var(--gold-deep); background:var(--gold-pale); }
+.tt-blue   { border-color:var(--sapphire);  color:var(--sapphire);  background:var(--sapphire-pale); }
+.tt-pur    { border-color:var(--amethyst);  color:var(--amethyst);  background:var(--amethyst-pale); }
+.tt-teal   { border-color:var(--teal);      color:var(--teal);      background:var(--teal-pale); }
+.tt-green  { border-color:var(--emerald);   color:var(--emerald);   background:var(--emerald-pale); }
+
+/* ═══════════════════════════════════════
+   STRATEGY ENGINE
+═══════════════════════════════════════ */
+.engine {
+  background:var(--white); border:1px solid var(--border);
+  box-shadow:var(--sh-xl); overflow:hidden; margin:2.5rem 0;
+}
+.eng-hd {
+  background:var(--navy-mid); padding:2rem 2.5rem;
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.eng-hd-title {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.28rem;
+  font-weight:600; color:#fff;
+}
+.eng-hd-badge {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.58rem;
+  color:var(--gold); letter-spacing:.18em;
+  border:1px solid rgba(200,146,42,.38); padding:.28rem .8rem;
+  text-transform:uppercase;
+}
+.eng-cols {
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.eng-left {
+  padding:2.5rem; border-right:1px solid var(--border);
+}
+.eng-right {
+  padding:2.5rem; background:var(--off-white);
+}
+
+/* INPUT STYLES */
+.ig { margin-bottom:1.7rem; }
+.ig-label {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.58rem;
+  color:var(--slate-mid); letter-spacing:.16em;
+  text-transform:uppercase; margin-bottom:.48rem; display:block;
+}
+.ig-field {
+  width:100%; padding:.72rem 1rem;
+  border:1.5px solid var(--border-soft);
+  background:var(--white); color:var(--navy);
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size:.9rem;
+  outline:none; transition:all .2s;
+}
+.ig-field:focus {
+  border-color:var(--sapphire-light);
+  box-shadow:0 0 0 3px rgba(59,127,212,.09);
+}
+.ig-sel {
+  appearance:none; cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235A7090' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 1rem center;
+  padding-right:2.4rem;
+}
+
+/* RISK BUTTONS */
+.risk-row {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  border:1.5px solid var(--border-soft); overflow:hidden;
+}
+.rb {
+  padding:.7rem .5rem; text-align:center; cursor:pointer;
+  transition:all .2s; border-right:1px solid var(--border-soft);
+  background:var(--white);
+}
+.rb:last-child { border-right:none; }
+.rb:hover { background:var(--off-white); }
+.rb.on-c { background:var(--emerald-pale); border-bottom:2.5px solid var(--emerald); }
+.rb.on-b { background:var(--sapphire-pale); border-bottom:2.5px solid var(--sapphire); }
+.rb.on-a { background:var(--ruby-pale); border-bottom:2.5px solid var(--ruby); }
+.rb-icon { font-size:1.2rem; display:block; margin-bottom:.15rem; }
+.rb-lbl  { font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.56rem; letter-spacing:.08em; color:var(--slate); text-transform:uppercase; display:block; }
+
+/* RANGE */
+.range-wrap { margin-top:.45rem; }
+.range-num {
+  text-align:right; font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+  font-size:.72rem; color:var(--sapphire); font-weight:500; margin-bottom:.28rem;
+}
+.range-track {
+  position:relative; height:4px; background:var(--border); margin:.9rem 0 .42rem;
+}
+.range-fill {
+  position:absolute; left:0; top:0; bottom:0;
+  background:linear-gradient(90deg, var(--sapphire), var(--gold));
+  pointer-events:none; transition:width .08s;
+}
+.range-inp {
+  position:absolute; inset:-8px 0;
+  opacity:0; cursor:pointer; width:100%; height:20px;
+}
+.range-knob {
+  position:absolute; top:-8px; width:18px; height:18px;
+  background:var(--white); border:2px solid var(--sapphire);
+  box-shadow:var(--sh-sm); transform:translateX(-50%);
+  pointer-events:none; transition:left .08s;
+}
+.range-ends {
+  display:flex; justify-content:space-between;
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.55rem; color:var(--slate-light);
+}
+
+/* GENERATE BTN */
+.btn-gen {
+  width:100%; padding:1rem 1.5rem;
+  background:var(--navy); color:#fff; border:none;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size:.84rem;
+  font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  cursor:pointer; transition:all .25s; position:relative;
+  overflow:hidden; margin-top:.5rem;
+}
+.btn-gen::after {
+  content:''; position:absolute; bottom:0; left:0;
+  height:2px; width:100%;
+  background:linear-gradient(90deg, var(--gold), var(--amethyst-light), var(--sapphire-light));
+  transform:scaleX(0); transition:transform .35s;
+}
+.btn-gen:hover { background:var(--navy-light); transform:translateY(-1px); box-shadow:var(--sh-md); }
+.btn-gen:hover::after { transform:scaleX(1); }
+
+/* OUTPUT AREA */
+.out-ph {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; min-height:380px; text-align:center; gap:1rem;
+}
+.out-ph-ico { font-size:2.8rem; opacity:.16; }
+.out-ph p  { font-size:.82rem; color:var(--slate-light); max-width:220px; line-height:1.65; }
+.out-res   { display:none; }
+.out-res.show { display:block; }
+.out-sec-lbl {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.56rem;
+  color:var(--gold); letter-spacing:.24em; text-transform:uppercase;
+  margin-bottom:.9rem; padding-bottom:.45rem; border-bottom:1px solid var(--border-soft);
+}
+
+/* ALLOC BARS */
+.alloc-item { margin-bottom:1rem; }
+.alloc-row  { display:flex; justify-content:space-between; align-items:center; margin-bottom:.28rem; }
+.alloc-name { font-size:.8rem; color:var(--navy); font-weight:500; }
+.alloc-pct  { font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.72rem; color:var(--sapphire); font-weight:500; }
+.alloc-bar  { height:5px; background:var(--border-soft); position:relative; overflow:hidden; }
+.alloc-fill { height:100%; transition:width .8s cubic-bezier(.4,0,.2,1); }
+.af-blue    { background:linear-gradient(90deg,var(--sapphire),var(--sapphire-light)); }
+.af-gold    { background:linear-gradient(90deg,var(--gold-deep),var(--gold-light)); }
+.af-green   { background:linear-gradient(90deg,var(--emerald),var(--emerald-light)); }
+.af-pur     { background:linear-gradient(90deg,var(--amethyst),var(--amethyst-light)); }
+.af-teal    { background:linear-gradient(90deg,var(--teal),var(--teal-light)); }
+.af-copper  { background:linear-gradient(90deg,var(--copper),var(--copper-light)); }
+.af-ruby    { background:linear-gradient(90deg,var(--ruby),var(--ruby-light)); }
+.af-slate   { background:linear-gradient(90deg,var(--slate),var(--slate-mid)); }
+
+/* KPI GRID */
+.kpi-grid   { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border-soft); margin:1.5rem 0; }
+.kpi-cell   { background:var(--white); padding:1rem 1.2rem; }
+.kpi-lbl    { font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.52rem; color:var(--slate-light); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.2rem; }
+.kpi-val    { font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.5rem; font-weight:700; line-height:1; }
+.kv-gold    { color:var(--gold); }
+.kv-green   { color:var(--emerald); }
+.kv-blue    { color:var(--sapphire); }
+.kv-navy    { color:var(--navy); }
+.kv-pur     { color:var(--amethyst); }
+
+/* RECS LIST */
+.rec-item {
+  display:flex; gap:.6rem; align-items:flex-start;
+  padding:.55rem 0; border-bottom:1px solid var(--border-soft);
+  font-size:.82rem; color:var(--slate); line-height:1.6;
+}
+.rec-item:last-child { border-bottom:none; }
+.rec-arrow { color:var(--gold); font-weight:700; flex-shrink:0; }
+
+/* ENGINE FOOTER */
+.eng-ft {
+  border-top:1px solid var(--border); background:var(--navy);
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+}
+.ef-cell {
+  padding:1.2rem 1.8rem; text-align:center; position:relative;
+}
+.ef-cell:not(:last-child)::after {
+  content:''; position:absolute; right:0; top:22%; bottom:22%;
+  width:1px; background:rgba(255,255,255,.09);
+}
+.ef-label { font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.52rem; color:rgba(255,255,255,.28); letter-spacing:.13em; text-transform:uppercase; display:block; margin-bottom:.28rem; }
+.ef-val   { font-size:.84rem; color:#fff; font-weight:500; display:block; }
+.ef-val.gold { color:var(--gold-light); }
+
+/* ═══════════════════════════════════════
+   PRINCIPLES SECTION
+═══════════════════════════════════════ */
+.prin-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:1.5rem; margin-top:2.5rem;
+}
+.prin-card {
+  padding:2rem; position:relative; overflow:hidden;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+  transition:transform .22s, background .22s;
+}
+.prin-card:hover { transform:translateY(-3px); background:rgba(255,255,255,.07); }
+.prin-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2.5px;
+  transform:scaleX(0); transform-origin:left; transition:transform .3s;
+}
+.prin-card:hover::after { transform:scaleX(1); }
+.pc-gold::after   { background:var(--gold-light); }
+.pc-blue::after   { background:var(--sapphire-light); }
+.pc-green::after  { background:var(--emerald-light); }
+.pc-pur::after    { background:var(--amethyst-light); }
+.pc-teal::after   { background:var(--teal-light); }
+.pc-copper::after { background:var(--copper-light); }
+.p-num {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:3rem; font-weight:700;
+  color:rgba(255,255,255,.05); position:absolute; top:.8rem; right:1.2rem; line-height:1;
+}
+.p-icon  { font-size:1.8rem; margin-bottom:.9rem; display:block; }
+.p-title { font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.08rem; font-weight:700; color:#fff; margin-bottom:.45rem; }
+.p-body  { font-size:.8rem; color:rgba(255,255,255,.48); line-height:1.72; }
+
+/* ═══════════════════════════════════════
+   ASSET CLASS BREAKDOWN
+═══════════════════════════════════════ */
+.asset-grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:1.5rem; margin-top:2.5rem;
+}
+.asset-card {
+  padding:1.8rem 1.5rem; border:1px solid var(--border-soft);
+  background:var(--white); transition:all .22s; position:relative;
+  overflow:hidden; cursor:default;
+}
+.asset-card:hover { transform:translateY(-3px); box-shadow:var(--sh-md); }
+.asset-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+}
+.ac-gold::before    { background:linear-gradient(90deg,var(--gold),var(--gold-light)); }
+.ac-blue::before    { background:linear-gradient(90deg,var(--sapphire),var(--sapphire-light)); }
+.ac-green::before   { background:linear-gradient(90deg,var(--emerald),var(--emerald-light)); }
+.ac-pur::before     { background:linear-gradient(90deg,var(--amethyst),var(--amethyst-light)); }
+.ac-teal::before    { background:linear-gradient(90deg,var(--teal),var(--teal-light)); }
+.ac-copper::before  { background:linear-gradient(90deg,var(--copper),var(--copper-light)); }
+.ac-ruby::before    { background:linear-gradient(90deg,var(--ruby),var(--ruby-light)); }
+.ac-slate::before   { background:linear-gradient(90deg,var(--slate),var(--slate-mid)); }
+.ac-icon { font-size:1.8rem; margin-bottom:.9rem; display:block; }
+.ac-name { font-weight:700; font-size:.92rem; color:var(--navy); margin-bottom:.35rem; }
+.ac-ret  { font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.72rem; color:var(--emerald); margin-bottom:.5rem; }
+.ac-desc { font-size:.77rem; color:var(--slate-mid); line-height:1.65; }
+
+/* ═══════════════════════════════════════
+   STRATEGY TABLE
+═══════════════════════════════════════ */
+.strat-table {
+  width:100%; border-collapse:collapse; margin:2rem 0;
+  background:var(--white); box-shadow:var(--sh-sm);
+}
+.strat-table th {
+  background:var(--navy); color:#fff; padding:.95rem 1.3rem;
+  text-align:left; font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+  font-size:.57rem; letter-spacing:.13em; text-transform:uppercase; font-weight:400;
+}
+.strat-table td {
+  padding:.88rem 1.3rem; border-bottom:1px solid var(--border-soft);
+  font-size:.84rem; color:var(--slate); vertical-align:top;
+}
+.strat-table tr:last-child td { border-bottom:none; }
+.strat-table tr:hover td { background:var(--off-white); }
+.td-strong { font-weight:600; color:var(--navy); }
+.badge {
+  display:inline-block; padding:.2rem .58rem;
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.52rem;
+  letter-spacing:.08em; text-transform:uppercase; border:1px solid;
+}
+.bk-green  { background:var(--emerald-pale);   border-color:var(--emerald);    color:var(--emerald); }
+.bk-blue   { background:var(--sapphire-pale);  border-color:var(--sapphire);   color:var(--sapphire); }
+.bk-gold   { background:var(--gold-pale);       border-color:var(--gold);       color:var(--gold-deep); }
+.bk-ruby   { background:var(--ruby-pale);       border-color:var(--ruby);       color:var(--ruby); }
+.bk-pur    { background:var(--amethyst-pale);  border-color:var(--amethyst);   color:var(--amethyst); }
+.bk-teal   { background:var(--teal-pale);       border-color:var(--teal);       color:var(--teal); }
+
+/* ═══════════════════════════════════════
+   MENTAL MODELS SECTION
+═══════════════════════════════════════ */
+.models-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1.5rem; margin-top:2.5rem;
+}
+.model-card {
+  padding:2rem; border-left:4px solid; background:var(--white);
+  position:relative; transition:box-shadow .2s;
+}
+.model-card:hover { box-shadow:var(--sh-md); }
+.mc-gold   { border-color:var(--gold); }
+.mc-blue   { border-color:var(--sapphire); }
+.mc-green  { border-color:var(--emerald); }
+.mc-pur    { border-color:var(--amethyst); }
+.mc-teal   { border-color:var(--teal); }
+.mc-copper { border-color:var(--copper); }
+.mc-num {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:2.8rem; font-weight:700;
+  color:rgba(8,21,42,.05); position:absolute; top:.9rem; right:1.3rem; line-height:1;
+}
+.mc-title  { font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.12rem; font-weight:700; color:var(--navy); margin-bottom:.45rem; }
+.mc-body   { font-size:.82rem; color:var(--slate); line-height:1.76; }
+.mc-source { font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.56rem; color:var(--slate-light); margin-top:.8rem; letter-spacing:.06em; }
+
+/* ═══════════════════════════════════════
+   WORKSHEET
+═══════════════════════════════════════ */
+.ws {
+  background:var(--white); border:1px solid var(--border);
+  box-shadow:var(--sh-lg); overflow:hidden; margin:2.5rem 0;
+}
+.ws-head {
+  background:linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+  padding:1.9rem 2.5rem;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.ws-title  { font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.2rem; color:#fff; font-weight:600; }
+.ws-icon   { font-size:1.5rem; }
+.ws-body   { padding:2.5rem; }
+.ws-row {
+  display:grid; grid-template-columns:230px 1fr;
+  align-items:start; gap:1.5rem;
+  padding:1.2rem 0; border-bottom:1px solid var(--border-soft);
+}
+.ws-row:last-child { border-bottom:none; }
+.ws-lbl    { font-size:.84rem; font-weight:600; color:var(--navy); padding-top:.15rem; }
+.ws-hint   { font-size:.7rem; color:var(--slate-light); margin-top:.1rem; font-style:italic; font-weight:300; }
+.ws-inp {
+  width:100%; padding:.65rem 1rem;
+  border:1.5px solid var(--border-soft); background:var(--off-white);
+  color:var(--navy); font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size:.88rem;
+  outline:none; transition:all .2s;
+}
+.ws-inp:focus { border-color:var(--sapphire-light); background:var(--white); box-shadow:0 0 0 3px rgba(59,127,212,.07); }
+.ws-ta  { min-height:78px; resize:vertical; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; line-height:1.62; }
+.ws-radios { display:flex; gap:.65rem; flex-wrap:wrap; }
+.wr        { display:none; }
+.wrl {
+  padding:.4rem .88rem; border:1.5px solid var(--border-soft);
+  font-size:.72rem; cursor:pointer; transition:all .2s;
+  color:var(--slate); font-weight:500;
+}
+.wr:checked + .wrl { background:var(--navy); border-color:var(--navy); color:#fff; }
+.ws-foot {
+  padding:1.5rem 2.5rem; background:var(--off-white);
+  border-top:1px solid var(--border-soft);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.ws-save {
+  padding:.7rem 2rem; background:var(--navy); color:#fff; border:none;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size:.8rem; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase; cursor:pointer; transition:all .2s;
+}
+.ws-save:hover { background:var(--sapphire); }
+.ws-note { font-size:.72rem; color:var(--slate-light); font-style:italic; }
+
+/* ═══════════════════════════════════════
+   CHECKLIST
+═══════════════════════════════════════ */
+.chk { list-style:none; margin:1.5rem 0; }
+.chk li {
+  display:flex; align-items:flex-start; gap:.75rem;
+  padding:.6rem 0; border-bottom:1px solid var(--border-soft);
+  font-size:.86rem; color:var(--slate); line-height:1.62; cursor:pointer;
+  transition:color .18s;
+}
+.chk li:last-child { border-bottom:none; }
+.chk li:hover { color:var(--navy); }
+.chk-box {
+  width:18px; height:18px; border:1.5px solid var(--border);
+  flex-shrink:0; margin-top:2px; background:var(--white);
+  position:relative; transition:all .2s;
+}
+.chk li.done .chk-box { background:var(--emerald); border-color:var(--emerald); }
+.chk li.done .chk-box::after {
+  content:''; position:absolute; left:4px; top:5px;
+  width:4px; height:7px; border:2px solid #fff;
+  border-top:none; border-left:none; transform:rotate(45deg) translateY(-3px);
+}
+.chk li.done .chk-txt { text-decoration:line-through; color:var(--slate-light); }
+
+/* ═══════════════════════════════════════
+   FORMULA BLOCK
+═══════════════════════════════════════ */
+.formula-block {
+  background:var(--navy); padding:2.5rem; margin:2rem 0;
+  position:relative; overflow:hidden;
+}
+.formula-block::before {
+  content:''; position:absolute; right:-40px; top:-40px;
+  width:200px; height:200px; border-radius:50%;
+  border:1px solid rgba(200,146,42,.08);
+}
+.formula-label {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.58rem; color:var(--gold);
+  letter-spacing:.22em; text-transform:uppercase; margin-bottom:1rem; display:block;
+}
+.formula-eq {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1.7rem; font-style:italic;
+  color:#fff; line-height:1.5; margin-bottom:1rem;
+}
+.formula-eq span { color:var(--gold-light); }
+.formula-desc { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.75; }
+
+/* ═══════════════════════════════════════
+   CLOSING
+═══════════════════════════════════════ */
+.closing {
+  background:var(--navy); color:#fff;
+  padding:7rem 6rem; text-align:center;
+  position:relative; overflow:hidden;
+}
+.closing::before {
+  content:''; position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:700px; height:700px; border-radius:50%;
+  border:1px solid rgba(200,146,42,.07);
+}
+.closing::after {
+  content:''; position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:450px; height:450px; border-radius:50%;
+  border:1px solid rgba(92,42,140,.08);
+}
+.cl-inner {
+  position:relative; z-index:1; max-width:600px; margin:0 auto;
+}
+.cl-title {
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  font-size:3.2rem; font-weight:600; color:#fff; margin-bottom:1rem;
+}
+.cl-title em { color:var(--gold-light); font-style:italic; }
+.cl-div { width:40px; height:1px; background:var(--gold); margin:2rem auto; }
+.cl-body { font-size:.94rem; color:rgba(255,255,255,.5); line-height:1.9; margin-bottom:2.5rem; }
+.cl-next {
+  display:inline-block; padding:1rem 2.5rem;
+  border:1px solid rgba(200,146,42,.4); color:var(--gold-light);
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.68rem;
+  letter-spacing:.18em; text-transform:uppercase;
+  text-decoration:none; transition:all .22s; cursor:pointer;
+  background:transparent;
+}
+.cl-next:hover { background:rgba(200,146,42,.1); border-color:var(--gold-light); }
+.cl-brand {
+  display:block; margin-top:2.5rem;
+  font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif; font-size:1rem;
+  color:var(--gold); letter-spacing:.3em; text-transform:uppercase;
+}
+.cl-meta {
+  font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace; font-size:.55rem;
+  color:rgba(255,255,255,.18); margin-top:.4rem; letter-spacing:.13em;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:none; }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width:1100px) {
+  .wrap { margin-left:0; }
+  .sidebar { display:none; }
+  .sec { padding:4.5rem 3.5rem; }
+  .cv-body { padding:4rem 3.5rem; }
+  .cv-foot { padding:1.8rem 3.5rem; }
+  .intro-layout { grid-template-columns:1fr; }
+  .eng-cols { grid-template-columns:1fr; }
+  .eng-left { border-right:none; border-bottom:1px solid var(--border-soft); }
+  .prin-grid { grid-template-columns:1fr 1fr; }
+  .asset-grid { grid-template-columns:1fr 1fr; }
+  .closing { padding:5rem 3.5rem; }
+  .divider { margin:0 3.5rem; }
+}
+@media (max-width:680px) {
+  .sec { padding:3.5rem 1.5rem; }
+  .cv-body { padding:3.5rem 1.5rem; }
+  .cv-foot { padding:1.5rem 1.5rem; }
+  .prin-grid { grid-template-columns:1fr; }
+  .asset-grid { grid-template-columns:1fr; }
+  .models-grid { grid-template-columns:1fr; }
+  .kpi-grid { grid-template-columns:1fr; }
+  .ws-row { grid-template-columns:1fr; }
+  .ef-cell:not(:last-child)::after { display:none; }
+  .cv-metrics { gap:1.5rem; flex-wrap:wrap; }
+  .closing { padding:4rem 1.5rem; }
+  .divider { margin:0 1.5rem; }
+  .stat-strip { grid-template-columns:1fr 1fr; }
+}
+</style>
+
+<script>
+// iPad/Safari fix: reveal all sections immediately on load
+window.addEventListener('load', function() {
+  document.querySelectorAll('.sec').forEach(function(s) {
+    s.classList.add('vis');
+    s.style.opacity = '1';
+    s.style.transform = 'none';
+  });
+});
+</script>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- ══════ SIDEBAR ══════ -->
+<nav class="sidebar">
+  <div class="sb-brand">TCC</div>
+  <div class="sb-dots">
+    <div class="sd on"  data-tip="Cover"          onclick="toTop()"></div>
+    <div class="sd"     data-tip="Introduction"   onclick="goTo('s-intro')"></div>
+    <div class="sd"     data-tip="Framework"      onclick="goTo('s-framework')"></div>
+    <div class="sd"     data-tip="Strategy Engine" onclick="goTo('s-engine')"></div>
+    <div class="sd"     data-tip="Asset Classes"  onclick="goTo('s-assets')"></div>
+    <div class="sd"     data-tip="8 Principles"   onclick="goTo('s-prin')"></div>
+    <div class="sd"     data-tip="Mental Models"  onclick="goTo('s-models')"></div>
+    <div class="sd"     data-tip="Timing Matrix"  onclick="goTo('s-timing')"></div>
+    <div class="sd"     data-tip="Worksheet"      onclick="goTo('s-ws')"></div>
+    <div class="sd"     data-tip="Closing"        onclick="goTo('s-close')"></div>
+  </div>
+  <div class="sb-num">01 / 05</div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════
+     COVER
+══════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cv-bg"></div>
+  <div class="cv-mesh"></div>
+  <div class="cv-ring1"></div>
+  <div class="cv-ring2"></div>
+  <div class="cv-ring3"></div>
+
+  <div class="cv-body">
+    <div class="cv-pre">
+      <div class="cv-pre-line"></div>
+      <div class="cv-pre-txt">The Capital Code · Playbook 01 of 05 · Architect Edition</div>
+    </div>
+
+    <h1 class="cv-title">
+      AI&#8209;Driven<br><em>Investment</em><br><span class="accent-blue">Playbooks</span>
+    </h1>
+
+    <p class="cv-sub">
+      The complete framework for building, structuring, and executing intelligent investment strategies — from risk profiling and asset allocation to precision timing and exit planning.
+    </p>
+
+    <div class="cv-tags">
+      <div class="cv-tag">Asset Allocation</div>
+      <div class="cv-tag">Risk Management</div>
+      <div class="cv-tag">Entry & Exit Strategy</div>
+      <div class="cv-tag">Portfolio Architecture</div>
+      <div class="cv-tag">Compound Growth</div>
+    </div>
+
+    <div class="cv-metrics">
+      <div>
+        <span class="cv-metric-val">8</span>
+        <span class="cv-metric-lbl">Core Principles</span>
+      </div>
+      <div>
+        <span class="cv-metric-val">6</span>
+        <span class="cv-metric-lbl">Mental Models</span>
+      </div>
+      <div>
+        <span class="cv-metric-val">∞</span>
+        <span class="cv-metric-lbl">Compound Potential</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-bignum">01</div>
+
+  <div class="cv-foot">
+    <div class="cv-foot-brand">The Capital Code</div>
+    <div class="cv-foot-meta">
+      <div>ARCHITECT EDITION — PLAYBOOK 01 OF 05</div>
+      <div>EXCLUSIVE · NOT FOR REDISTRIBUTION</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     INTRODUCTION
+══════════════════════════════════════════ -->
+<section class="sec s-white" id="s-intro">
+  <div class="sec-label"><span class="sec-label-txt">Introduction</span></div>
+  <h2 class="sec-title">Why most investors lose<br><em>before they even begin.</em></h2>
+
+  <div class="intro-layout">
+    <div class="intro-text">
+      <p class="sec-body">The gap between an amateur investor and an institutional player has nothing to do with access to information. In the age of the internet, information is free and abundant. The gap lies entirely in the <strong>system</strong>.</p>
+      <p class="sec-body">While the average private investor makes decisions driven by emotion, news cycles, and gut feeling, the world's best asset managers operate with crystal-clear frameworks, pre-defined entry criteria, and ironclad exit rules that never bend to market psychology.</p>
+      <p class="sec-body">This playbook hands you exactly that system. You will learn to construct an investment framework anchored in your personal risk profile, your capital base, and your time horizon — one that produces emotionally independent decisions that compound powerfully over time.</p>
+
+      <div class="callout co-gold">
+        <span class="co-icon">💡</span>
+        <div class="co-title">The Core Principle of This Playbook</div>
+        <div class="co-body">Every investment decision must rest on three pillars: <strong>defined risk</strong>, <strong>clear allocation logic</strong>, and a <strong>pre-defined exit plan</strong>. Remove any one of these pillars and what you have is no longer an investment — it is speculation dressed up as strategy.</div>
+      </div>
+
+      <div class="callout co-blue" style="margin-top:1.2rem;">
+        <span class="co-icon">📊</span>
+        <div class="co-title">What You Will Build in This Playbook</div>
+        <div class="co-body">A complete, personalized investment architecture: your risk profile → your target allocation across 4–6 asset classes → your entry strategy → your rebalancing schedule → your exit playbook. Every component documented, every rule defined before a single euro is deployed.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="pull-quote">
+        <div class="pq-text">"The stock market is a device for transferring money from the impatient to the patient. Your job is not to predict the market — it is to build a system that does not require prediction."</div>
+        <div class="pq-author">— Warren Buffett, Berkshire Hathaway</div>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat-cell">
+          <span class="stat-val">87<span class="accent">%</span></span>
+          <span class="stat-lbl">of private investors<br>underperform long-term</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-val">×<span class="accent">11</span></span>
+          <span class="stat-lbl">MSCI World return<br>factor over 30 years</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-val">72<span class="accent">%</span></span>
+          <span class="stat-lbl">of returns driven by<br>asset allocation alone</span>
+        </div>
+      </div>
+
+      <div class="callout co-green" style="margin-top:1.5rem;">
+        <span class="co-icon">🎯</span>
+        <div class="co-title">The Most Important Number: 72%</div>
+        <div class="co-body">Research from Brinson, Hood & Beebower showed that 72% of long-term portfolio performance is determined by asset allocation — not stock picking, not timing, not fund selection. This single insight changes everything about how you should invest.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════════════════════════════════════════
+     THE 5-STAGE FRAMEWORK
+══════════════════════════════════════════ -->
+<section class="sec s-off" id="s-framework">
+  <div class="sec-label"><span class="sec-label-txt">The Framework</span></div>
+  <h2 class="sec-title">The <em>5-Stage Architecture</em><br>of institutional investors</h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Every professional investment house in the world — from BlackRock to sovereign wealth funds to elite family offices — operates within a structured process. This is not coincidence. Structure is what separates capital preservation from capital destruction. Here is the framework you will apply to every investment decision from this point forward.</p>
+
+  <div class="callout co-pur">
+    <span class="co-icon">⚡</span>
+    <div class="co-title">Why Most Frameworks Fail</div>
+    <div class="co-body">The most common mistake is treating these stages as optional add-ons rather than prerequisites. Stages 1 and 5 — Profile Definition and Exit Planning — are the most skipped, and the most consequential. Without them, Stages 2, 3, and 4 are built on sand.</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-phase tp-gold">Stage 1 — Foundation</div>
+      <div class="tl-title">Profile Definition & Risk Architecture</div>
+      <div class="tl-body">Before a single euro is deployed, you must architect your personal investment profile with clinical honesty. Risk tolerance is not what you think you can handle in theory — it is the maximum drawdown you can sustain at 2am during a market crisis without making an emotional decision. Define your capital base, liquidity requirements, income timeline, and psychological pain threshold. Document everything.</div>
+      <div class="tl-tags">
+        <span class="tl-tag tt-gold">Risk Profiling</span>
+        <span class="tl-tag tt-gold">Capital Planning</span>
+        <span class="tl-tag tt-gold">Liquidity Analysis</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot d-blue"></div>
+      <div class="tl-phase tp-blue">Stage 2 — Architecture</div>
+      <div class="tl-title">Asset Allocation & Portfolio Structure</div>
+      <div class="tl-body">Seventy-two percent of long-term portfolio performance is determined by asset allocation — not stock picking, not market timing, not fund selection. This is the most important decision you will make. Build your allocation across core and satellite positions using proven models: the 60/40 framework, Core-Satellite architecture, or the Barbell Strategy. Your allocation must align precisely with your Stage 1 profile.</div>
+      <div class="tl-tags">
+        <span class="tl-tag tt-blue">Core-Satellite</span>
+        <span class="tl-tag tt-blue">60/40 Framework</span>
+        <span class="tl-tag tt-blue">Barbell Strategy</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot d-pur"></div>
+      <div class="tl-phase tp-pur">Stage 3 — Entry</div>
+      <div class="tl-title">Entry Criteria & Deployment Rules</div>
+      <div class="tl-body">Define your entry protocol before you approach the market. Will you deploy capital using systematic cost-averaging regardless of market conditions? A staged deployment over 3–6 months? Or an opportunistic approach triggered by specific valuation signals? The rule must be written before the market opens — never after. Undefined entry rules are the gateway to emotional buying at market peaks.</div>
+      <div class="tl-tags">
+        <span class="tl-tag tt-pur">Cost Averaging</span>
+        <span class="tl-tag tt-pur">Staged Entry</span>
+        <span class="tl-tag tt-pur">Valuation Signals</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot d-teal"></div>
+      <div class="tl-phase tp-teal">Stage 4 — Management</div>
+      <div class="tl-title">Portfolio Maintenance & Rebalancing</div>
+      <div class="tl-body">An unmanaged portfolio drifts from its target allocation and silently increases risk concentration over time. Define fixed rebalancing triggers: time-based (quarterly, semi-annually) or threshold-based (any position deviating >5% from target). Disciplined rebalancing is mechanically contrarian — it forces you to buy low and trim high without emotional involvement. This is the institutional edge that compounds over decades.</div>
+      <div class="tl-tags">
+        <span class="tl-tag tt-teal">Rebalancing Rules</span>
+        <span class="tl-tag tt-teal">Drift Management</span>
+        <span class="tl-tag tt-teal">Risk Control</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot d-green"></div>
+      <div class="tl-phase tp-green">Stage 5 — Exit</div>
+      <div class="tl-title">Exit Strategy & Capital Realization</div>
+      <div class="tl-body">Your exit plan must be written before your entry. Define: your target return for partial profit-taking, your stop-loss level for risk management, your holding period for time-based exits, and your partial exit schedule for large positions. Investors who do not know their exit always sell at the wrong moment — either too early from fear or too late from greed. The exit plan eliminates both failure modes.</div>
+      <div class="tl-tags">
+        <span class="tl-tag tt-green">Stop-Loss Rules</span>
+        <span class="tl-tag tt-green">Profit Targets</span>
+        <span class="tl-tag tt-green">Trailing Stops</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════════════════════════════════════════
+     STRATEGY ENGINE
+══════════════════════════════════════════ -->
+<section class="sec s-white" id="s-engine">
+  <div class="sec-label"><span class="sec-label-txt">Interactive Engine</span></div>
+  <h2 class="sec-title">Your Personal<br><em>Strategy Generator</em></h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">Input your parameters and receive a complete, personalized investment strategy in real time — including asset allocation, projected returns, compound growth analysis, and actionable recommendations.</p>
+
+  <div class="callout co-teal">
+    <span class="co-icon">⚙️</span>
+    <div class="co-title">How to Use This Engine</div>
+    <div class="co-body">Be precise and honest with your inputs — especially the maximum acceptable loss. This is not about what sounds reasonable. It is about the level at which you would lose sleep and make emotional decisions. Your generated strategy is only as accurate as the honesty of your inputs.</div>
+  </div>
+
+  <div class="engine">
+    <div class="eng-hd">
+      <span class="eng-hd-title">Investment Strategy Engine</span>
+      <span class="eng-hd-badge">Architect · Live Calculation</span>
+    </div>
+
+    <div class="eng-cols">
+      <div class="eng-left">
+
+        <div class="ig">
+          <label class="ig-label">Available Investment Capital (€)</label>
+          <input type="number" class="ig-field" id="e-cap" value="25000" min="500" step="500">
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Monthly Contribution (€)</label>
+          <input type="number" class="ig-field" id="e-mon" value="500" min="0" step="50">
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Investment Horizon</label>
+          <select class="ig-field ig-sel" id="e-hor">
+            <option value="1">1 Year — Short-term</option>
+            <option value="3" selected>3 Years — Medium-term</option>
+            <option value="5">5 Years — Growth Phase</option>
+            <option value="10">10 Years — Wealth Building</option>
+            <option value="20">20+ Years — Generational Wealth</option>
+          </select>
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Portfolio Focus</label>
+          <select class="ig-field ig-sel" id="e-foc">
+            <option value="balanced">Balanced (ETF + Equities)</option>
+            <option value="etf">ETF-First (Passive Core)</option>
+            <option value="growth">Growth (Equities & Tech)</option>
+            <option value="crypto">Crypto-Integrated</option>
+            <option value="income">Income (Dividends & REITs)</option>
+            <option value="alternatives">Alternatives Heavy</option>
+          </select>
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Risk Profile</label>
+          <div class="risk-row">
+            <div class="rb on-c" onclick="setRisk('c',this)" id="rb-c">
+              <span class="rb-icon">🛡</span>
+              <span class="rb-lbl">Defensive</span>
+            </div>
+            <div class="rb" onclick="setRisk('b',this)" id="rb-b">
+              <span class="rb-icon">⚖️</span>
+              <span class="rb-lbl">Balanced</span>
+            </div>
+            <div class="rb" onclick="setRisk('a',this)" id="rb-a">
+              <span class="rb-icon">🚀</span>
+              <span class="rb-lbl">Aggressive</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Maximum Acceptable Loss (%)</label>
+          <div class="range-wrap">
+            <div class="range-num" id="rl-num">−15%</div>
+            <div class="range-track">
+              <div class="range-fill" id="rl-fill" style="width:22%"></div>
+              <div class="range-knob" id="rl-knob" style="left:22%"></div>
+              <input type="range" class="range-inp" id="rl" min="5" max="60" value="15" oninput="updRange()">
+            </div>
+            <div class="range-ends"><span>−5% Conservative</span><span>−60% Aggressive</span></div>
+          </div>
+        </div>
+
+        <button class="btn-gen" onclick="runEngine()">▶ Generate My Strategy</button>
+      </div>
+
+      <div class="eng-right">
+        <div class="out-ph" id="e-ph">
+          <div class="out-ph-ico">📊</div>
+          <p>Fill in your parameters and click "Generate My Strategy" to receive your personalized investment framework.</p>
+        </div>
+
+        <div class="out-res" id="e-res">
+          <div class="out-sec-lbl">◆ Asset Allocation</div>
+          <div id="e-alloc"></div>
+
+          <div class="kpi-grid" id="e-kpi"></div>
+
+          <div class="out-sec-lbl" style="margin-top:1.5rem;">◆ Core Recommendations</div>
+          <div id="e-recs"></div>
+
+          <div class="out-sec-lbl" style="margin-top:1.5rem;">◆ Compound Projection</div>
+          <div id="e-proj" style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.75rem;color:var(--slate);line-height:1.8;padding:.8rem;background:var(--off-white);border:1px solid var(--border-soft);"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="eng-ft">
+      <div class="ef-cell"><span class="ef-label">Strategy Type</span><span class="ef-val gold" id="ef-type">—</span></div>
+      <div class="ef-cell"><span class="ef-label">Rebalancing Cycle</span><span class="ef-val" id="ef-reb">—</span></div>
+      <div class="ef-cell"><span class="ef-label">Exit Logic</span><span class="ef-val" id="ef-exit">—</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════════════════════════════════════════
+     ASSET CLASS BREAKDOWN
+══════════════════════════════════════════ -->
+<section class="sec s-cream" id="s-assets">
+  <div class="sec-label"><span class="sec-label-txt">Asset Class Intelligence</span></div>
+  <h2 class="sec-title">Understanding the <em>building blocks</em><br>of your portfolio</h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">Every asset class has a distinct role in your portfolio architecture. Understanding the return profile, risk characteristics, and correlation behavior of each class is prerequisite knowledge for intelligent allocation.</p>
+
+  <div class="callout co-copper">
+    <span class="co-icon">⚠️</span>
+    <div class="co-title">The Correlation Trap</div>
+    <div class="co-body">Diversification only works if your assets are not correlated. In the 2008 and 2020 crashes, most "diversified" portfolios fell simultaneously because investors held assets that behaved identically under stress. True diversification means holding assets with <em>different</em> stress responses — not just different names.</div>
+  </div>
+
+  <div class="asset-grid">
+    <div class="asset-card ac-blue">
+      <span class="ac-icon">📈</span>
+      <div class="ac-name">Global Equities (ETF)</div>
+      <div class="ac-ret">Avg. Return: 8–10% p.a.</div>
+      <div class="ac-desc">The engine of long-term wealth. Broad market ETFs (MSCI World, S&P 500) provide global diversification with low cost. Core holding for any horizon above 5 years.</div>
+    </div>
+    <div class="asset-card ac-gold">
+      <span class="ac-icon">🏢</span>
+      <div class="ac-name">Individual Equities</div>
+      <div class="ac-ret">Avg. Return: 6–18% p.a.</div>
+      <div class="ac-desc">Higher alpha potential with concentrated risk. Requires fundamental analysis. Use as satellite positions (max 20–30% of portfolio). Never bet the portfolio on single names.</div>
+    </div>
+    <div class="asset-card ac-green">
+      <span class="ac-icon">🌍</span>
+      <div class="ac-name">Emerging Markets</div>
+      <div class="ac-ret">Avg. Return: 7–14% p.a.</div>
+      <div class="ac-desc">Higher growth potential tied to developing economies. Elevated currency and political risk. 5–15% allocation provides meaningful diversification without overexposure.</div>
+    </div>
+    <div class="asset-card ac-pur">
+      <span class="ac-icon">₿</span>
+      <div class="ac-name">Crypto Assets</div>
+      <div class="ac-ret">Avg. Return: High volatility</div>
+      <div class="ac-desc">Asymmetric opportunity with extreme volatility. BTC and ETH as base. Max 10–15% allocation. Non-negotiable: define your exit before you enter. No exit plan = speculation.</div>
+    </div>
+    <div class="asset-card ac-teal">
+      <span class="ac-icon">🏠</span>
+      <div class="ac-name">Real Estate / REITs</div>
+      <div class="ac-ret">Avg. Return: 5–9% p.a.</div>
+      <div class="ac-desc">Inflation hedge with income generation. REITs provide liquidity that direct real estate lacks. Particularly valuable in income-focused portfolios. Low correlation to equities in stable markets.</div>
+    </div>
+    <div class="asset-card ac-gold">
+      <span class="ac-icon">🥇</span>
+      <div class="ac-name">Commodities & Gold</div>
+      <div class="ac-ret">Avg. Return: 3–7% p.a.</div>
+      <div class="ac-desc">Crisis hedge and inflation protection. Gold specifically performs well during market stress. 5–10% allocation as insurance policy. Not a growth engine — a stabilizer.</div>
+    </div>
+    <div class="asset-card ac-slate">
+      <span class="ac-icon">📋</span>
+      <div class="ac-name">Bonds / Fixed Income</div>
+      <div class="ac-ret">Avg. Return: 2–6% p.a.</div>
+      <div class="ac-desc">Ballast for the portfolio. Reduces overall volatility and provides rebalancing capital during equity crashes. Weight increases as time horizon shortens. Essential for defensive profiles.</div>
+    </div>
+    <div class="asset-card ac-copper">
+      <span class="ac-icon">💰</span>
+      <div class="ac-name">Cash & Money Market</div>
+      <div class="ac-ret">Avg. Return: 3–5% p.a. (current)</div>
+      <div class="ac-desc">Strategic optionality. Holds its value during crashes and enables opportunistic buying. Always maintain 10–20% as dry powder. Cash is not a missed return — it is a call option on the future.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════════════════════════════════════════
+     8 PRINCIPLES
+══════════════════════════════════════════ -->
+<section class="sec s-navy" id="s-prin">
+  <div class="sec-label"><span class="sec-label-txt" style="color:var(--gold)">The 8 Laws</span></div>
+  <h2 class="sec-title">The <em>universal laws</em><br>of successful capital building</h2>
+  <p class="sec-body" style="margin-bottom:.5rem;">Distilled from the strategies of Warren Buffett, Ray Dalio, Charlie Munger, Howard Marks, Peter Lynch, George Soros, Stan Druckenmiller, and the top 100 sources on wealth building and entrepreneurship — these are the eight laws that all elite investors share.</p>
+
+  <div class="prin-grid">
+    <div class="prin-card pc-gold">
+      <div class="p-num">01</div>
+      <span class="p-icon">⚖️</span>
+      <div class="p-title">Asymmetric Risk-Reward</div>
+      <div class="p-body">Only take positions where you can win 3x or more but lose 1x at most. Your downside must be defined before you enter; your upside can remain open. If you cannot articulate the asymmetry, do not take the trade.</div>
+    </div>
+    <div class="prin-card pc-blue">
+      <div class="p-num">02</div>
+      <span class="p-icon">🔄</span>
+      <div class="p-title">Compounding is the Supreme Force</div>
+      <div class="p-body">€10,000 compounding at 10% per year becomes €174,000 in 30 years without adding another cent. The most powerful wealth-building action is not finding the perfect stock — it is starting immediately and never stopping.</div>
+    </div>
+    <div class="prin-card pc-green">
+      <div class="p-num">03</div>
+      <span class="p-icon">🧠</span>
+      <div class="p-title">Emotion is Your Only Real Enemy</div>
+      <div class="p-body">Markets do not destroy portfolios. Emotional reactions to markets destroy portfolios. Build a rules-based system that executes automatically. Buy when fear dominates headlines. Reduce when euphoria fills them. The system must not require willpower.</div>
+    </div>
+    <div class="prin-card pc-pur">
+      <div class="p-num">04</div>
+      <span class="p-icon">💰</span>
+      <div class="p-title">Liquidity is a Strategic Weapon</div>
+      <div class="p-body">In every market cycle, there will be crashes. The investor who holds 15–20% cash at those moments buys world-class assets at crisis prices. Holding cash is not a missed return — it is optionality on future opportunities that will certainly come.</div>
+    </div>
+    <div class="prin-card pc-teal">
+      <div class="p-num">05</div>
+      <span class="p-icon">📋</span>
+      <div class="p-title">Costs Are the Only Guaranteed Return</div>
+      <div class="p-body">Reducing costs by 1% per year compounds into a doubling of capital over 30 years. Actively minimize TER, transaction costs, tax drag, and management fees. The best edge in investing is not stock selection — it is ruthless cost efficiency.</div>
+    </div>
+    <div class="prin-card pc-copper">
+      <div class="p-num">06</div>
+      <span class="p-icon">🎯</span>
+      <div class="p-title">Position Sizing Beats Timing</div>
+      <div class="p-body">How much you allocate to each position matters infinitely more than when you enter. Risk maximum 2–5% of your portfolio in any single position. Concentration risk — not bad timing — is the primary cause of portfolio destruction among private investors.</div>
+    </div>
+    <div class="prin-card pc-gold">
+      <div class="p-num">07</div>
+      <span class="p-icon">✂️</span>
+      <div class="p-title">Cut Losses, Let Profits Run</div>
+      <div class="p-body">Define your stop-loss level at the moment of purchase, not after the price falls. Nothing destroys capital faster than holding a falling position and hoping for recovery. Winning positions need time and patience. Losing positions need exits and discipline.</div>
+    </div>
+    <div class="prin-card pc-blue">
+      <div class="p-num">08</div>
+      <span class="p-icon">🔁</span>
+      <div class="p-title">Rebalancing is Systematic Alpha</div>
+      <div class="p-body">Disciplined rebalancing forces you to sell what has appreciated and buy what has fallen — mechanically doing what most investors cannot do emotionally. Over decades, this disciplined contrarianism consistently generates additional return above buy-and-hold.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MENTAL MODELS
+══════════════════════════════════════════ -->
+<section class="sec s-off" id="s-models">
+  <div class="sec-label"><span class="sec-label-txt">Mental Models</span></div>
+  <h2 class="sec-title">The <em>cognitive frameworks</em><br>elite investors think with</h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Mental models are the lenses through which great investors interpret market reality. Adopt these and your analytical edge becomes structural — not dependent on effort or luck, but on how you see the world.</p>
+
+  <div class="formula-block">
+    <span class="formula-label">The Compound Growth Formula — Your Most Important Equation</span>
+    <div class="formula-eq">FV = PV × (1 + r)<sup>n</sup> + <span>PMT</span> × [(1 + r)<sup>n</sup> − 1] / r</div>
+    <div class="formula-desc">Where FV = Future Value, PV = Present Value (initial capital), r = periodic return rate, n = number of periods, PMT = periodic contribution. The lesson: all four variables matter. Most investors focus only on r (return). Time (n) is often the more powerful lever.</div>
+  </div>
+
+  <div class="models-grid">
+    <div class="model-card mc-gold">
+      <div class="mc-num">01</div>
+      <div class="mc-title">Mr. Market (Benjamin Graham)</div>
+      <div class="mc-body">Imagine a business partner who offers to buy or sell his shares every day at different prices. Some days he is euphoric and offers too much. Some days he is depressed and offers too little. Your job is never to let his mood influence you — only to exploit his irrationality when it benefits you.</div>
+      <div class="mc-source">SOURCE — The Intelligent Investor, B. Graham (1949)</div>
+    </div>
+    <div class="model-card mc-blue">
+      <div class="mc-num">02</div>
+      <div class="mc-title">Circle of Competence (Buffett)</div>
+      <div class="mc-body">Invest only in businesses and assets you truly understand — not in the abstract sense, but in operational depth. Your edge in any investment comes from knowing more than the market. Outside your circle, you are not investing — you are gambling with extra steps.</div>
+      <div class="mc-source">SOURCE — Berkshire Hathaway Annual Letters</div>
+    </div>
+    <div class="model-card mc-green">
+      <div class="mc-num">03</div>
+      <div class="mc-title">All-Weather Portfolio (Ray Dalio)</div>
+      <div class="mc-body">Every asset performs differently across four economic environments: growth rising, growth falling, inflation rising, inflation falling. A true all-weather portfolio holds assets that outperform in each environment, so the portfolio performs in any macro condition.</div>
+      <div class="mc-source">SOURCE — Ray Dalio, Bridgewater Associates</div>
+    </div>
+    <div class="model-card mc-pur">
+      <div class="mc-num">04</div>
+      <div class="mc-title">Second-Level Thinking (Howard Marks)</div>
+      <div class="mc-body">First-level thinking says "this company has a great future — I'll buy it." Second-level thinking asks: "How much of that great future is already priced in? What do I know that the market does not?" Edge requires being contrarian AND correct — not just different.</div>
+      <div class="mc-source">SOURCE — The Most Important Thing, H. Marks (2011)</div>
+    </div>
+    <div class="model-card mc-teal">
+      <div class="mc-num">05</div>
+      <div class="mc-title">Margin of Safety (Graham/Buffett)</div>
+      <div class="mc-body">Never pay fair value for an asset. Always demand a discount significant enough to protect against your own analytical errors. The margin of safety is not about pessimism — it is about acknowledging that even your best analysis can be wrong, and building a buffer for that reality.</div>
+      <div class="mc-source">SOURCE — Security Analysis, B. Graham (1934)</div>
+    </div>
+    <div class="model-card mc-copper">
+      <div class="mc-num">06</div>
+      <div class="mc-title">The Reflexivity Theory (George Soros)</div>
+      <div class="mc-body">Markets do not reflect reality — they participate in creating it. Rising prices attract buying, which drives prices further, which changes the underlying fundamentals. Understanding this feedback loop between perception and reality is what allows the best investors to identify and trade bubbles before they burst.</div>
+      <div class="mc-source">SOURCE — The Alchemy of Finance, G. Soros (1987)</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════════════════════════════════════════
+     TIMING MATRIX
+══════════════════════════════════════════ -->
+<section class="sec s-white" id="s-timing">
+  <div class="sec-label"><span class="sec-label-txt">Timing Matrix</span></div>
+  <h2 class="sec-title">Entry, Management &<br><em>Exit — the Complete Matrix</em></h2>
+  <p class="sec-body" style="margin-bottom:1.8rem;">For each strategy type, this matrix defines the optimal combination of entry logic, management rhythm, and exit criteria. Choose your type based on your Stage 1 profile and implement the system without deviation.</p>
+
+  <table class="strat-table">
+    <thead>
+      <tr>
+        <th>Strategy Type</th>
+        <th>Entry Logic</th>
+        <th>Rebalancing</th>
+        <th>Exit Criterion</th>
+        <th>Horizon</th>
+        <th>Risk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-strong">Core-Satellite</td>
+        <td>Monthly cost-averaging</td>
+        <td>Quarterly</td>
+        <td>Target weight ±5%</td>
+        <td>10+ years</td>
+        <td><span class="badge bk-green">LOW</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">Value Investing</td>
+        <td>P/E &lt;15, P/B &lt;1.5</td>
+        <td>At overvaluation</td>
+        <td>Fair value +20%</td>
+        <td>3–7 years</td>
+        <td><span class="badge bk-blue">MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">Growth Focused</td>
+        <td>Breakout after consolidation</td>
+        <td>Monthly</td>
+        <td>Stop-loss −15–20%</td>
+        <td>1–5 years</td>
+        <td><span class="badge bk-gold">MED-HIGH</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">Barbell Strategy</td>
+        <td>90% safe / 10% speculative</td>
+        <td>Annual</td>
+        <td>Total loss of speculative tranche</td>
+        <td>5–15 years</td>
+        <td><span class="badge bk-blue">MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">Income Strategy</td>
+        <td>Dividend yield &gt;3.5%</td>
+        <td>Semi-annually</td>
+        <td>Dividend cut or yield compression</td>
+        <td>Indefinite</td>
+        <td><span class="badge bk-green">LOW</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">All-Weather</td>
+        <td>Lump sum + quarterly add</td>
+        <td>Quarterly</td>
+        <td>Macro regime change</td>
+        <td>10+ years</td>
+        <td><span class="badge bk-teal">VERY LOW</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">Momentum</td>
+        <td>RS &gt;80 vs. market</td>
+        <td>Weekly</td>
+        <td>RS drops below 50</td>
+        <td>1–12 months</td>
+        <td><span class="badge bk-ruby">HIGH</span></td>
+      </tr>
+      <tr>
+        <td class="td-strong">Crypto Structured</td>
+        <td>Post-halving entry, DCA</td>
+        <td>Monthly</td>
+        <td>Fear & Greed &gt;85, trailing stop</td>
+        <td>1–4 years</td>
+        <td><span class="badge bk-ruby">VERY HIGH</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout co-green" style="margin-top:2rem;">
+    <span class="co-icon">✅</span>
+    <div class="co-title">The Non-Negotiable Rule</div>
+    <div class="co-body">Before executing any trade — regardless of size — document your entry price, position size (% of portfolio), target return, stop-loss level, and expected holding period in writing. An investment without a written plan is not a strategy. It is a hope. Hopes do not compound.</div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════════════════════════════════════════
+     WORKSHEET
+══════════════════════════════════════════ -->
+<section class="sec s-parch" id="s-ws">
+  <div class="sec-label"><span class="sec-label-txt">Interactive Worksheet</span></div>
+  <h2 class="sec-title">Your Investment Master Plan<br><em>— Fill In & Execute</em></h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">Theory without execution is intellectual entertainment. Complete this plan now. It becomes your personal investment constitution — the document you consult before every financial decision, and the one that will prevent your future emotional self from overriding your rational present self.</p>
+
+  <div class="callout co-pur">
+    <span class="co-icon">🔒</span>
+    <div class="co-title">Your Investment Constitution</div>
+    <div class="co-body">Once written, this plan should only be modified during your scheduled quarterly review — never in response to market movements, headlines, or emotional reactions. The entire purpose of writing it now is to bind your future self to rational decisions made in a rational state.</div>
+  </div>
+
+  <div class="ws">
+    <div class="ws-head">
+      <span class="ws-title">Investment Master Plan — Personal & Confidential</span>
+      <span class="ws-icon">📋</span>
+    </div>
+    <div class="ws-body">
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Primary Investment Goal</div>
+          <div class="ws-hint">What specifically are you building towards?</div>
+        </div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Build €500,000 by 2035 for financial independence. Fund children's education by 2030. Create €3,000/month passive income within 12 years..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Capital Available</div>
+          <div class="ws-hint">Lump sum + ongoing contributions</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+          <input class="ws-inp" type="number" placeholder="Initial capital (€)">
+          <input class="ws-inp" type="number" placeholder="Monthly contribution (€)">
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Risk Profile</div>
+          <div class="ws-hint">The loss % at which you would panic</div>
+        </div>
+        <div class="ws-radios">
+          <input type="radio" name="risk" id="ri1" class="wr">
+          <label for="ri1" class="wrl">Defensive (−10% max)</label>
+          <input type="radio" name="risk" id="ri2" class="wr" checked>
+          <label for="ri2" class="wrl">Balanced (−20% max)</label>
+          <input type="radio" name="risk" id="ri3" class="wr">
+          <label for="ri3" class="wrl">Aggressive (−40% max)</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Target Asset Allocation</div>
+          <div class="ws-hint">Your target weights — must sum to 100%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;">
+          <input class="ws-inp" type="number" placeholder="ETFs / Funds %">
+          <input class="ws-inp" type="number" placeholder="Individual stocks %">
+          <input class="ws-inp" type="number" placeholder="Alternatives %">
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Entry Strategy</div>
+          <div class="ws-hint">How and when do you deploy capital?</div>
+        </div>
+        <div class="ws-radios">
+          <input type="radio" name="entry" id="en1" class="wr" checked>
+          <label for="en1" class="wrl">Monthly cost-averaging</label>
+          <input type="radio" name="entry" id="en2" class="wr">
+          <label for="en2" class="wrl">Staged (3–6 months)</label>
+          <input type="radio" name="entry" id="en3" class="wr">
+          <label for="en3" class="wrl">Opportunistic</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Rebalancing Trigger</div>
+          <div class="ws-hint">When do you realign the portfolio?</div>
+        </div>
+        <div class="ws-radios">
+          <input type="radio" name="reb" id="rb1" class="wr">
+          <label for="rb1" class="wrl">Quarterly</label>
+          <input type="radio" name="reb" id="rb2" class="wr" checked>
+          <label for="rb2" class="wrl">Semi-annually</label>
+          <input type="radio" name="reb" id="rb3" class="wr">
+          <label for="rb3" class="wrl">At ±5% drift</label>
+          <input type="radio" name="reb" id="rb4" class="wr">
+          <label for="rb4" class="wrl">Annually</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Exit Criteria</div>
+          <div class="ws-hint">Define before entry — not after price falls</div>
+        </div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Stop-loss at −15% for all equity positions. Partial exit (30%) at +50% gain. Full exit at target date 2035. Trailing stop of −10% from peak for crypto positions..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Non-Negotiable Rules</div>
+          <div class="ws-hint">The rules you will NEVER break — ever</div>
+        </div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Never more than 5% in a single stock. Never invest with borrowed capital. Always maintain 3-month emergency fund. Never sell during a crash below −20% without consultation. No FOMO entries..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Review Schedule</div>
+          <div class="ws-hint">When do you formally review this plan?</div>
+        </div>
+        <div class="ws-radios">
+          <input type="radio" name="rev" id="rv1" class="wr">
+          <label for="rv1" class="wrl">Monthly</label>
+          <input type="radio" name="rev" id="rv2" class="wr" checked>
+          <label for="rv2" class="wrl">Quarterly</label>
+          <input type="radio" name="rev" id="rv3" class="wr">
+          <label for="rv3" class="wrl">Semi-annually</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div>
+          <div class="ws-lbl">Accountability Partner</div>
+          <div class="ws-hint">Who holds you to this plan?</div>
+        </div>
+        <input class="ws-inp" type="text" placeholder="Name / role of your accountability partner (or 'Self-review with journal')">
+      </div>
+
+    </div>
+    <div class="ws-foot">
+      <span class="ws-note">Your entries are stored locally only — never transmitted.</span>
+      <button class="ws-save" onclick="saveWs(this)">Save My Plan ↓</button>
+    </div>
+  </div>
+
+  <!-- IMPLEMENTATION CHECKLIST -->
+  <div style="margin-top:4rem;">
+    <div class="sec-label"><span class="sec-label-txt">Implementation Checklist</span></div>
+    <h3 style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.65rem;color:var(--navy);margin-bottom:.5rem;font-weight:600;">Your 12-Step Launch Protocol</h3>
+    <p style="font-size:.87rem;color:var(--slate);margin-bottom:1.8rem;line-height:1.72;">Check off each item only when it is fully complete — not when you have merely thought about it. Every unchecked box is a risk vector in your portfolio.</p>
+
+    <ul class="chk">
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Emergency fund fully funded and separated (3–6 months of expenses in liquid savings)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Brokerage account opened (evaluated by TER, selection, user experience, and regulatory protection)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Tax exemption order / withholding exemption filed (€1,000 savings allowance per person in Germany)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Core ETF identified and automated savings plan configured and active</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Target asset allocation documented in this worksheet and stored in a permanent location</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Rebalancing schedule entered in calendar with non-negotiable recurring reminders</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Stop-loss levels defined and recorded for every position before purchase</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Tax optimization reviewed: loss harvesting strategy, holding period awareness, account type selection</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Investment journal started — document every decision, reason, and lesson as you go</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Accountability system in place: partner, coach, or self-review protocol with fixed dates</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">Non-negotiable rules written, signed, and placed where you will see them before every trade</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">First quarterly review appointment scheduled (exactly 3 months from today)</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CLOSING
+══════════════════════════════════════════ -->
+<div class="closing" id="s-close">
+  <div class="cl-inner">
+    <div class="sec-label" style="justify-content:center;margin-bottom:1.5rem;">
+      <span class="sec-label-txt">Closing</span>
+    </div>
+
+    <h2 class="cl-title">Knowledge without<br><em>action is just noise.</em></h2>
+
+    <div class="cl-div"></div>
+
+    <p class="cl-body">
+      You now possess the framework, the tools, the mental models, and the execution plan that the vast majority of private investors will never develop. The difference between you and those who continue investing on emotion and instinct is precisely this: you have a system.
+      <br><br>
+      The system does not require you to be smarter than the market. It does not require perfect timing or flawless stock selection. It requires only one thing: consistent execution. Start today — not after the next earnings release, not after the next correction, not when things feel safer. The system works in all market conditions because it was built for all market conditions.
+      <br><br>
+      Your capital compounds while you sleep — but only if the machine is running.
+    </p>
+
+    <div class="cl-div"></div>
+
+    <button class="cl-next">Proceed to Playbook 02: Market Scenario Simulator →</button>
+
+    <span class="cl-brand">The Capital Code · Architect Edition</span>
+    <div class="cl-meta">PLAYBOOK 01 OF 05 — BUILDING YOUR INVESTMENT FOUNDATION</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// SCROLL & PROGRESS
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('prog').style.width = (window.scrollY / h * 100) + '%';
+  document.querySelectorAll('.sec').forEach(s => {
+    if (s.getBoundingClientRect().top < window.innerHeight * .87) s.classList.add('vis');
+  });
+  updateDots();
+});
+
+// Initial reveal
+setTimeout(() => document.querySelectorAll('.sec').forEach(s => {
+  if (s.getBoundingClientRect().top < window.innerHeight) s.classList.add('vis');
+}), 80);
+
+window.toTop = function() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+window.goTo = function(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+window.updateDots = function() {
+  const sections = ['', 's-intro', 's-framework', 's-engine', 's-assets', 's-prin', 's-models', 's-timing', 's-ws', 's-close'];
+  let active = 0;
+  sections.forEach((id, i) => {
+    const el = id ? document.getElementById(id) : null;
+    if (el && el.getBoundingClientRect().top <= 220) active = i;
+  });
+  document.querySelectorAll('.sd').forEach((d, i) => d.classList.toggle('on', i === active));
+}
+
+// RANGE
+window.updRange = function() {
+  const inp = document.getElementById('rl');
+  const pct = (inp.value - 5) / (60 - 5) * 100;
+  document.getElementById('rl-fill').style.width = pct + '%';
+  document.getElementById('rl-knob').style.left = pct + '%';
+  document.getElementById('rl-num').textContent = '−' + inp.value + '%';
+}
+
+// RISK BUTTONS
+let risk = 'c';
+window.setRisk = function(type, el) {
+  risk = type;
+  document.querySelectorAll('.rb').forEach(b => b.classList.remove('on-c', 'on-b', 'on-a'));
+  el.classList.add('on-' + type);
+}
+
+// ENGINE
+const STRATEGIES = {
+  c: {
+    allocs: [
+      { n: 'MSCI World ETF (Core)', p: 55, c: 'af-blue' },
+      { n: 'Government Bonds ETF', p: 25, c: 'af-slate' },
+      { n: 'Emerging Markets ETF', p: 10, c: 'af-teal' },
+      { n: 'Cash / Money Market', p: 10, c: 'af-green' }
+    ],
+    rMin: 4, rMax: 7,
+    type: 'Capital Preservation',
+    reb: 'Quarterly',
+    exit: 'Time-based (target date)',
+    recs: [
+      'Set up a monthly ETF savings plan as the unshakeable core of your portfolio',
+      'Bond ETFs absorb volatility — increase weight as your time horizon shortens',
+      'Hold cash as strategic reserve for opportunistic buying during market corrections',
+      'Review and rebalance exactly on schedule — not when it feels right, always on the date'
+    ]
+  },
+  b: {
+    allocs: [
+      { n: 'MSCI World / S&P 500 ETF', p: 45, c: 'af-blue' },
+      { n: 'Individual Growth Equities', p: 20, c: 'af-gold' },
+      { n: 'Emerging Markets ETF', p: 15, c: 'af-teal' },
+      { n: 'Bonds / Alternatives', p: 10, c: 'af-pur' },
+      { n: 'Cash Reserve', p: 10, c: 'af-green' }
+    ],
+    rMin: 7, rMax: 12,
+    type: 'Balanced Growth',
+    reb: 'Semi-annually',
+    exit: 'Return-based (+25% partial exit)',
+    recs: [
+      'ETF core provides market-rate compounding — never compromise this anchor position',
+      'Satellite equities are where your research creates alpha — keep them disciplined and capped',
+      'Use rebalancing as systematic contrarian buying — buy low, trim high automatically',
+      'Review your conviction level in each satellite position quarterly — replace weak convictions'
+    ]
+  },
+  a: {
+    allocs: [
+      { n: 'Growth Stocks & Tech ETF', p: 40, c: 'af-blue' },
+      { n: 'Emerging Markets (direct)', p: 20, c: 'af-teal' },
+      { n: 'Crypto (BTC / ETH)', p: 20, c: 'af-pur' },
+      { n: 'High-Conviction Positions', p: 15, c: 'af-gold' },
+      { n: 'Cash Dry Powder', p: 5, c: 'af-green' }
+    ],
+    rMin: 12, rMax: 30,
+    type: 'Aggressive Growth',
+    reb: 'Monthly + threshold-triggered',
+    exit: 'Trailing stop −15% from peak',
+    recs: [
+      'Volatility is your advantage — pre-commit to buying additional shares at −20% and −30% levels',
+      'Crypto requires a non-negotiable exit plan: define your take-profit levels before you buy',
+      'Max 5% per individual position — no exceptions, no matter how strong the conviction',
+      'Keep an aggressive cash reserve (5–10%) — you need purchasing power when crashes create opportunity'
+    ]
+  }
+};
+
+window.runEngine = function() {
+  const cap  = parseFloat(document.getElementById('e-cap').value) || 25000;
+  const mon  = parseFloat(document.getElementById('e-mon').value) || 500;
+  const hor  = parseInt(document.getElementById('e-hor').value);
+  const foc  = document.getElementById('e-foc').value;
+
+  const key = (foc === 'income' || foc === 'etf') ? 'c'
+            : (foc === 'growth' || foc === 'crypto' || foc === 'alternatives') ? 'a'
+            : risk;
+
+  const cfg = STRATEGIES[key];
+  const r = ((cfg.rMin + cfg.rMax) / 2) / 100 / 12;
+  const n = hor * 12;
+  const fv = mon * ((Math.pow(1 + r, n) - 1) / r) + cap * Math.pow(1 + r, n);
+  const invested = mon * n + cap;
+  const gain = fv - invested;
+
+  // Alloc
+  document.getElementById('e-alloc').innerHTML = cfg.allocs.map(a => `
+    <div class="alloc-item">
+      <div class="alloc-row"><span class="alloc-name">${a.n}</span><span class="alloc-pct">${a.p}%</span></div>
+      <div class="alloc-bar"><div class="alloc-fill ${a.c}" style="width:0" data-w="${a.p}"></div></div>
+    </div>`).join('');
+
+  // KPIs
+  document.getElementById('e-kpi').innerHTML = `
+    <div class="kpi-cell"><div class="kpi-lbl">Expected Return p.a.</div><div class="kpi-val kv-green">${cfg.rMin}–${cfg.rMax}%</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Projected Final Value</div><div class="kpi-val kv-gold">€${Math.round(fv).toLocaleString('de-DE')}</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Total Capital Deployed</div><div class="kpi-val kv-navy">€${Math.round(invested).toLocaleString('de-DE')}</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Compound Growth Gain</div><div class="kpi-val kv-pur">+€${Math.round(gain).toLocaleString('de-DE')}</div></div>`;
+
+  // Recs
+  document.getElementById('e-recs').innerHTML = cfg.recs.map(r => `
+    <div class="rec-item"><span class="rec-arrow">→</span>${r}</div>`).join('');
+
+  // Projection milestones
+  const milestones = [1, 3, 5, 10, hor].filter((v, i, a) => a.indexOf(v) === i && v <= hor);
+  const projHtml = milestones.map(y => {
+    const ny = y * 12;
+    const fvy = mon * ((Math.pow(1 + r, ny) - 1) / r) + cap * Math.pow(1 + r, ny);
+    return `Year ${y}: €${Math.round(fvy).toLocaleString('de-DE')} (invested: €${(mon * ny + cap).toLocaleString('de-DE')})`;
+  }).join('\n');
+  document.getElementById('e-proj').innerHTML = projHtml.split('\n').join('<br>');
+
+  document.getElementById('e-ph').style.display = 'none';
+  document.getElementById('e-res').classList.add('show');
+  document.getElementById('ef-type').textContent = cfg.type;
+  document.getElementById('ef-reb').textContent = cfg.reb;
+  document.getElementById('ef-exit').textContent = cfg.exit;
+
+  setTimeout(() => {
+    document.querySelectorAll('.alloc-fill[data-w]').forEach(el => {
+      el.style.width = el.getAttribute('data-w') + '%';
+    });
+  }, 80);
+}
+
+// CHECKLIST
+window.tick = function(li) { li.classList.toggle('done'); }
+
+// SAVE
+window.saveWs = function(btn) {
+  const orig = btn.textContent;
+  btn.textContent = '✓ Saved!';
+  btn.style.background = 'var(--emerald)';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 2500);
+}
+</script>
+</body>
+</html>

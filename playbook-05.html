@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Code — Playbook 05: Wealth Optimization Templates</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   THE CAPITAL CODE — Self-Contained Font System
+   No internet connection required
+═══════════════════════════════════════════════════ */
+
+/* ─── SYSTEM FONT STACK: NO INTERNET REQUIRED ─── */
+:root {
+  --font-serif: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:  'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+}
+
+
+/* Display / Serif → Palatino family (elegant, available on all OS) */
+/* Body → System UI font stack (crisp on all platforms) */
+/* Mono → Courier/Consolas family */
+
+</style>
+<style>
+:root {
+  --navy:#08152A; --navy-mid:#0F2040; --navy-light:#183060; --navy-soft:#1E3A6E;
+  --white:#FFFFFF; --off:#F7F6F2; --cream:#F0EDE4; --parch:#EAE5D8;
+  --gold:#C8922A; --gold-l:#E4AF56; --gold-p:#F5E6C0; --gold-d:#9A6E1A;
+  --sapp:#1A52A8; --sapp-l:#3B7FD4; --sapp-p:#E8F0FB;
+  --em:#186848; --em-l:#28A870; --em-p:#E4F5ED;
+  --ruby:#A82828; --ruby-l:#D84848; --ruby-p:#FAEAEA;
+  --am:#5C2A8C; --am-l:#8C4FBF; --am-p:#F0E8F8;
+  --cop:#B05020; --cop-l:#D87040; --cop-p:#FAEEE8;
+  --teal:#0E6B6B; --teal-l:#1A9A9A; --teal-p:#E4F4F4;
+  --amber:#B87800; --amb-l:#E0A020; --amb-p:#FDF5E0;
+  --violet:#4A1870; --vio-l:#7A38B0; --vio-p:#F2EAF8;
+  --rose:#8C1840; --rose-l:#C84060; --rose-p:#FAE8EE;
+  --slate:#3A5070; --slate-m:#5A7090; --slate-l:#8AAABB;
+  --border:#DDD8CC; --bsoft:#EAE7E0;
+  --sh-sm:0 2px 16px rgba(8,21,42,.07);
+  --sh-md:0 8px 48px rgba(8,21,42,.11);
+  --sh-lg:0 20px 80px rgba(8,21,42,.15);
+  --sh-xl:0 32px 120px rgba(8,21,42,.20);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--off);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.72;overflow-x:hidden;}
+
+#prog{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--gold),var(--am-l),var(--teal-l),var(--gold));z-index:9999;background-size:200% 100%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0% 0%;}100%{background-position:200% 0%;}}
+
+/* SIDEBAR */
+.sb{position:fixed;left:0;top:0;bottom:0;width:66px;background:var(--navy);z-index:200;display:flex;flex-direction:column;align-items:center;padding:2rem 0;}
+.sb-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:var(--gold);font-size:.95rem;font-weight:700;letter-spacing:.08em;writing-mode:vertical-lr;transform:rotate(180deg);margin-bottom:auto;}
+.sb-dots{display:flex;flex-direction:column;gap:1rem;margin-bottom:auto;}
+.sd{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .25s;position:relative;}
+.sd:hover,.sd.on{background:var(--gold);transform:scale(1.5);}
+.sd::after{content:attr(data-tip);position:absolute;left:17px;top:50%;transform:translateY(-50%);background:var(--navy-mid);color:#fff;font-size:.58rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.08em;padding:.22rem .6rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s;border-left:2px solid var(--gold);}
+.sd:hover::after{opacity:1;}
+.sb-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:rgba(255,255,255,.22);font-size:.62rem;writing-mode:vertical-lr;transform:rotate(180deg);letter-spacing:.22em;margin-top:.5rem;}
+
+.wrap{margin-left:66px;}
+
+/* COVER — special final chapter treatment */
+.cover{min-height:100vh;background:var(--navy);position:relative;display:flex;flex-direction:column;overflow:hidden;}
+.cv-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 55% at 65% 30%,rgba(200,146,42,.28) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 45% at 18% 72%,rgba(92,42,140,.2) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 35% at 85% 80%,rgba(14,107,107,.18) 0%,transparent 50%),
+  radial-gradient(ellipse 30% 25% at 50% 50%,rgba(26,82,168,.1) 0%,transparent 50%),
+  linear-gradient(160deg,#08152A 0%,#0F2040 45%,#0A1A30 100%);}
+.cv-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:68px 68px;}
+.cv-r1{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:640px;height:640px;border-radius:50%;border:1px solid rgba(200,146,42,.1);}
+.cv-r2{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:480px;height:480px;border-radius:50%;border:1px solid rgba(92,42,140,.07);}
+.cv-r3{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:320px;height:320px;border-radius:50%;border:1px solid rgba(14,107,107,.06);}
+.cv-r4{position:absolute;right:0px;top:50%;transform:translateY(-50%);width:160px;height:160px;border-radius:50%;border:1px solid rgba(200,146,42,.05);}
+.cv-body{position:relative;z-index:5;padding:5.5rem 6rem;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.cv-pre{display:flex;align-items:center;gap:1rem;margin-bottom:2.8rem;animation:fadeUp .8s ease both;}
+.cv-pre-line{width:34px;height:1px;background:linear-gradient(90deg,var(--gold),var(--am-l));}
+.cv-pre-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold-l);letter-spacing:.35em;text-transform:uppercase;}
+.cv-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(3.2rem,6vw,6.5rem);font-weight:600;color:#fff;line-height:1.02;margin-bottom:1.6rem;animation:fadeUp .8s ease .1s both;max-width:780px;}
+.cv-title em{font-style:italic;color:var(--gold-l);}
+.cv-title .c-gold{color:var(--gold-l);}
+.cv-sub{font-size:1.02rem;color:rgba(255,255,255,.48);font-weight:300;max-width:540px;line-height:1.84;margin-bottom:3.2rem;animation:fadeUp .8s ease .2s both;}
+.cv-tags{display:flex;gap:.7rem;flex-wrap:wrap;animation:fadeUp .8s ease .3s both;margin-bottom:4rem;}
+.cv-tag{padding:.38rem .95rem;border:1px solid rgba(200,146,42,.35);color:rgba(255,255,255,.55);font-size:.62rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.14em;text-transform:uppercase;}
+.cv-metrics{display:flex;gap:3rem;animation:fadeUp .8s ease .4s both;}
+.cv-mval{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.4rem;font-weight:700;color:var(--gold-l);display:block;line-height:1;}
+.cv-mlbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;display:block;}
+.cv-bignum{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(8rem,16vw,16rem);font-weight:300;color:rgba(255,255,255,.025);position:absolute;right:5rem;bottom:3rem;line-height:1;letter-spacing:-.03em;animation:fadeUp 1.4s ease .5s both;pointer-events:none;}
+/* 5-playbook ribbon on cover */
+.cv-ribbon{position:relative;z-index:5;display:flex;border-top:1px solid rgba(255,255,255,.06);}
+.cv-rb-cell{flex:1;padding:1.2rem 1.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.06);position:relative;transition:background .2s;}
+.cv-rb-cell:last-child{border-right:none;}
+.cv-rb-cell.active{background:rgba(200,146,42,.08);}
+.cv-rb-num{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:rgba(255,255,255,.2);letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:.2rem;}
+.cv-rb-name{font-size:.75rem;color:rgba(255,255,255,.4);display:block;}
+.cv-rb-cell.active .cv-rb-num{color:var(--gold);}
+.cv-rb-cell.active .cv-rb-name{color:rgba(255,255,255,.75);}
+.cv-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.1em;}
+
+/* SECTIONS */
+.sec{padding:6rem;transition:opacity .7s ease,transform .7s ease;position:relative;}
+.sec.vis{opacity:1;transform:none;}
+.s-white{background:var(--white);}
+.s-off{background:var(--off);}
+.s-cream{background:var(--cream);}
+.s-parch{background:var(--parch);}
+.s-navy{background:var(--navy);color:#fff;}
+.s-capstone{background:linear-gradient(160deg,#0A0818 0%,#0F1030 60%,#080E20 100%);color:#fff;}
+
+/* LABELS */
+.lbl{display:flex;align-items:center;gap:.9rem;margin-bottom:1.1rem;}
+.lbl::before{content:'';width:24px;height:2px;background:var(--gold);flex-shrink:0;}
+.lbl-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--gold);letter-spacing:.32em;text-transform:uppercase;}
+.lbl.green::before{background:var(--em);}
+.lbl.green .lbl-txt{color:var(--em);}
+.lbl.blue::before{background:var(--sapp);}
+.lbl.blue .lbl-txt{color:var(--sapp);}
+.lbl.teal::before{background:var(--teal);}
+.lbl.teal .lbl-txt{color:var(--teal);}
+.lbl.pur::before{background:var(--am);}
+.lbl.pur .lbl-txt{color:var(--am);}
+.lbl.ruby::before{background:var(--ruby);}
+.lbl.ruby .lbl-txt{color:var(--ruby);}
+
+.sec-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(2.1rem,3.6vw,3.4rem);font-weight:600;line-height:1.12;color:var(--navy);margin-bottom:1.4rem;}
+.s-navy .sec-title,.s-capstone .sec-title{color:#fff;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-title .c-gold{color:var(--gold-l);}
+.sec-body{font-size:.96rem;line-height:1.86;color:var(--slate);max-width:700px;}
+.s-navy .sec-body,.s-capstone .sec-body{color:rgba(255,255,255,.52);}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:2rem;margin:0 6rem;padding:3rem 0;}
+.dl{flex:1;height:1px;background:var(--bsoft);}
+.dd{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);flex-shrink:0;}
+.divider.dk .dl{background:rgba(255,255,255,.1);}
+
+/* CALLOUTS */
+.co{padding:1.8rem 2rem;border-left:4px solid;margin:2rem 0;}
+.co-gold{background:var(--gold-p);border-color:var(--gold);}
+.co-green{background:var(--em-p);border-color:var(--em);}
+.co-blue{background:var(--sapp-p);border-color:var(--sapp);}
+.co-teal{background:var(--teal-p);border-color:var(--teal);}
+.co-pur{background:var(--am-p);border-color:var(--am);}
+.co-ruby{background:var(--ruby-p);border-color:var(--ruby);}
+.co-cop{background:var(--cop-p);border-color:var(--cop);}
+.co-amb{background:var(--amb-p);border-color:var(--amber);}
+.co-vio{background:var(--vio-p);border-color:var(--violet);}
+.co-ico{font-size:1.1rem;margin-bottom:.4rem;display:block;}
+.co-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+.co-body{font-size:.84rem;color:var(--slate);line-height:1.76;}
+
+/* ══ TEMPLATE CARDS ══ */
+.tpl-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:2.5rem;}
+.tpl-card{background:var(--white);border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh-sm);transition:box-shadow .22s;}
+.tpl-card:hover{box-shadow:var(--sh-md);}
+.tpl-head{padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+.th-gold{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-bottom:2px solid var(--gold);}
+.th-green{background:linear-gradient(135deg,#0A1E12,#102A1A);border-bottom:2px solid var(--em);}
+.th-blue{background:linear-gradient(135deg,#060E1A,#0A1828);border-bottom:2px solid var(--sapp);}
+.th-teal{background:linear-gradient(135deg,#04141A,#061E22);border-bottom:2px solid var(--teal);}
+.th-pur{background:linear-gradient(135deg,#100A1E,#180E2A);border-bottom:2px solid var(--am);}
+.th-ruby{background:linear-gradient(135deg,#1A0808,#220A0A);border-bottom:2px solid var(--ruby);}
+.th-cop{background:linear-gradient(135deg,#1A0C04,#261206);border-bottom:2px solid var(--cop);}
+.th-amb{background:linear-gradient(135deg,#1A1204,#221806);border-bottom:2px solid var(--amber);}
+.tpl-icon{font-size:1.8rem;}
+.tpl-name{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:700;color:#fff;}
+.tpl-sub{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase;margin-top:.15rem;}
+.tpl-body{padding:1.5rem 2rem;}
+.tpl-desc{font-size:.84rem;color:var(--slate);line-height:1.72;margin-bottom:1.2rem;}
+
+/* TEMPLATE FORM ROWS */
+.tf-row{display:flex;align-items:center;gap:.75rem;padding:.55rem 0;border-bottom:1px solid var(--bsoft);}
+.tf-row:last-child{border-bottom:none;}
+.tf-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-m);letter-spacing:.1em;text-transform:uppercase;min-width:150px;flex-shrink:0;}
+.tf-inp{flex:1;padding:.45rem .8rem;border:1.5px solid var(--bsoft);background:var(--off);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.84rem;outline:none;transition:all .2s;}
+.tf-inp:focus{border-color:var(--gold);background:var(--white);box-shadow:0 0 0 2px rgba(200,146,42,.08);}
+.tf-inp.green:focus{border-color:var(--em-l);}
+.tf-inp.blue:focus{border-color:var(--sapp-l);}
+.tf-inp.teal:focus{border-color:var(--teal-l);}
+.tf-inp.pur:focus{border-color:var(--am-l);}
+.tf-inp.ruby:focus{border-color:var(--ruby-l);}
+.tf-sel{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235A7090' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .75rem center;padding-right:2.2rem;}
+.tf-ta{width:100%;padding:.5rem .8rem;border:1.5px solid var(--bsoft);background:var(--off);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.82rem;outline:none;resize:vertical;min-height:56px;line-height:1.6;transition:all .2s;}
+.tf-ta:focus{border-color:var(--gold);background:var(--white);}
+.tpl-save{display:block;width:100%;margin-top:1.2rem;padding:.7rem;background:var(--navy);color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.tpl-save::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--am-l));transform:scaleX(0);transition:transform .3s;}
+.tpl-save:hover{background:var(--navy-light);}
+.tpl-save:hover::after{transform:scaleX(1);}
+
+/* ══ PLAYBOOK OVERVIEW GRID ══ */
+.pb-overview{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.pb-card{padding:2rem;border:1px solid var(--bsoft);background:var(--white);position:relative;overflow:hidden;transition:all .22s;}
+.pb-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.pb-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.pbc-1::before{background:linear-gradient(90deg,var(--sapp),var(--sapp-l));}
+.pbc-2::before{background:linear-gradient(90deg,var(--ruby),var(--ruby-l));}
+.pbc-3::before{background:linear-gradient(90deg,var(--em),var(--em-l));}
+.pbc-4::before{background:linear-gradient(90deg,var(--amber),var(--amb-l));}
+.pbc-5::before{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.pb-num{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-l);letter-spacing:.18em;margin-bottom:.5rem;display:block;}
+.pb-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;}
+.pb-desc{font-size:.78rem;color:var(--slate-m);line-height:1.65;margin-bottom:1rem;}
+.pb-keys{display:flex;flex-wrap:wrap;gap:.4rem;}
+.pb-key{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;padding:.18rem .5rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid;}
+.pk-blue{border-color:var(--sapp);color:var(--sapp);background:var(--sapp-p);}
+.pk-red{border-color:var(--ruby);color:var(--ruby);background:var(--ruby-p);}
+.pk-green{border-color:var(--em);color:var(--em);background:var(--em-p);}
+.pk-gold{border-color:var(--gold);color:var(--gold-d);background:var(--gold-p);}
+.pk-amb{border-color:var(--amber);color:var(--amber);background:var(--amb-p);}
+
+/* ══ WEALTH DASHBOARD ══ */
+.dash{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-xl);overflow:hidden;margin:2.5rem 0;}
+.dash-hd{background:var(--navy-mid);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.dash-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.28rem;font-weight:600;color:#fff;}
+.dash-badge{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--gold-l);letter-spacing:.18em;border:1px solid rgba(200,146,42,.38);padding:.28rem .8rem;text-transform:uppercase;}
+.dash-body{padding:2.5rem;}
+.dash-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);margin-bottom:2.5rem;}
+.dk{background:var(--off);padding:1.2rem 1rem;text-align:center;}
+.dk-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;}
+.dk-val{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.6rem;font-weight:700;line-height:1;display:block;}
+.dk-sub{font-size:.65rem;color:var(--slate-l);margin-top:.15rem;display:block;}
+.dv-gold{color:var(--gold);}
+.dv-green{color:var(--em);}
+.dv-blue{color:var(--sapp);}
+.dv-teal{color:var(--teal);}
+.dv-pur{color:var(--am);}
+.dv-navy{color:var(--navy);}
+.dv-ruby{color:var(--ruby);}
+.dash-sections{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.dash-sec-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.9rem;padding-bottom:.45rem;border-bottom:2px solid var(--gold);}
+.dash-sec-lbl.green{color:var(--em);border-color:var(--em);}
+.dash-sec-lbl.blue{color:var(--sapp);border-color:var(--sapp);}
+.dash-sec-lbl.teal{color:var(--teal);border-color:var(--teal);}
+/* ALLOC VISUAL */
+.alloc-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.8rem;}
+.ar-label{font-size:.8rem;color:var(--slate);min-width:130px;}
+.ar-bar{flex:1;height:6px;background:var(--bsoft);position:relative;overflow:hidden;}
+.ar-fill{height:100%;transition:width .9s cubic-bezier(.4,0,.2,1);}
+.af-blue{background:linear-gradient(90deg,var(--sapp),var(--sapp-l));}
+.af-gold{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.af-green{background:linear-gradient(90deg,var(--em),var(--em-l));}
+.af-pur{background:linear-gradient(90deg,var(--am),var(--am-l));}
+.af-teal{background:linear-gradient(90deg,var(--teal),var(--teal-l));}
+.af-cop{background:linear-gradient(90deg,var(--cop),var(--cop-l));}
+.af-ruby{background:linear-gradient(90deg,var(--ruby),var(--ruby-l));}
+.af-slate{background:linear-gradient(90deg,var(--slate),var(--slate-m));}
+.ar-pct{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.68rem;color:var(--slate-m);min-width:35px;text-align:right;}
+/* HEALTH METERS */
+.health-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.hm{padding:1rem;border:1px solid var(--bsoft);text-align:center;background:var(--white);}
+.hm-name{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;}
+.hm-score{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.8rem;font-weight:700;line-height:1;margin-bottom:.2rem;}
+.hm-bar{height:4px;background:var(--bsoft);margin:.4rem 0;}
+.hm-fill{height:100%;transition:width .9s cubic-bezier(.4,0,.2,1);}
+.hm-note{font-size:.65rem;color:var(--slate-l);}
+/* GOALS */
+.goal-item{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bsoft);}
+.goal-item:last-child{border-bottom:none;}
+.goal-bar-wrap{flex:1;}
+.goal-name{font-size:.78rem;color:var(--navy);font-weight:500;margin-bottom:.3rem;display:flex;justify-content:space-between;}
+.goal-pct{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.65rem;color:var(--slate-m);}
+.goal-bar{height:5px;background:var(--bsoft);overflow:hidden;}
+.goal-fill{height:100%;transition:width .9s cubic-bezier(.4,0,.2,1);}
+/* TASK LIST */
+.task-item{display:flex;gap:.75rem;align-items:flex-start;padding:.55rem 0;border-bottom:1px solid var(--bsoft);cursor:pointer;}
+.task-item:last-child{border-bottom:none;}
+.task-box{width:16px;height:16px;border:1.5px solid var(--border);flex-shrink:0;margin-top:.1rem;position:relative;background:var(--white);transition:all .2s;}
+.task-item.done .task-box{background:var(--em);border-color:var(--em);}
+.task-item.done .task-box::after{content:'';position:absolute;left:3px;top:4px;width:4px;height:6px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-3px);}
+.task-item.done .task-txt{text-decoration:line-through;color:var(--slate-l);}
+.task-txt{font-size:.8rem;color:var(--slate);line-height:1.55;}
+.task-badge{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;padding:.15rem .45rem;border:1px solid;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em;}
+.tb-gold{border-color:var(--gold);color:var(--gold-d);background:var(--gold-p);}
+.tb-green{border-color:var(--em);color:var(--em);background:var(--em-p);}
+.tb-blue{border-color:var(--sapp);color:var(--sapp);background:var(--sapp-p);}
+.tb-red{border-color:var(--ruby);color:var(--ruby);background:var(--ruby-p);}
+.tb-pur{border-color:var(--am);color:var(--am);background:var(--am-p);}
+.dash-ft{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);background:var(--navy);}
+.ef-cell{padding:1.1rem 1.3rem;text-align:center;position:relative;}
+.ef-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:22%;bottom:22%;width:1px;background:rgba(255,255,255,.09);}
+.ef-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:rgba(255,255,255,.28);letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:.22rem;}
+.ef-val{font-size:.82rem;color:#fff;font-weight:500;display:block;}
+.ef-g{color:var(--em-l);}
+.ef-gold{color:var(--gold-l);}
+.ef-t{color:var(--teal-l);}
+
+/* ══ REVIEW SYSTEM ══ */
+.review-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.rv-card{padding:1.8rem;border:1px solid var(--bsoft);background:var(--white);text-align:center;transition:all .22s;position:relative;overflow:hidden;}
+.rv-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.rv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.rvc-week::before{background:linear-gradient(90deg,var(--teal),var(--teal-l));}
+.rvc-month::before{background:linear-gradient(90deg,var(--sapp),var(--sapp-l));}
+.rvc-quarter::before{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.rvc-year::before{background:linear-gradient(90deg,var(--am),var(--am-l));}
+.rv-freq{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem;display:block;}
+.rv-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.8rem;}
+.rv-list{font-size:.78rem;color:var(--slate);line-height:1.8;text-align:left;}
+.rv-list li{list-style:none;padding:.15rem 0;padding-left:.9rem;position:relative;}
+.rv-list li::before{content:'→';position:absolute;left:0;font-size:.65rem;}
+.rv-time{margin-top:.8rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;padding:.3rem .7rem;border:1px solid;display:inline-block;letter-spacing:.08em;text-transform:uppercase;}
+.rvc-week .rv-time{border-color:var(--teal);color:var(--teal);}
+.rvc-month .rv-time{border-color:var(--sapp);color:var(--sapp);}
+.rvc-quarter .rv-time{border-color:var(--gold);color:var(--gold-d);}
+.rvc-year .rv-time{border-color:var(--am);color:var(--am);}
+
+/* ══ WEALTH SCORE ══ */
+.score-engine{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-xl);overflow:hidden;margin:2.5rem 0;}
+.se-hd{background:var(--navy-mid);padding:1.8rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.se-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.22rem;font-weight:600;color:#fff;}
+.se-badge{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--am-l);letter-spacing:.18em;border:1px solid rgba(140,79,191,.4);padding:.28rem .8rem;text-transform:uppercase;}
+.se-body{padding:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+.se-inputs{}
+.score-row{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;}
+.sr-lbl{font-size:.78rem;color:var(--slate);min-width:200px;flex-shrink:0;}
+.sr-pts{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.68rem;color:var(--slate-l);min-width:55px;text-align:right;}
+.sr-check{width:20px;height:20px;border:1.5px solid var(--border);cursor:pointer;background:var(--off);position:relative;flex-shrink:0;transition:all .2s;}
+.sr-check.checked{background:var(--em);border-color:var(--em);}
+.sr-check.checked::after{content:'';position:absolute;left:5px;top:6px;width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-3px);}
+.se-result{display:flex;flex-direction:column;align-items:center;justify-content:center;}
+/* BIG SCORE RING */
+.score-ring-wrap{position:relative;width:200px;height:200px;margin:0 auto 1.5rem;}
+.score-svg{display:block;}
+.score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.score-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.8rem;font-weight:700;line-height:1;display:block;}
+.score-max{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-l);letter-spacing:.12em;display:block;margin-top:.15rem;}
+.score-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.5rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;text-align:center;}
+.score-desc{font-size:.8rem;color:var(--slate);text-align:center;line-height:1.7;max-width:240px;}
+.score-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.5rem;width:100%;}
+.sb-item{padding:.6rem .8rem;border:1px solid var(--bsoft);text-align:center;}
+.sbi-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:var(--slate-l);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.15rem;}
+.sbi-val{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.1rem;font-weight:700;}
+
+/* ══ DARK PRINCIPLES ══ */
+.prin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.pc{padding:2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden;transition:all .22s;}
+.pc:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.pc:hover::after{transform:scaleX(1);}
+.pc-gold::after{background:var(--gold-l);}
+.pc-green::after{background:var(--em-l);}
+.pc-blue::after{background:var(--sapp-l);}
+.pc-teal::after{background:var(--teal-l);}
+.pc-pur::after{background:var(--am-l);}
+.pc-ruby::after{background:var(--ruby-l);}
+.p-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.8rem;font-weight:700;color:rgba(255,255,255,.05);position:absolute;top:.8rem;right:1.2rem;line-height:1;}
+.p-ico{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.p-ttl{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.4rem;}
+.p-bdy{font-size:.79rem;color:rgba(255,255,255,.48);line-height:1.72;}
+
+/* ══ FINAL MANIFEST ══ */
+.manifest{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-xl);overflow:hidden;margin:2.5rem 0;}
+.mf-head{background:linear-gradient(135deg,var(--navy),var(--navy-light));padding:2rem 2.5rem;}
+.mf-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.35rem;color:#fff;font-weight:600;margin-bottom:.4rem;}
+.mf-sub{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.15em;text-transform:uppercase;}
+.mf-body{padding:2.5rem;}
+.mf-section{margin-bottom:2rem;}
+.mf-sec-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid;display:flex;justify-content:space-between;align-items:center;}
+.ms-gold{border-color:var(--gold);}
+.ms-green{border-color:var(--em);}
+.ms-blue{border-color:var(--sapp);}
+.ms-teal{border-color:var(--teal);}
+.ms-pur{border-color:var(--am);}
+.mf-row{display:grid;grid-template-columns:200px 1fr;align-items:start;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--bsoft);}
+.mf-row:last-child{border-bottom:none;}
+.mf-lbl{font-size:.8rem;color:var(--slate-m);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.05em;}
+.mf-inp{width:100%;padding:.5rem .8rem;border:1.5px solid var(--bsoft);background:var(--off);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.85rem;outline:none;transition:all .2s;}
+.mf-inp:focus{border-color:var(--gold-l);background:var(--white);box-shadow:0 0 0 2px rgba(200,146,42,.07);}
+.mf-ta{min-height:56px;resize:vertical;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.6;}
+.mf-foot{padding:1.5rem 2.5rem;background:var(--off);border-top:1px solid var(--bsoft);display:flex;justify-content:space-between;align-items:center;}
+.mf-save{padding:.75rem 2.2rem;background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.mf-save::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--am-l),var(--teal-l));transform:scaleX(0);transition:transform .35s;}
+.mf-save:hover{transform:translateY(-1px);box-shadow:var(--sh-md);}
+.mf-save:hover::after{transform:scaleX(1);}
+.mf-note{font-size:.72rem;color:var(--slate-l);font-style:italic;}
+
+/* ══ FINAL CAPSTONE ══ */
+.capstone{background:var(--navy);color:#fff;padding:8rem 6rem;text-align:center;position:relative;overflow:hidden;}
+.cap-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 50% at 50% 50%,rgba(200,146,42,.07) 0%,transparent 60%),
+  radial-gradient(ellipse 40% 40% at 20% 80%,rgba(92,42,140,.06) 0%,transparent 50%),
+  radial-gradient(ellipse 40% 40% at 80% 20%,rgba(14,107,107,.06) 0%,transparent 50%);}
+.cap-r1{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;border:1px solid rgba(200,146,42,.05);}
+.cap-r2{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;height:560px;border-radius:50%;border:1px solid rgba(92,42,140,.06);}
+.cap-r3{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;border:1px solid rgba(14,107,107,.07);}
+.cap-inner{position:relative;z-index:1;max-width:680px;margin:0 auto;}
+.cap-badge{display:inline-block;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold);letter-spacing:.28em;text-transform:uppercase;border:1px solid rgba(200,146,42,.3);padding:.45rem 1.2rem;margin-bottom:2rem;}
+.cap-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:600;color:#fff;line-height:1.08;margin-bottom:1.2rem;}
+.cap-title em{font-style:italic;color:var(--gold-l);}
+.cap-div{width:40px;height:1px;background:linear-gradient(90deg,var(--gold),var(--am-l));margin:2rem auto;}
+.cap-body{font-size:.96rem;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:2rem;}
+.cap-body strong{color:rgba(255,255,255,.8);}
+.cap-sig{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.2rem;font-style:italic;color:var(--gold-l);margin:2rem 0 .4rem;}
+.cap-sig-sub{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:rgba(255,255,255,.2);letter-spacing:.2em;text-transform:uppercase;}
+/* PLAYBOOK COMPLETION */
+.pb-complete{display:flex;gap:1px;background:rgba(255,255,255,.08);margin:3rem 0 2.5rem;}
+.pbc{flex:1;padding:1.2rem .8rem;text-align:center;}
+.pbc-done{background:rgba(200,146,42,.12);}
+.pbc-done .pbc-n{color:var(--gold-l);}
+.pbc-n{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.4rem;font-weight:700;color:rgba(255,255,255,.15);display:block;line-height:1;}
+.pbc-t{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:rgba(255,255,255,.25);letter-spacing:.08em;text-transform:uppercase;display:block;margin-top:.25rem;}
+.pbc-done .pbc-t{color:rgba(255,255,255,.45);}
+.cap-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.2rem;font-weight:600;color:var(--gold);letter-spacing:.3em;text-transform:uppercase;margin-top:2rem;display:block;}
+.cap-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:rgba(255,255,255,.15);margin-top:.4rem;letter-spacing:.13em;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+@media(max-width:1100px){
+  .wrap{margin-left:0;}.sb{display:none;}
+  .sec{padding:4.5rem 3.5rem;}.cv-body{padding:4rem 3.5rem;}
+  .tpl-grid{grid-template-columns:1fr;}.pb-overview{grid-template-columns:1fr 1fr;}
+  .review-grid{grid-template-columns:1fr 1fr;}.dash-sections{grid-template-columns:1fr;}
+  .se-body{grid-template-columns:1fr;}.dash-kpis{grid-template-columns:repeat(3,1fr);}
+  .prin-grid{grid-template-columns:1fr 1fr;}.dash-ft{grid-template-columns:1fr 1fr;}
+  .capstone{padding:5rem 3.5rem;}.divider{margin:0 3.5rem;}
+}
+@media(max-width:680px){
+  .sec{padding:3.5rem 1.5rem;}.cv-body{padding:3.5rem 1.5rem;}
+  .tpl-grid{grid-template-columns:1fr;}.pb-overview{grid-template-columns:1fr;}
+  .review-grid{grid-template-columns:1fr;}.dash-kpis{grid-template-columns:1fr 1fr;}
+  .prin-grid{grid-template-columns:1fr;}.mf-row{grid-template-columns:1fr;}
+  .cap-inner{max-width:100%;}.pb-complete{flex-wrap:wrap;}
+  .pbc{min-width:50%;}.dash-ft{grid-template-columns:1fr;}
+  .ef-cell:not(:last-child)::after{display:none;}.health-grid{grid-template-columns:1fr;}
+  .capstone{padding:4rem 1.5rem;}.divider{margin:0 1.5rem;}
+}
+</style>
+
+<script>
+// iPad/Safari fix: reveal all sections immediately on load
+window.addEventListener('load', function() {
+  document.querySelectorAll('.sec').forEach(function(s) {
+    s.classList.add('vis');
+    s.style.opacity = '1';
+    s.style.transform = 'none';
+  });
+});
+</script>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav class="sb">
+  <div class="sb-brand">TCC</div>
+  <div class="sb-dots">
+    <div class="sd on"  data-tip="Cover"             onclick="toTop()"></div>
+    <div class="sd"     data-tip="Introduction"      onclick="goTo('s-intro')"></div>
+    <div class="sd"     data-tip="The 5 Playbooks"   onclick="goTo('s-overview')"></div>
+    <div class="sd"     data-tip="Wealth Dashboard"  onclick="goTo('s-dash')"></div>
+    <div class="sd"     data-tip="8 Templates"       onclick="goTo('s-tpls')"></div>
+    <div class="sd"     data-tip="Review System"     onclick="goTo('s-review')"></div>
+    <div class="sd"     data-tip="Wealth Score"      onclick="goTo('s-score')"></div>
+    <div class="sd"     data-tip="Final Principles"  onclick="goTo('s-prin')"></div>
+    <div class="sd"     data-tip="Master Manifest"   onclick="goTo('s-manifest')"></div>
+    <div class="sd"     data-tip="Final Chapter"     onclick="goTo('s-cap')"></div>
+  </div>
+  <div class="sb-num">05 / 05</div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════ COVER ══════ -->
+<section class="cover">
+  <div class="cv-bg"></div><div class="cv-mesh"></div>
+  <div class="cv-r1"></div><div class="cv-r2"></div><div class="cv-r3"></div><div class="cv-r4"></div>
+
+  <div class="cv-body">
+    <div class="cv-pre"><div class="cv-pre-line"></div><div class="cv-pre-txt">The Capital Code · Final Playbook · 05 of 05 · Architect Edition</div></div>
+    <h1 class="cv-title">Wealth<br><em>Optimization</em><br><span class="c-gold">Templates</span></h1>
+    <p class="cv-sub">The complete operational system: 8 ready-to-use templates, a live wealth dashboard, a scoring engine, and the Master Wealth Manifest that unifies all five playbooks into your permanent financial architecture.</p>
+    <div class="cv-tags">
+      <div class="cv-tag">Portfolio Tracker</div>
+      <div class="cv-tag">Quarterly Review</div>
+      <div class="cv-tag">Tax Log</div>
+      <div class="cv-tag">Wealth Score</div>
+      <div class="cv-tag">Master Manifest</div>
+      <div class="cv-tag">Goal Tracker</div>
+    </div>
+    <div class="cv-metrics">
+      <div><span class="cv-mval">8</span><span class="cv-mlbl">Live Templates</span></div>
+      <div><span class="cv-mval">5</span><span class="cv-mlbl">Playbooks Unified</span></div>
+      <div><span class="cv-mval">∞</span><span class="cv-mlbl">Compounding Ahead</span></div>
+    </div>
+  </div>
+
+  <div class="cv-bignum">05</div>
+
+  <div class="cv-ribbon">
+    <div class="cv-rb-cell"><span class="cv-rb-num">PB 01</span><span class="cv-rb-name">Investment Playbooks</span></div>
+    <div class="cv-rb-cell"><span class="cv-rb-num">PB 02</span><span class="cv-rb-name">Scenario Simulator</span></div>
+    <div class="cv-rb-cell"><span class="cv-rb-num">PB 03</span><span class="cv-rb-name">Finance & Tax</span></div>
+    <div class="cv-rb-cell"><span class="cv-rb-num">PB 04</span><span class="cv-rb-name">Case Library</span></div>
+    <div class="cv-rb-cell active"><span class="cv-rb-num">PB 05</span><span class="cv-rb-name">Wealth Templates ★</span></div>
+  </div>
+</section>
+
+<!-- ══════ INTRODUCTION ══════ -->
+<section class="sec s-white" id="s-intro">
+  <div class="lbl"><span class="lbl-txt">Introduction</span></div>
+  <h2 class="sec-title">The system only works<br><em>if you run it consistently.</em></h2>
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start;">
+    <div>
+      <p class="sec-body">Four playbooks have built your foundation: the investment framework, the crisis response system, the financial operating architecture, and the analytical mental library. Each is powerful individually. Together, they form a complete wealth-building system — but only if they are applied consistently, reviewed systematically, and refined continuously.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">This final playbook gives you the operational infrastructure. Not more theory. Not more frameworks. The actual templates, trackers, dashboards, and review systems that transform everything you have learned into a living, breathing financial practice that runs month after month, year after year, with increasing precision.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">The investors who generate extraordinary long-term wealth are not smarter, luckier, or more connected. They are the ones who built a system and ran it consistently for decades, compounding small advantages into enormous outcomes. This playbook closes the loop. Everything you need is here.</p>
+      <div class="co co-gold" style="margin-top:2rem;">
+        <span class="co-ico">⚙️</span>
+        <div class="co-title">The Operational Imperative</div>
+        <div class="co-body">A strategy reviewed once and forgotten is not a strategy — it is an aspiration. These templates exist to enforce consistency. Use them on schedule, fill them honestly, and let the data tell you what your emotions would otherwise conceal. The templates are not administrative overhead; they are the system maintaining itself.</div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--navy);padding:2.8rem 2.5rem;color:#fff;margin-bottom:1.5rem;">
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold-l);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1rem;">The Compounding System</div>
+        <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.35rem;font-style:italic;font-weight:300;line-height:1.72;margin-bottom:1.4rem;">"The chains of habit are too light to be felt until they are too heavy to be broken. Build the habits of wealth management now — while the chains are light and the compounding is young."</div>
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;">— Warren Buffett</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--gold);display:block;line-height:1;margin-bottom:.25rem;">8</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Templates covering<br>every financial domain</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--am);display:block;line-height:1;margin-bottom:.25rem;">4×</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Review cadences<br>weekly to annual</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--em);display:block;line-height:1;margin-bottom:.25rem;">100</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Maximum wealth<br>score (test yours below)</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--sapp);display:block;line-height:1;margin-bottom:.25rem;">1×</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Master Manifest<br>to rule them all</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ PLAYBOOK OVERVIEW ══════ -->
+<section class="sec s-off" id="s-overview">
+  <div class="lbl"><span class="lbl-txt">System Overview</span></div>
+  <h2 class="sec-title">The complete <em>Capital Code</em><br>system — all five playbooks</h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Before deploying the templates, review the five-playbook architecture as an integrated system. Each playbook feeds the next. The output of one becomes the input of the other. Understanding the connections is what turns five separate documents into one unified wealth-building machine.</p>
+
+  <div class="pb-overview">
+    <div class="pb-card pbc-1">
+      <span class="pb-num">PLAYBOOK 01</span>
+      <div class="pb-title">AI-Driven Investment Playbooks</div>
+      <div class="pb-desc">Your risk profile, target allocation, entry strategy, rebalancing rules, and exit plan. The architectural blueprint of your investment system. Every other playbook references this document.</div>
+      <div class="pb-keys">
+        <span class="pb-key pk-blue">Risk Profile</span>
+        <span class="pb-key pk-blue">Asset Allocation</span>
+        <span class="pb-key pk-blue">Exit Rules</span>
+        <span class="pb-key pk-blue">5-Stage Framework</span>
+      </div>
+    </div>
+    <div class="pb-card pbc-2">
+      <span class="pb-num">PLAYBOOK 02</span>
+      <div class="pb-title">Market Scenario Simulator</div>
+      <div class="pb-desc">Your crisis response protocol, pre-written for every scenario from −10% to −50% and beyond. The behavioral firewall that prevents emotional decisions during the inevitable market disruptions.</div>
+      <div class="pb-keys">
+        <span class="pb-key pk-red">Crash Protocol</span>
+        <span class="pb-key pk-red">6 Scenarios</span>
+        <span class="pb-key pk-red">Psych Defense</span>
+      </div>
+    </div>
+    <div class="pb-card pbc-3">
+      <span class="pb-num">PLAYBOOK 03</span>
+      <div class="pb-title">Personal Finance & Tax Optimizer</div>
+      <div class="pb-desc">Your income architecture, expense system, savings rate target, Wealth Waterfall automation, and tax optimization strategy. The financial infrastructure that fuels your investment engine.</div>
+      <div class="pb-keys">
+        <span class="pb-key pk-green">Savings Rate</span>
+        <span class="pb-key pk-green">Tax Strategy</span>
+        <span class="pb-key pk-green">FI Number</span>
+      </div>
+    </div>
+    <div class="pb-card pbc-4">
+      <span class="pb-num">PLAYBOOK 04</span>
+      <div class="pb-title">Investment Case Library</div>
+      <div class="pb-desc">Six defining real-world cases — Amazon, Tesla, Berkshire, Dot-com, Bitcoin, GFC — each with extracted universal laws. Your permanent analytical reference library for every future investment decision.</div>
+      <div class="pb-keys">
+        <span class="pb-key pk-amb">6 Cases</span>
+        <span class="pb-key pk-amb">8 Universal Laws</span>
+        <span class="pb-key pk-amb">Pattern Library</span>
+      </div>
+    </div>
+    <div class="pb-card pbc-5">
+      <span class="pb-num">PLAYBOOK 05</span>
+      <div class="pb-title">Wealth Optimization Templates</div>
+      <div class="pb-desc">The operational layer: 8 templates, a live wealth dashboard, a 4-cadence review system, wealth scoring engine, and the Master Wealth Manifest. Turns all previous playbooks into a living, self-improving system.</div>
+      <div class="pb-keys">
+        <span class="pb-key pk-gold">8 Templates</span>
+        <span class="pb-key pk-gold">Review System</span>
+        <span class="pb-key pk-gold">Wealth Score</span>
+        <span class="pb-key pk-gold">Master Manifest</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="co co-pur" style="margin-top:2rem;">
+    <span class="co-ico">🔗</span>
+    <div class="co-title">The Integration Point</div>
+    <div class="co-body">The templates in this playbook reference specific outputs from Playbooks 01–04: your target allocation from PB01, your crisis protocol from PB02, your savings rate from PB03, and your investment thesis framework from PB04. Complete those playbooks first — then use these templates to maintain and evolve them.</div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ WEALTH DASHBOARD ══════ -->
+<section class="sec s-white" id="s-dash">
+  <div class="lbl"><span class="lbl-txt">Interactive Dashboard</span></div>
+  <h2 class="sec-title">Your Live<br><em>Wealth Dashboard</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Your monthly snapshot — portfolio position, allocation health, active goals, and upcoming actions. Fill in your current numbers and use this as your monthly review dashboard.</p>
+
+  <div class="dash">
+    <div class="dash-hd">
+      <span class="dash-title">Wealth Dashboard — Monthly Snapshot</span>
+      <span class="dash-badge">Live · Update Monthly</span>
+    </div>
+    <div class="dash-body">
+
+      <!-- KPI ROW -->
+      <div class="dash-kpis">
+        <div class="dk"><div class="dk-lbl">Total Portfolio</div><span class="dk-val dv-navy" id="d-total">€—</span><span class="dk-sub">All assets combined</span></div>
+        <div class="dk"><div class="dk-lbl">Monthly Investment</div><span class="dk-val dv-green" id="d-mon">€—</span><span class="dk-sub">This month deployed</span></div>
+        <div class="dk"><div class="dk-lbl">YTD Return</div><span class="dk-val dv-gold" id="d-ytd">—%</span><span class="dk-sub">Year to date</span></div>
+        <div class="dk"><div class="dk-lbl">Savings Rate</div><span class="dk-val dv-teal" id="d-sr">—%</span><span class="dk-sub">Income invested</span></div>
+        <div class="dk"><div class="dk-lbl">FI Progress</div><span class="dk-val dv-pur" id="d-fi">—%</span><span class="dk-sub">To FI number</span></div>
+      </div>
+
+      <!-- QUICK INPUTS -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin-bottom:2rem;padding:1.2rem;background:var(--off);border:1px solid var(--bsoft);">
+        <div><label style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.3rem;">Portfolio Value (€)</label><input type="number" id="di-tot" class="tf-inp" placeholder="50000" oninput="updDash()"></div>
+        <div><label style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.3rem;">Monthly Invested (€)</label><input type="number" id="di-mon" class="tf-inp" placeholder="1000" oninput="updDash()"></div>
+        <div><label style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.3rem;">YTD Return (%)</label><input type="number" id="di-ytd" class="tf-inp" placeholder="8.4" oninput="updDash()"></div>
+        <div><label style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.3rem;">Monthly Net Income (€)</label><input type="number" id="di-net" class="tf-inp" placeholder="3500" oninput="updDash()"></div>
+        <div><label style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.3rem;">FI Target Number (€)</label><input type="number" id="di-fi" class="tf-inp" placeholder="800000" oninput="updDash()"></div>
+      </div>
+
+      <div class="dash-sections">
+        <div>
+          <div class="dash-sec-lbl">◆ Portfolio Allocation vs. Target</div>
+          <div id="d-alloc">
+            <div class="alloc-row"><span class="ar-label">Global ETFs</span><div class="ar-bar"><div class="ar-fill af-blue" style="width:55%"></div></div><span class="ar-pct">55%</span></div>
+            <div class="alloc-row"><span class="ar-label">Individual Stocks</span><div class="ar-bar"><div class="ar-fill af-gold" style="width:20%"></div></div><span class="ar-pct">20%</span></div>
+            <div class="alloc-row"><span class="ar-label">Emerging Markets</span><div class="ar-bar"><div class="ar-fill af-teal" style="width:10%"></div></div><span class="ar-pct">10%</span></div>
+            <div class="alloc-row"><span class="ar-label">Alternatives/Crypto</span><div class="ar-bar"><div class="ar-fill af-pur" style="width:8%"></div></div><span class="ar-pct">8%</span></div>
+            <div class="alloc-row"><span class="ar-label">Cash Reserve</span><div class="ar-bar"><div class="ar-fill af-green" style="width:7%"></div></div><span class="ar-pct">7%</span></div>
+          </div>
+
+          <div class="dash-sec-lbl green" style="margin-top:1.8rem;">◆ Financial Health Meters</div>
+          <div class="health-grid">
+            <div class="hm"><div class="hm-name">Emergency Fund</div><div class="hm-score" style="color:var(--em);">4.2mo</div><div class="hm-bar"><div class="hm-fill" style="width:70%;background:var(--em);"></div></div><div class="hm-note">Target: 6 months</div></div>
+            <div class="hm"><div class="hm-name">Savings Rate</div><div class="hm-score" style="color:var(--teal);" id="hm-sr">—%</div><div class="hm-bar"><div class="hm-fill" style="width:0%;background:var(--teal);" id="hm-sr-bar"></div></div><div class="hm-note">Target: 20%+</div></div>
+            <div class="hm"><div class="hm-name">Debt Level</div><div class="hm-score" style="color:var(--am);">Low</div><div class="hm-bar"><div class="hm-fill" style="width:15%;background:var(--am);"></div></div><div class="hm-note">Consumer debt: €0</div></div>
+            <div class="hm"><div class="hm-name">Tax Efficiency</div><div class="hm-score" style="color:var(--gold);">Good</div><div class="hm-bar"><div class="hm-fill" style="width:65%;background:var(--gold);"></div></div><div class="hm-note">Review in Q4</div></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="dash-sec-lbl blue">◆ Active Wealth Goals</div>
+          <div id="d-goals">
+            <div class="goal-item">
+              <div class="goal-bar-wrap">
+                <div class="goal-name">Financial Independence <span class="goal-pct" id="g1-pct">0%</span></div>
+                <div class="goal-bar"><div class="goal-fill" style="width:0%;background:linear-gradient(90deg,var(--sapp),var(--sapp-l));" id="g1-bar"></div></div>
+              </div>
+            </div>
+            <div class="goal-item">
+              <div class="goal-bar-wrap">
+                <div class="goal-name">Emergency Fund (€18,000) <span class="goal-pct">70%</span></div>
+                <div class="goal-bar"><div class="goal-fill" style="width:70%;background:linear-gradient(90deg,var(--em),var(--em-l));"></div></div>
+              </div>
+            </div>
+            <div class="goal-item">
+              <div class="goal-bar-wrap">
+                <div class="goal-name">First €100,000 Milestone <span class="goal-pct">50%</span></div>
+                <div class="goal-bar"><div class="goal-fill" style="width:50%;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));"></div></div>
+              </div>
+            </div>
+            <div class="goal-item">
+              <div class="goal-bar-wrap">
+                <div class="goal-name">Tax Optimization Complete <span class="goal-pct">40%</span></div>
+                <div class="goal-bar"><div class="goal-fill" style="width:40%;background:linear-gradient(90deg,var(--am),var(--am-l));"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-sec-lbl teal" style="margin-top:1.8rem;">◆ This Month's Action Items</div>
+          <div id="d-tasks">
+            <div class="task-item" onclick="this.classList.toggle('done')"><div class="task-box"></div><span class="task-txt">Execute monthly ETF savings plan contribution</span><span class="task-badge tb-green">AUTO</span></div>
+            <div class="task-item" onclick="this.classList.toggle('done')"><div class="task-box"></div><span class="task-txt">Check portfolio allocation vs. target — rebalance if >5% drift</span><span class="task-badge tb-gold">MONTHLY</span></div>
+            <div class="task-item" onclick="this.classList.toggle('done')"><div class="task-box"></div><span class="task-txt">Review expense categories against budget</span><span class="task-badge tb-blue">REVIEW</span></div>
+            <div class="task-item" onclick="this.classList.toggle('done')"><div class="task-box"></div><span class="task-txt">Update investment journal with decisions this month</span><span class="task-badge tb-pur">JOURNAL</span></div>
+            <div class="task-item" onclick="this.classList.toggle('done')"><div class="task-box"></div><span class="task-txt">Review any open thesis positions for fundamental changes</span><span class="task-badge tb-gold">THESIS</span></div>
+            <div class="task-item" onclick="this.classList.toggle('done')"><div class="task-box"></div><span class="task-txt">Check stop-loss levels on all individual positions</span><span class="task-badge tb-red">RISK</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-ft">
+      <div class="ef-cell"><span class="ef-lbl">Next Rebalance Check</span><span class="ef-val ef-gold">End of Month</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Quarterly Review</span><span class="ef-val">In 6 Weeks</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Tax Year End</span><span class="ef-val ef-g">Dec 31</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Annual Review</span><span class="ef-val ef-t">January</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ 8 TEMPLATES ══════ -->
+<section class="sec s-off" id="s-tpls">
+  <div class="lbl"><span class="lbl-txt">8 Operational Templates</span></div>
+  <h2 class="sec-title">Every template you need<br><em>to run your wealth system</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">These eight templates cover every domain of active wealth management. Fill them in once, then update on schedule. They are the operational backbone that makes wealth-building automatic and measurable.</p>
+
+  <div class="tpl-grid">
+
+    <!-- T1: PORTFOLIO TRACKER -->
+    <div class="tpl-card">
+      <div class="tpl-head th-gold">
+        <div><div class="tpl-name">Portfolio Tracker</div><div class="tpl-sub">Update Monthly</div></div>
+        <div class="tpl-icon">📊</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Track every position — allocation, entry price, current value, return, and thesis status. The foundation of all portfolio management decisions.</div>
+        <div class="tf-row"><span class="tf-lbl">Position 1</span><input class="tf-inp" type="text" placeholder="e.g. MSCI World ETF — IE0031442068"></div>
+        <div class="tf-row"><span class="tf-lbl">Entry Price</span><input class="tf-inp" type="number" placeholder="€ avg. cost per share/unit"></div>
+        <div class="tf-row"><span class="tf-lbl">Current Value</span><input class="tf-inp" type="number" placeholder="Current total position value (€)"></div>
+        <div class="tf-row"><span class="tf-lbl">Allocation %</span><input class="tf-inp" type="number" placeholder="% of total portfolio"></div>
+        <div class="tf-row"><span class="tf-lbl">Target %</span><input class="tf-inp" type="number" placeholder="Your target allocation %"></div>
+        <div class="tf-row"><span class="tf-lbl">Thesis Status</span>
+          <select class="tf-inp tf-sel">
+            <option>✅ Intact — Holding</option>
+            <option>⚠️ Monitoring — Review needed</option>
+            <option>🔴 Weakening — Consider reducing</option>
+            <option>❌ Invalidated — Plan exit</option>
+          </select>
+        </div>
+        <div class="tf-row"><span class="tf-lbl">Stop-Loss Level</span><input class="tf-inp" type="text" placeholder="Price or % below entry that triggers exit"></div>
+        <div class="tf-row"><span class="tf-lbl">Next Review Date</span><input class="tf-inp" type="text" placeholder="e.g. After Q3 earnings / January 1"></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Portfolio Tracker')">Save Portfolio Tracker ↓</button>
+      </div>
+    </div>
+
+    <!-- T2: MONTHLY INVESTMENT LOG -->
+    <div class="tpl-card">
+      <div class="tpl-head th-green">
+        <div><div class="tpl-name">Monthly Investment Log</div><div class="tpl-sub">Fill In Every Month</div></div>
+        <div class="tpl-icon">📅</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Document every investment action this month — purchases, sales, rebalancing moves, and the reasoning behind each decision.</div>
+        <div class="tf-row"><span class="tf-lbl">Month / Year</span><input class="tf-inp green" type="text" placeholder="e.g. February 2026"></div>
+        <div class="tf-row"><span class="tf-lbl">Total Deployed (€)</span><input class="tf-inp green" type="number" placeholder="Total invested this month"></div>
+        <div class="tf-row"><span class="tf-lbl">Buys This Month</span><textarea class="tf-ta" placeholder="Asset / Amount / Reason (e.g. MSCI World ETF €800 — regular savings plan)"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Sells This Month</span><textarea class="tf-ta" placeholder="Asset / Amount / Reason for exit"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Rebalancing Done?</span>
+          <select class="tf-inp tf-sel">
+            <option>✅ Yes — allocation realigned</option>
+            <option>⏭ No drift — no action needed</option>
+            <option>⚠️ Skipped — to do next month</option>
+          </select>
+        </div>
+        <div class="tf-row"><span class="tf-lbl">Emotional State</span>
+          <select class="tf-inp tf-sel">
+            <option>😐 Neutral — system-driven</option>
+            <option>😰 Anxious — held the plan</option>
+            <option>🤑 Greedy — resisted FOMO</option>
+            <option>😱 Fearful — had to override</option>
+          </select>
+        </div>
+        <div class="tf-row"><span class="tf-lbl">Key Lesson Learned</span><textarea class="tf-ta" placeholder="What did this month teach you?"></textarea></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Monthly Log')">Save Monthly Log ↓</button>
+      </div>
+    </div>
+
+    <!-- T3: QUARTERLY REVIEW -->
+    <div class="tpl-card">
+      <div class="tpl-head th-blue">
+        <div><div class="tpl-name">Quarterly Review</div><div class="tpl-sub">Every 3 Months</div></div>
+        <div class="tpl-icon">🔍</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Your 90-day financial health assessment — portfolio performance, savings rate, expense control, and strategic adjustments for the next quarter.</div>
+        <div class="tf-row"><span class="tf-lbl">Quarter / Year</span><input class="tf-inp blue" type="text" placeholder="e.g. Q1 2026"></div>
+        <div class="tf-row"><span class="tf-lbl">Portfolio Return QTD</span><input class="tf-inp blue" type="text" placeholder="e.g. +6.4% this quarter"></div>
+        <div class="tf-row"><span class="tf-lbl">Savings Rate This Quarter</span><input class="tf-inp blue" type="text" placeholder="% of net income invested"></div>
+        <div class="tf-row"><span class="tf-lbl">Allocation vs. Plan</span>
+          <select class="tf-inp tf-sel">
+            <option>✅ On target — no changes needed</option>
+            <option>⚠️ Slight drift — minor rebalance</option>
+            <option>🔴 Off target — rebalance required</option>
+          </select>
+        </div>
+        <div class="tf-row"><span class="tf-lbl">Best Decision</span><input class="tf-inp blue" type="text" placeholder="What worked well?"></div>
+        <div class="tf-row"><span class="tf-lbl">Worst Decision</span><input class="tf-inp blue" type="text" placeholder="What to improve?"></div>
+        <div class="tf-row"><span class="tf-lbl">Q+1 Strategic Priority</span><textarea class="tf-ta" placeholder="One major action for next quarter..."></textarea></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Quarterly Review')">Save Quarterly Review ↓</button>
+      </div>
+    </div>
+
+    <!-- T4: TAX OPTIMIZATION LOG -->
+    <div class="tpl-card">
+      <div class="tpl-head th-teal">
+        <div><div class="tpl-name">Tax Optimization Log</div><div class="tpl-sub">Update Annually + As Needed</div></div>
+        <div class="tpl-icon">🏛</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Track all tax-deductible actions, savings achieved, and remaining optimization opportunities. Your annual tax review in one document.</div>
+        <div class="tf-row"><span class="tf-lbl">Tax Year</span><input class="tf-inp teal" type="text" placeholder="e.g. 2025"></div>
+        <div class="tf-row"><span class="tf-lbl">Pension Contribution (€)</span><input class="tf-inp teal" type="number" placeholder="Total pension contributions this year"></div>
+        <div class="tf-row"><span class="tf-lbl">Home Office Days</span><input class="tf-inp teal" type="number" placeholder="Days worked from home"></div>
+        <div class="tf-row"><span class="tf-lbl">Work Expenses Claimed (€)</span><input class="tf-inp teal" type="number" placeholder="Professional expenses deducted"></div>
+        <div class="tf-row"><span class="tf-lbl">Capital Gains (€)</span><input class="tf-inp teal" type="number" placeholder="Realized capital gains (taxable)"></div>
+        <div class="tf-row"><span class="tf-lbl">Capital Losses Harvested (€)</span><input class="tf-inp teal" type="number" placeholder="Losses realized to offset gains"></div>
+        <div class="tf-row"><span class="tf-lbl">Estimated Tax Saving (€)</span><input class="tf-inp teal" type="number" placeholder="Total estimated savings vs. unoptimized"></div>
+        <div class="tf-row"><span class="tf-lbl">Next Action</span><textarea class="tf-ta" placeholder="e.g. Book tax advisor by March 15, review Q1 pension contribution limit..."></textarea></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Tax Log')">Save Tax Log ↓</button>
+      </div>
+    </div>
+
+    <!-- T5: INVESTMENT THESIS TRACKER -->
+    <div class="tpl-card">
+      <div class="tpl-head th-pur">
+        <div><div class="tpl-name">Investment Thesis Tracker</div><div class="tpl-sub">Per Position — Update Quarterly</div></div>
+        <div class="tpl-icon">🧠</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">For each individual stock or high-conviction position, maintain a live thesis document. When the thesis changes, the position must change.</div>
+        <div class="tf-row"><span class="tf-lbl">Company / Asset</span><input class="tf-inp pur" type="text" placeholder="Name and ticker"></div>
+        <div class="tf-row"><span class="tf-lbl">Original Thesis</span><textarea class="tf-ta" placeholder="Why you bought — the original bull case in 3 sentences"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Current Thesis Status</span>
+          <select class="tf-inp tf-sel">
+            <option>✅ Strengthened since entry</option>
+            <option>✅ Intact — no material change</option>
+            <option>⚠️ Some questions — monitoring</option>
+            <option>🔴 Weakened — consider reducing</option>
+            <option>❌ Invalidated — exit plan active</option>
+          </select>
+        </div>
+        <div class="tf-row"><span class="tf-lbl">Bull Case Changes</span><textarea class="tf-ta" placeholder="What has strengthened the thesis since entry?"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Bear Case Risks</span><textarea class="tf-ta" placeholder="What could invalidate the thesis?"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Profit-Taking Trigger</span><input class="tf-inp pur" type="text" placeholder="e.g. +50% → take 25% off. P/E >60 → trim to 3%"></div>
+        <div class="tf-row"><span class="tf-lbl">Exit Trigger</span><input class="tf-inp pur" type="text" placeholder="e.g. −20% from entry AND revenue growth negative"></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Thesis Tracker')">Save Thesis Tracker ↓</button>
+      </div>
+    </div>
+
+    <!-- T6: FINANCIAL GOALS TRACKER -->
+    <div class="tpl-card">
+      <div class="tpl-head th-amb">
+        <div><div class="tpl-name">Financial Goals Tracker</div><div class="tpl-sub">Review Quarterly</div></div>
+        <div class="tpl-icon">🎯</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Track your major financial milestones — from first €50K to Financial Independence — with current progress, projected dates, and required monthly contributions.</div>
+        <div class="tf-row"><span class="tf-lbl">FI Number (€)</span><input class="tf-inp" type="number" placeholder="Annual expenses × 25 = your FI target"></div>
+        <div class="tf-row"><span class="tf-lbl">Current Portfolio (€)</span><input class="tf-inp" type="number" placeholder="Total investable assets today"></div>
+        <div class="tf-row"><span class="tf-lbl">Monthly Investment (€)</span><input class="tf-inp" type="number" placeholder="Monthly contribution to investments"></div>
+        <div class="tf-row"><span class="tf-lbl">Next Milestone</span><input class="tf-inp" type="text" placeholder="e.g. €100,000 portfolio — ETA: March 2027"></div>
+        <div class="tf-row"><span class="tf-lbl">FI Target Date</span><input class="tf-inp" type="text" placeholder="Your projected financial independence year"></div>
+        <div class="tf-row"><span class="tf-lbl">Goal 2</span><input class="tf-inp" type="text" placeholder="e.g. Rental property down payment €60,000 by 2028"></div>
+        <div class="tf-row"><span class="tf-lbl">Goal 3</span><input class="tf-inp" type="text" placeholder="e.g. Passive income €2,000/month by 2032"></div>
+        <div class="tf-row"><span class="tf-lbl">Biggest Risk to Goals</span><textarea class="tf-ta" placeholder="What could most derail these goals?"></textarea></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Goals Tracker')">Save Goals Tracker ↓</button>
+      </div>
+    </div>
+
+    <!-- T7: INCOME GROWTH LOG -->
+    <div class="tpl-card">
+      <div class="tpl-head th-cop">
+        <div><div class="tpl-name">Income Growth Log</div><div class="tpl-sub">Review Semi-Annually</div></div>
+        <div class="tpl-icon">📈</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Track income growth initiatives — salary negotiations, side income development, passive income streams. Every new income stream is capital that compounds.</div>
+        <div class="tf-row"><span class="tf-lbl">Primary Income (€/mo)</span><input class="tf-inp" type="number" placeholder="Current gross monthly salary"></div>
+        <div class="tf-row"><span class="tf-lbl">Side Income (€/mo)</span><input class="tf-inp" type="number" placeholder="Total secondary income sources"></div>
+        <div class="tf-row"><span class="tf-lbl">Passive Income (€/mo)</span><input class="tf-inp" type="number" placeholder="Dividends, rental, royalties"></div>
+        <div class="tf-row"><span class="tf-lbl">Income Growth YoY</span><input class="tf-inp" type="text" placeholder="% increase vs. same period last year"></div>
+        <div class="tf-row"><span class="tf-lbl">Active Growth Initiative</span><textarea class="tf-ta" placeholder="e.g. Freelance consulting — building to €1,500/mo by Q4. Target: 3 recurring clients"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Salary Review Date</span><input class="tf-inp" type="text" placeholder="When is your next salary negotiation?"></div>
+        <div class="tf-row"><span class="tf-lbl">New Income Stream Idea</span><textarea class="tf-ta" placeholder="Next income stream to develop..."></textarea></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Income Log')">Save Income Log ↓</button>
+      </div>
+    </div>
+
+    <!-- T8: ANNUAL WEALTH REVIEW -->
+    <div class="tpl-card">
+      <div class="tpl-head th-ruby">
+        <div><div class="tpl-name">Annual Wealth Review</div><div class="tpl-sub">Once Per Year — January</div></div>
+        <div class="tpl-icon">📋</div>
+      </div>
+      <div class="tpl-body">
+        <div class="tpl-desc">Your comprehensive yearly wealth audit — total net worth, all income sources, all costs, full portfolio performance, and strategic decisions for the year ahead.</div>
+        <div class="tf-row"><span class="tf-lbl">Year</span><input class="tf-inp ruby" type="text" placeholder="e.g. 2025 Annual Review"></div>
+        <div class="tf-row"><span class="tf-lbl">Total Net Worth (€)</span><input class="tf-inp ruby" type="number" placeholder="Assets minus all liabilities"></div>
+        <div class="tf-row"><span class="tf-lbl">Net Worth Growth</span><input class="tf-inp ruby" type="text" placeholder="Absolute and % increase vs. last year"></div>
+        <div class="tf-row"><span class="tf-lbl">Portfolio Return (Full Year)</span><input class="tf-inp ruby" type="text" placeholder="e.g. +11.4% (MSCI World: +18.2%)"></div>
+        <div class="tf-row"><span class="tf-lbl">Average Savings Rate</span><input class="tf-inp ruby" type="text" placeholder="Full year average % of income invested"></div>
+        <div class="tf-row"><span class="tf-lbl">Biggest Win</span><textarea class="tf-ta" placeholder="Best financial decision or outcome this year"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Biggest Mistake</span><textarea class="tf-ta" placeholder="What cost you the most and what was learned?"></textarea></div>
+        <div class="tf-row"><span class="tf-lbl">Strategic Priority Next Year</span><textarea class="tf-ta" placeholder="The one financial priority that will define next year..."></textarea></div>
+        <button class="tpl-save" onclick="saveTpl(this,'Annual Review')">Save Annual Review ↓</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ REVIEW SYSTEM ══════ -->
+<section class="sec s-white" id="s-review">
+  <div class="lbl teal"><span class="lbl-txt">Review System</span></div>
+  <h2 class="sec-title">The 4-cadence<br><em>review architecture</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Different aspects of your wealth system require different review frequencies. This four-cadence architecture ensures everything is maintained at the right interval — nothing overlooked, nothing over-analyzed.</p>
+
+  <div class="co co-teal">
+    <span class="co-ico">⏰</span>
+    <div class="co-title">The Non-Negotiable Rule of Reviews</div>
+    <div class="co-body">Reviews must be scheduled in advance and treated as fixed appointments — not flexible intentions. Block them in your calendar now: one 15-minute slot per week, one 45-minute slot per month, one 3-hour slot per quarter, and one full-day slot per year. These are the most valuable financial hours you will spend.</div>
+  </div>
+
+  <div class="review-grid">
+    <div class="rv-card rvc-week">
+      <span class="rv-freq" style="color:var(--teal);">Weekly — 15 Minutes</span>
+      <div class="rv-title">Portfolio Pulse Check</div>
+      <ul class="rv-list">
+        <li>Check for stop-loss triggers on all positions</li>
+        <li>Review portfolio allocation — any >5% drift?</li>
+        <li>Confirm automated investments executed</li>
+        <li>Note any significant news affecting held positions</li>
+        <li>Write 1 sentence in investment journal</li>
+      </ul>
+      <div class="rv-time">Every Friday, 15 min</div>
+    </div>
+
+    <div class="rv-card rvc-month">
+      <span class="rv-freq" style="color:var(--sapp);">Monthly — 45 Minutes</span>
+      <div class="rv-title">Financial Health Review</div>
+      <ul class="rv-list">
+        <li>Update Monthly Investment Log template</li>
+        <li>Review expenses vs. budget categories</li>
+        <li>Calculate savings rate for the month</li>
+        <li>Check goal progress on goals tracker</li>
+        <li>Review any positions requiring thesis update</li>
+        <li>Update wealth dashboard KPIs</li>
+      </ul>
+      <div class="rv-time">1st of month, 45 min</div>
+    </div>
+
+    <div class="rv-card rvc-quarter">
+      <span class="rv-freq" style="color:var(--gold-d);">Quarterly — 3 Hours</span>
+      <div class="rv-title">Strategic Portfolio Review</div>
+      <ul class="rv-list">
+        <li>Complete Quarterly Review template</li>
+        <li>Full portfolio rebalancing assessment</li>
+        <li>Review all thesis positions — update status</li>
+        <li>Tax optimization review — actions needed?</li>
+        <li>Income growth initiative progress</li>
+        <li>Re-read your investment plan (PB01)</li>
+        <li>Re-read crisis protocol (PB02)</li>
+      </ul>
+      <div class="rv-time">Q end, full afternoon</div>
+    </div>
+
+    <div class="rv-card rvc-year">
+      <span class="rv-freq" style="color:var(--am);">Annual — Full Day</span>
+      <div class="rv-title">Wealth Architecture Audit</div>
+      <ul class="rv-list">
+        <li>Complete Annual Wealth Review template</li>
+        <li>Full net worth calculation</li>
+        <li>Review and update all 5 playbooks</li>
+        <li>Tax filing preparation</li>
+        <li>Insurance and protection review</li>
+        <li>FI number recalculation with current expenses</li>
+        <li>Strategic priorities for next year</li>
+        <li>5-year wealth projection update</li>
+      </ul>
+      <div class="rv-time">January, dedicated full day</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ WEALTH SCORE ENGINE ══════ -->
+<section class="sec s-off" id="s-score">
+  <div class="lbl pur"><span class="lbl-txt">Wealth Score Engine</span></div>
+  <h2 class="sec-title">Your <em>Wealth Score</em> —<br>Measure your system's strength</h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Check every item you have completed across all five playbooks. Your score reveals the strongest and weakest areas of your wealth system — and tells you exactly where to focus next.</p>
+
+  <div class="score-engine">
+    <div class="se-hd">
+      <span class="se-title">Capital Code Wealth Score Engine</span>
+      <span class="se-badge">Max Score: 100 Points</span>
+    </div>
+    <div class="se-body">
+      <div class="se-inputs">
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--gold);">◆ Foundation (PB01) — 25 pts</div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Investment plan written and documented</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Asset allocation defined with target %</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Stop-loss levels set for all positions</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Rebalancing schedule active in calendar</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Exit criteria written before each entry</span><span class="sr-pts">+5 pts</span></div>
+
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--ruby);letter-spacing:.18em;text-transform:uppercase;margin:1.2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--ruby);">◆ Resilience (PB02) — 20 pts</div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Crisis protocol written for all drawdown levels</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Cash reserve at 10-20% of portfolio</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Zero leveraged positions in portfolio</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,4)"></div><span class="sr-lbl">Accountability partner identified and active</span><span class="sr-pts">+4 pts</span></div>
+
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--em);letter-spacing:.18em;text-transform:uppercase;margin:1.2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--em);">◆ Finance & Tax (PB03) — 25 pts</div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Savings rate ≥20% and automated</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Emergency fund ≥3 months expenses</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Tax-advantaged accounts maximized</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">FI number calculated and documented</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Wealth waterfall automation active</span><span class="sr-pts">+5 pts</span></div>
+
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin:1.2rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--amber);">◆ Knowledge & System (PB04+05) — 30 pts</div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Written thesis for every held position</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Portfolio tracker template active and updated</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Review system active (weekly/monthly/quarterly)</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Investment journal maintained</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">Annual wealth review completed last January</span><span class="sr-pts">+5 pts</span></div>
+        <div class="score-row"><div class="sr-check" onclick="toggleScore(this,5)"></div><span class="sr-lbl">All 5 playbooks read, applied, and integrated</span><span class="sr-pts">+5 pts</span></div>
+      </div>
+
+      <div class="se-result">
+        <div class="score-ring-wrap">
+          <svg class="score-svg" viewBox="0 0 200 200" width="200" height="200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="var(--bsoft)" stroke-width="14"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="url(#scoreGrad)" stroke-width="14"
+              stroke-dasharray="502.7" stroke-dashoffset="502.7" id="score-arc"
+              stroke-linecap="round" transform="rotate(-90 100 100)"
+              style="transition:stroke-dashoffset 1s cubic-bezier(.4,0,.2,1)"/>
+            <defs>
+              <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:var(--ruby)"/>
+                <stop offset="40%" style="stop-color:var(--gold)"/>
+                <stop offset="100%" style="stop-color:var(--em)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="score-center">
+            <span class="score-num" id="sc-num" style="color:var(--navy);">0</span>
+            <span class="score-max">out of 100</span>
+          </div>
+        </div>
+
+        <div class="score-title" id="sc-title">Your Wealth Score</div>
+        <div class="score-desc" id="sc-desc">Check items on the left to calculate your Capital Code Wealth Score and see your tier assessment.</div>
+
+        <div class="score-breakdown">
+          <div class="sb-item"><span class="sbi-lbl">Foundation</span><span class="sbi-val" id="sb-1" style="color:var(--sapp);">0/25</span></div>
+          <div class="sb-item"><span class="sbi-lbl">Resilience</span><span class="sbi-val" id="sb-2" style="color:var(--ruby);">0/20</span></div>
+          <div class="sb-item"><span class="sbi-lbl">Finance/Tax</span><span class="sbi-val" id="sb-3" style="color:var(--em);">0/25</span></div>
+          <div class="sb-item"><span class="sbi-lbl">Knowledge</span><span class="sbi-val" id="sb-4" style="color:var(--amber);">0/30</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FINAL PRINCIPLES ══════ -->
+<section class="sec s-capstone" id="s-prin">
+  <div class="lbl"><span class="lbl-txt" style="color:var(--gold-l)">The Final 8</span></div>
+  <h2 class="sec-title">The <em>8 operating principles</em><br>of the Capital Code system</h2>
+  <p class="sec-body" style="margin-bottom:.5rem;">Synthesized from all five playbooks — these are the eight principles that govern the entire Capital Code architecture. Pin them. Review them quarterly. Let them override your emotions when the system is tested.</p>
+
+  <div class="prin-grid">
+    <div class="pc pc-gold">
+      <div class="p-num">01</div>
+      <span class="p-ico">📐</span>
+      <div class="p-ttl">The System Executes. You Supervise.</div>
+      <div class="p-bdy">Your automated investments run whether you feel confident or fearful, whether markets are up or down. Your role is to build the system correctly and supervise it at defined intervals — not to intervene continuously. The best financial decision is often no decision at all.</div>
+    </div>
+    <div class="pc pc-green">
+      <div class="p-num">02</div>
+      <span class="p-ico">📈</span>
+      <div class="p-ttl">Compound Time, Not Just Capital</div>
+      <div class="p-bdy">Every month you delay starting costs more than any investment return can recover. A 25-year-old investing €500/month at 8% reaches €1.9M by 65. A 35-year-old with the same contribution reaches €745K. The 10-year delay costs €1.15M. Time is the resource that cannot be bought back.</div>
+    </div>
+    <div class="pc pc-blue">
+      <div class="p-num">03</div>
+      <span class="p-ico">🔍</span>
+      <div class="p-ttl">Review the System, Not the Market</div>
+      <div class="p-bdy">Your quarterly and annual reviews should focus on your system's adherence to plan — not on market commentary, predictions, or macro narratives. Ask: "Is my allocation correct? Is my savings rate on target? Is my thesis intact?" Not: "What will the market do next quarter?"</div>
+    </div>
+    <div class="pc pc-teal">
+      <div class="p-num">04</div>
+      <span class="p-ico">🌊</span>
+      <div class="p-ttl">Crises are Features, Not Bugs</div>
+      <div class="p-bdy">Every major wealth-building opportunity in history arrived disguised as a catastrophe. 2009, 2020, 2022 — all produced extraordinary entry points for the patient, liquid investor. Your crisis protocol from Playbook 02 exists precisely to transform your emotional response to fear into a systematic, pre-programmed wealth-building action.</div>
+    </div>
+    <div class="pc pc-pur">
+      <div class="p-num">05</div>
+      <span class="p-ico">💎</span>
+      <div class="p-ttl">Quality Over Complexity</div>
+      <div class="p-bdy">A simple portfolio of 3–5 high-quality, low-cost ETFs, systematically invested, consistently rebalanced, and never panic-sold will outperform 80% of actively managed strategies over 20 years. Complexity is not sophistication — it is usually a source of additional costs, additional friction, and additional opportunities for emotional error.</div>
+    </div>
+    <div class="pc pc-ruby">
+      <div class="p-num">06</div>
+      <span class="p-ico">📏</span>
+      <div class="p-ttl">Measure What Matters</div>
+      <div class="p-bdy">Track your savings rate, your net worth trajectory, your savings-to-goal progress, and your system adherence. Do not obsess over daily portfolio value, individual position performance, or short-term returns. The metrics you track determine the behaviors you reinforce — choose them with deliberate care.</div>
+    </div>
+    <div class="pc pc-gold">
+      <div class="p-num">07</div>
+      <span class="p-ico">🔄</span>
+      <div class="p-ttl">Iterate the System Annually</div>
+      <div class="p-bdy">The wealth system you build today is version 1.0. Your January annual review is the annual upgrade. Adjust your risk profile as life changes. Update your FI number as expenses change. Refine your tax strategies as income grows. The system should evolve with you — not remain a static document gathering digital dust.</div>
+    </div>
+    <div class="pc pc-teal">
+      <div class="p-num">08</div>
+      <span class="p-ico">🌱</span>
+      <div class="p-ttl">Wealth is a Practice, Not an Event</div>
+      <div class="p-bdy">There is no single decision, trade, or investment that creates wealth. Wealth is built through thousands of small, consistent, correct decisions made over decades. The discipline of the weekly journal entry, the monthly review, the quarterly rebalance, and the annual audit — these mundane habits, compounded over 20 years, produce extraordinary outcomes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MASTER MANIFEST ══════ -->
+<section class="sec s-parch" id="s-manifest">
+  <div class="lbl"><span class="lbl-txt">Master Wealth Manifest</span></div>
+  <h2 class="sec-title">The <em>Master Manifest</em> —<br>Your complete wealth architecture</h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">This is the most important document you will build. It synthesizes every element from all five playbooks into a single, unified reference document — your personal wealth constitution. Fill it in completely. Review it every January. Let it govern every financial decision you make.</p>
+
+  <div class="manifest">
+    <div class="mf-head">
+      <div class="mf-title">The Capital Code — Master Wealth Manifest</div>
+      <div class="mf-sub">Personal & Strictly Confidential — Reviewed Annually</div>
+    </div>
+    <div class="mf-body">
+
+      <!-- SECTION 1 -->
+      <div class="mf-section">
+        <div class="mf-sec-title ms-gold">I. Investment Architecture (Playbook 01)
+          <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--gold);letter-spacing:.1em;font-weight:400;">FROM PB01</span>
+        </div>
+        <div class="mf-row"><div class="mf-lbl">Risk Profile</div><select class="mf-inp tf-sel"><option>Defensive (max −10%)</option><option>Balanced (max −20%)</option><option>Aggressive (max −40%)</option></select></div>
+        <div class="mf-row"><div class="mf-lbl">Target Allocation</div><input class="mf-inp" type="text" placeholder="e.g. 55% ETFs, 20% Stocks, 10% EM, 8% Alt, 7% Cash"></div>
+        <div class="mf-row"><div class="mf-lbl">Entry Strategy</div><select class="mf-inp tf-sel"><option>Monthly cost-averaging</option><option>Staged deployment (3–6 months)</option><option>Opportunistic entry</option></select></div>
+        <div class="mf-row"><div class="mf-lbl">Rebalancing Trigger</div><select class="mf-inp tf-sel"><option>Quarterly (time-based)</option><option>Semi-annually</option><option>At ±5% drift (threshold)</option><option>Annually</option></select></div>
+        <div class="mf-row"><div class="mf-lbl">Non-Negotiable Rules</div><textarea class="mf-inp mf-ta" placeholder="e.g. Never more than 5% in any single stock. Never invest with leverage. Always maintain 3-month emergency fund..."></textarea></div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="mf-section">
+        <div class="mf-sec-title ms-blue">II. Crisis Response Protocol (Playbook 02)
+          <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--sapp);letter-spacing:.1em;font-weight:400;">FROM PB02</span>
+        </div>
+        <div class="mf-row"><div class="mf-lbl">If Market Falls −15%</div><textarea class="mf-inp mf-ta" placeholder="Your pre-written response..."></textarea></div>
+        <div class="mf-row"><div class="mf-lbl">If Market Falls −30%</div><textarea class="mf-inp mf-ta" placeholder="Your pre-written response..."></textarea></div>
+        <div class="mf-row"><div class="mf-lbl">If Market Falls −50%</div><textarea class="mf-inp mf-ta" placeholder="Your pre-written response..."></textarea></div>
+        <div class="mf-row"><div class="mf-lbl">Cash Reserve Level</div><input class="mf-inp" type="text" placeholder="% of portfolio maintained as cash + specific account"></div>
+        <div class="mf-row"><div class="mf-lbl">Accountability Partner</div><input class="mf-inp" type="text" placeholder="Name + contact for pre-trade emotional check"></div>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div class="mf-section">
+        <div class="mf-sec-title ms-green">III. Financial System (Playbook 03)
+          <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--em);letter-spacing:.1em;font-weight:400;">FROM PB03</span>
+        </div>
+        <div class="mf-row"><div class="mf-lbl">Monthly Net Income</div><input class="mf-inp" type="number" placeholder="Total from all sources (€)"></div>
+        <div class="mf-row"><div class="mf-lbl">Monthly Investment Amount</div><input class="mf-inp" type="number" placeholder="Auto-transferred on payday+1 (€)"></div>
+        <div class="mf-row"><div class="mf-lbl">Savings Rate</div><input class="mf-inp" type="text" placeholder="% of net income invested"></div>
+        <div class="mf-row"><div class="mf-lbl">Financial Independence Number</div><input class="mf-inp" type="number" placeholder="Annual expenses × 25 (€)"></div>
+        <div class="mf-row"><div class="mf-lbl">FI Target Date</div><input class="mf-inp" type="text" placeholder="Year you will reach your FI number"></div>
+        <div class="mf-row"><div class="mf-lbl">Primary Tax Strategy</div><textarea class="mf-inp mf-ta" placeholder="Key tax actions for this year..."></textarea></div>
+      </div>
+
+      <!-- SECTION 4 -->
+      <div class="mf-section">
+        <div class="mf-sec-title ms-teal">IV. Investment Theses (Playbook 04)
+          <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--teal);letter-spacing:.1em;font-weight:400;">FROM PB04</span>
+        </div>
+        <div class="mf-row"><div class="mf-lbl">Thesis 1</div><textarea class="mf-inp mf-ta" placeholder="Asset / Core thesis / Exit trigger"></textarea></div>
+        <div class="mf-row"><div class="mf-lbl">Thesis 2</div><textarea class="mf-inp mf-ta" placeholder="Asset / Core thesis / Exit trigger"></textarea></div>
+        <div class="mf-row"><div class="mf-lbl">Thesis 3</div><textarea class="mf-inp mf-ta" placeholder="Asset / Core thesis / Exit trigger"></textarea></div>
+        <div class="mf-row"><div class="mf-lbl">Watchlist</div><textarea class="mf-inp mf-ta" placeholder="Assets on watchlist — thesis in progress, not yet purchased"></textarea></div>
+      </div>
+
+      <!-- SECTION 5 -->
+      <div class="mf-section">
+        <div class="mf-sec-title ms-pur">V. Review Commitments (Playbook 05)
+          <span style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--am);letter-spacing:.1em;font-weight:400;">FROM PB05</span>
+        </div>
+        <div class="mf-row"><div class="mf-lbl">Weekly Review</div><input class="mf-inp" type="text" placeholder="Day + time (e.g. Every Friday 7:00pm)"></div>
+        <div class="mf-row"><div class="mf-lbl">Monthly Review</div><input class="mf-inp" type="text" placeholder="Date each month (e.g. 1st of month, 45 min)"></div>
+        <div class="mf-row"><div class="mf-lbl">Quarterly Reviews</div><input class="mf-inp" type="text" placeholder="Dates (e.g. March 31, June 30, Sep 30, Dec 31)"></div>
+        <div class="mf-row"><div class="mf-lbl">Annual Review Date</div><input class="mf-inp" type="text" placeholder="e.g. January 15 — full day dedicated"></div>
+        <div class="mf-row"><div class="mf-lbl">The One Commitment</div><textarea class="mf-inp mf-ta" placeholder="The single most important financial commitment you are making by signing this manifest..."></textarea></div>
+      </div>
+
+    </div>
+    <div class="mf-foot">
+      <span class="mf-note">Your Master Manifest is stored locally — never transmitted. Print it and sign it. It is your contract with yourself.</span>
+      <button class="mf-save" onclick="saveMf(this)">Save & Complete My Master Manifest ↓</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FINAL CAPSTONE ══════ -->
+<div class="capstone" id="s-cap">
+  <div class="cap-bg"></div>
+  <div class="cap-r1"></div><div class="cap-r2"></div><div class="cap-r3"></div>
+
+  <div class="cap-inner">
+    <div class="cap-badge">The Capital Code · Architect Edition · Complete</div>
+
+    <h2 class="cap-title">You have built<br>something <em>permanent.</em></h2>
+
+    <div class="cap-div"></div>
+
+    <p class="cap-body">
+      Five playbooks. One integrated system. An investment framework that operates independently of emotion. A crisis protocol that converts market fear into opportunity. A financial architecture that automatically routes every euro toward your highest goals. An analytical library built on the greatest investment cases in modern history. And now, the operational templates and review system that keeps everything running with precision.
+    </p>
+
+    <p class="cap-body">
+      <strong>What you have built is not a collection of documents.</strong> It is a wealth-building machine that will run for the next 10, 20, 30 years — compounding your capital, protecting your portfolio during crises, minimizing your tax drag, and systematically moving you toward financial independence while most people remain dependent on circumstance.
+    </p>
+
+    <p class="cap-body">
+      The machine requires one thing from you now: <strong>execution.</strong> Not perfect execution — consistent execution. The monthly contribution, even when it feels small. The quarterly review, even when nothing seems to have changed. The written thesis before the purchase, even when you are excited. The pre-written crisis protocol, even when the market is terrifying. These small, consistent, seemingly mundane actions are exactly what compounding turns into extraordinary outcomes over time.
+    </p>
+
+    <div class="pb-complete">
+      <div class="pbc pbc-done"><span class="pbc-n">✓</span><span class="pbc-t">Investment Playbooks</span></div>
+      <div class="pbc pbc-done"><span class="pbc-n">✓</span><span class="pbc-t">Scenario Simulator</span></div>
+      <div class="pbc pbc-done"><span class="pbc-n">✓</span><span class="pbc-t">Finance & Tax</span></div>
+      <div class="pbc pbc-done"><span class="pbc-n">✓</span><span class="pbc-t">Case Library</span></div>
+      <div class="pbc pbc-done"><span class="pbc-n">✓</span><span class="pbc-t">Wealth Templates</span></div>
+    </div>
+
+    <div class="cap-div"></div>
+
+    <div class="cap-sig">The Capital Code</div>
+    <div class="cap-sig-sub">Architect Edition — All Five Playbooks Complete</div>
+
+    <span class="cap-brand">The Capital Code</span>
+    <div class="cap-meta">ARCHITECT EDITION — 5 OF 5 PLAYBOOKS COMPLETE · NOT FOR REDISTRIBUTION</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// SCROLL & ANIMATIONS
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(window.scrollY/h*100)+'%';
+  document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.87)s.classList.add('vis');});
+  updDots();
+});
+setTimeout(()=>document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight)s.classList.add('vis');}),80);
+
+window.toTop = function(){window.scrollTo({top:0,behavior:'smooth'});}
+window.goTo = function(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+
+window.updDots = function(){
+  const ids=['','s-intro','s-overview','s-dash','s-tpls','s-review','s-score','s-prin','s-manifest','s-cap'];
+  let a=0;
+  ids.forEach((id,i)=>{if(id&&document.getElementById(id)?.getBoundingClientRect().top<=220)a=i;});
+  document.querySelectorAll('.sd').forEach((d,i)=>d.classList.toggle('on',i===a));
+}
+
+// DASHBOARD UPDATE
+window.updDash = function(){
+  const tot=parseFloat(document.getElementById('di-tot').value)||0;
+  const mon=parseFloat(document.getElementById('di-mon').value)||0;
+  const ytd=parseFloat(document.getElementById('di-ytd').value)||0;
+  const net=parseFloat(document.getElementById('di-net').value)||1;
+  const fi=parseFloat(document.getElementById('di-fi').value)||1;
+  const sr=net>0?(mon/net*100):0;
+  const fiP=fi>0?Math.min(100,tot/fi*100):0;
+  document.getElementById('d-total').textContent=tot?'€'+Math.round(tot).toLocaleString('de-DE'):'€—';
+  document.getElementById('d-mon').textContent=mon?'€'+Math.round(mon).toLocaleString('de-DE'):'€—';
+  document.getElementById('d-ytd').textContent=ytd?(ytd>=0?'+':'')+ytd.toFixed(1)+'%':'—%';
+  document.getElementById('d-ytd').style.color=ytd>=0?'var(--em)':'var(--ruby)';
+  document.getElementById('d-sr').textContent=sr?sr.toFixed(0)+'%':'—%';
+  document.getElementById('d-fi').textContent=fiP?fiP.toFixed(0)+'%':'—%';
+  // Health meters
+  document.getElementById('hm-sr').textContent=sr.toFixed(0)+'%';
+  document.getElementById('hm-sr').style.color=sr>=20?'var(--em)':sr>=10?'var(--gold)':'var(--ruby)';
+  document.getElementById('hm-sr-bar').style.width=Math.min(100,sr*3)+'%';
+  document.getElementById('hm-sr-bar').style.background=sr>=20?'var(--em)':sr>=10?'var(--gold)':'var(--ruby)';
+  // FI goal
+  document.getElementById('g1-pct').textContent=fiP.toFixed(0)+'%';
+  document.getElementById('g1-bar').style.width=fiP+'%';
+}
+
+// SCORE ENGINE
+let scores={pb1:0,pb2:0,pb3:0,pb4:0};
+let totalScore=0;
+
+window.toggleScore = function(el,pts){
+  const section=el.closest('[style*="border-bottom"]')?.style.borderBottomColor;
+  el.classList.toggle('checked');
+  const checked=el.classList.contains('checked');
+  // Detect section by position
+  const rows=document.querySelectorAll('.score-row');
+  const idx=[...rows].indexOf(el.closest('.score-row'));
+  let bucket=idx<5?'pb1':idx<9?'pb2':idx<14?'pb3':'pb4';
+  scores[bucket]=(scores[bucket]||0)+(checked?pts:-pts);
+  totalScore=(totalScore||0)+(checked?pts:-pts);
+  totalScore=Math.max(0,Math.min(100,totalScore));
+
+  // Update ring
+  const arc=document.getElementById('score-arc');
+  arc.style.strokeDashoffset=502.7*(1-totalScore/100);
+
+  // Update number
+  document.getElementById('sc-num').textContent=totalScore;
+  const tiers=[
+    [0,20,'Beginner','Start with Playbook 01. The foundation must come first.','var(--slate-m)'],
+    [21,40,'Developing','Good start — focus on automating your savings and writing your investment plan.','var(--cop)'],
+    [41,60,'Intermediate','Solid foundation. Prioritize the areas with lowest sub-scores next.','var(--amber)'],
+    [61,80,'Advanced','Strong system. Focus on consistency and the remaining gaps.','var(--sapp)'],
+    [81,95,'Architect','Excellent. You are operating at institutional-grade discipline.','var(--em)'],
+    [96,100,'Capital Code Architect','Perfect system. Your only task now is consistent execution.','var(--gold)']
+  ];
+  const tier=tiers.find(t=>totalScore>=t[0]&&totalScore<=t[1]);
+  if(tier){
+    document.getElementById('sc-title').textContent=tier[2];
+    document.getElementById('sc-title').style.color=tier[4];
+    document.getElementById('sc-num').style.color=tier[4];
+    document.getElementById('sc-desc').textContent=tier[3];
+  }
+  // Sub-scores
+  document.getElementById('sb-1').textContent=(scores.pb1||0)+'/25';
+  document.getElementById('sb-2').textContent=(scores.pb2||0)+'/20';
+  document.getElementById('sb-3').textContent=(scores.pb3||0)+'/25';
+  document.getElementById('sb-4').textContent=(scores.pb4||0)+'/30';
+}
+
+// TEMPLATE SAVE
+window.saveTpl = function(btn,name){
+  const orig=btn.textContent;
+  btn.textContent='✓ '+name+' Saved!';
+  btn.style.background='var(--em)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2500);
+}
+
+window.saveMf = function(btn){
+  const orig=btn.textContent;
+  btn.textContent='✓ Master Manifest Saved — System Complete!';
+  btn.style.background='var(--em)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},3000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Code — Playbook 02: Market Scenario Simulator</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   THE CAPITAL CODE — Self-Contained Font System
+   No internet connection required
+═══════════════════════════════════════════════════ */
+
+/* ─── SYSTEM FONT STACK: NO INTERNET REQUIRED ─── */
+:root {
+  --font-serif: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:  'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+}
+
+
+/* Display / Serif → Palatino family (elegant, available on all OS) */
+/* Body → System UI font stack (crisp on all platforms) */
+/* Mono → Courier/Consolas family */
+
+</style>
+<style>
+:root {
+  --navy:#08152A; --navy-mid:#0F2040; --navy-light:#183060; --navy-soft:#1E3A6E;
+  --white:#FFFFFF; --off-white:#F7F6F2; --cream:#F0EDE4; --parch:#EAE5D8;
+  --gold:#C8922A; --gold-l:#E4AF56; --gold-pale:#F5E6C0; --gold-d:#9A6E1A;
+  --sapphire:#1A52A8; --sapp-l:#3B7FD4; --sapp-p:#E8F0FB;
+  --emerald:#186848; --em-l:#28A870; --em-p:#E4F5ED;
+  --ruby:#A82828; --ruby-l:#D84848; --ruby-p:#FAEAEA;
+  --amethyst:#5C2A8C; --am-l:#8C4FBF; --am-p:#F0E8F8;
+  --copper:#B05020; --cop-l:#D87040; --cop-p:#FAEEE8;
+  --teal:#0E6B6B; --teal-l:#1A9A9A; --teal-p:#E4F4F4;
+  --crimson:#8B1A1A; --crim-l:#C43030; --crim-p:#FDF0F0;
+  --slate:#3A5070; --slate-m:#5A7090; --slate-l:#8AAABB;
+  --border:#DDD8CC; --bsoft:#EAE7E0;
+  --sh-sm:0 2px 16px rgba(8,21,42,.07);
+  --sh-md:0 8px 48px rgba(8,21,42,.11);
+  --sh-lg:0 20px 80px rgba(8,21,42,.15);
+  --sh-xl:0 32px 120px rgba(8,21,42,.20);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--off-white);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.72;overflow-x:hidden;}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--ruby),var(--gold),var(--sapphire));z-index:9999;}
+
+/* SIDEBAR */
+.sb{position:fixed;left:0;top:0;bottom:0;width:66px;background:var(--navy);z-index:200;display:flex;flex-direction:column;align-items:center;padding:2rem 0;}
+.sb-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:var(--gold);font-size:.95rem;font-weight:700;letter-spacing:.08em;writing-mode:vertical-lr;transform:rotate(180deg);margin-bottom:auto;}
+.sb-dots{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:auto;}
+.sd{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .25s;position:relative;}
+.sd:hover,.sd.on{background:var(--gold);transform:scale(1.5);}
+.sd::after{content:attr(data-tip);position:absolute;left:17px;top:50%;transform:translateY(-50%);background:var(--navy-mid);color:#fff;font-size:.58rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.08em;padding:.22rem .6rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s;border-left:2px solid var(--ruby);}
+.sd:hover::after{opacity:1;}
+.sb-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:rgba(255,255,255,.22);font-size:.62rem;writing-mode:vertical-lr;transform:rotate(180deg);letter-spacing:.22em;margin-top:.5rem;}
+
+/* LAYOUT */
+.wrap{margin-left:66px;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--navy);position:relative;display:flex;flex-direction:column;overflow:hidden;}
+.cv-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 55% at 65% 30%,rgba(168,40,40,.28) 0%,transparent 60%),
+  radial-gradient(ellipse 55% 45% at 20% 75%,rgba(200,146,42,.18) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 35% at 80% 80%,rgba(26,82,168,.2) 0%,transparent 50%),
+  linear-gradient(160deg,#08152A 0%,#0F2040 45%,#0A1A32 100%);}
+.cv-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:68px 68px;}
+.cv-ring1{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:620px;height:620px;border-radius:50%;border:1px solid rgba(168,40,40,.12);}
+.cv-ring2{position:absolute;right:-75px;top:50%;transform:translateY(-50%);width:460px;height:460px;border-radius:50%;border:1px solid rgba(200,146,42,.08);}
+.cv-ring3{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;border:1px solid rgba(26,82,168,.07);}
+.cv-body{position:relative;z-index:5;padding:5.5rem 6rem;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.cv-pre{display:flex;align-items:center;gap:1rem;margin-bottom:2.8rem;animation:fadeUp .8s ease both;}
+.cv-pre-line{width:34px;height:1px;background:var(--ruby);}
+.cv-pre-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--ruby-l);letter-spacing:.35em;text-transform:uppercase;}
+.cv-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(3.2rem,6vw,6.5rem);font-weight:600;color:#fff;line-height:1.02;margin-bottom:1.6rem;animation:fadeUp .8s ease .1s both;max-width:760px;}
+.cv-title em{font-style:italic;color:var(--gold-l);}
+.cv-title .c-red{color:var(--ruby-l);}
+.cv-sub{font-size:1.02rem;color:rgba(255,255,255,.48);font-weight:300;max-width:520px;line-height:1.84;margin-bottom:3.2rem;animation:fadeUp .8s ease .2s both;}
+.cv-tags{display:flex;gap:.7rem;flex-wrap:wrap;animation:fadeUp .8s ease .3s both;margin-bottom:4rem;}
+.cv-tag{padding:.38rem .95rem;border:1px solid rgba(168,40,40,.35);color:rgba(255,255,255,.55);font-size:.62rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.14em;text-transform:uppercase;}
+.cv-metrics{display:flex;gap:3rem;animation:fadeUp .8s ease .4s both;}
+.cv-mval{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.4rem;font-weight:700;color:var(--ruby-l);display:block;line-height:1;}
+.cv-mlbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;display:block;}
+.cv-bignum{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(8rem,16vw,16rem);font-weight:300;color:rgba(255,255,255,.025);position:absolute;right:5rem;bottom:3rem;line-height:1;letter-spacing:-.03em;animation:fadeUp 1.4s ease .5s both;pointer-events:none;}
+.cv-foot{position:relative;z-index:5;padding:1.8rem 6rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;}
+.cv-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.1em;}
+.cv-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:rgba(255,255,255,.2);letter-spacing:.1em;text-align:right;line-height:1.9;}
+
+/* SECTIONS */
+.sec{padding:6rem;position:relative;transition:opacity .7s ease,transform .7s ease;}
+.sec.vis{opacity:1;transform:none;}
+.s-white{background:var(--white);}
+.s-off{background:var(--off-white);}
+.s-cream{background:var(--cream);}
+.s-parch{background:var(--parch);}
+.s-navy{background:var(--navy);color:#fff;}
+.s-navy-m{background:var(--navy-mid);color:#fff;}
+.s-dark-red{background:#120808;color:#fff;}
+
+/* LABELS & TITLES */
+.sec-label{display:flex;align-items:center;gap:.9rem;margin-bottom:1.1rem;}
+.sec-label::before{content:'';width:24px;height:2px;background:var(--ruby);flex-shrink:0;}
+.sec-label-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--ruby);letter-spacing:.32em;text-transform:uppercase;}
+.sec-label.gold::before{background:var(--gold);}
+.sec-label.gold .sec-label-txt{color:var(--gold);}
+.sec-label.blue::before{background:var(--sapphire);}
+.sec-label.blue .sec-label-txt{color:var(--sapphire);}
+.sec-label.green::before{background:var(--emerald);}
+.sec-label.green .sec-label-txt{color:var(--emerald);}
+.sec-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(2.1rem,3.6vw,3.4rem);font-weight:600;line-height:1.12;color:var(--navy);margin-bottom:1.4rem;}
+.s-navy .sec-title,.s-navy-m .sec-title,.s-dark-red .sec-title{color:#fff;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-title .c-red{color:var(--ruby-l);}
+.sec-title .c-blue{color:var(--sapp-l);}
+.sec-title .c-green{color:var(--em-l);}
+.sec-body{font-size:.96rem;line-height:1.86;color:var(--slate);max-width:680px;}
+.s-navy .sec-body,.s-navy-m .sec-body,.s-dark-red .sec-body{color:rgba(255,255,255,.52);}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:2rem;margin:0 6rem;padding:3rem 0;}
+.div-line{flex:1;height:1px;background:var(--bsoft);}
+.div-diamond{width:8px;height:8px;background:var(--ruby);transform:rotate(45deg);flex-shrink:0;}
+.divider.navy .div-line{background:rgba(255,255,255,.1);}
+
+/* CALLOUTS */
+.callout{padding:1.8rem 2rem;border-left:4px solid;margin:2rem 0;}
+.co-gold{background:var(--gold-pale);border-color:var(--gold);}
+.co-red{background:var(--ruby-p);border-color:var(--ruby);}
+.co-blue{background:var(--sapp-p);border-color:var(--sapphire);}
+.co-green{background:var(--em-p);border-color:var(--emerald);}
+.co-pur{background:var(--am-p);border-color:var(--amethyst);}
+.co-teal{background:var(--teal-p);border-color:var(--teal);}
+.co-copper{background:var(--cop-p);border-color:var(--copper);}
+.co-crimson{background:var(--crim-p);border-color:var(--crimson);}
+.co-icon{font-size:1.1rem;margin-bottom:.4rem;display:block;}
+.co-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+.co-body{font-size:.84rem;color:var(--slate);line-height:1.76;}
+
+/* SCENARIO SELECTOR */
+.scenario-selector{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin:2.5rem 0;}
+.sc-card{padding:2rem 1.5rem;border:2px solid var(--bsoft);background:var(--white);cursor:pointer;transition:all .25s;position:relative;overflow:hidden;text-align:center;}
+.sc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;transform:scaleX(0);transition:transform .3s;transform-origin:left;}
+.sc-crash::before{background:linear-gradient(90deg,var(--ruby),var(--crim-l));}
+.sc-bull::before{background:linear-gradient(90deg,var(--emerald),var(--em-l));}
+.sc-side::before{background:linear-gradient(90deg,var(--sapphire),var(--sapp-l));}
+.sc-infla::before{background:linear-gradient(90deg,var(--copper),var(--cop-l));}
+.sc-rate::before{background:linear-gradient(90deg,var(--amethyst),var(--am-l));}
+.sc-black::before{background:linear-gradient(90deg,var(--navy),var(--slate-m));}
+.sc-card:hover,.sc-card.active{border-width:2px;transform:translateY(-3px);box-shadow:var(--sh-md);}
+.sc-crash.active,.sc-crash:hover{border-color:var(--ruby);}
+.sc-bull.active,.sc-bull:hover{border-color:var(--emerald);}
+.sc-side.active,.sc-side:hover{border-color:var(--sapphire);}
+.sc-infla.active,.sc-infla:hover{border-color:var(--copper);}
+.sc-rate.active,.sc-rate:hover{border-color:var(--amethyst);}
+.sc-black.active,.sc-black:hover{border-color:var(--slate);}
+.sc-card:hover::before,.sc-card.active::before{transform:scaleX(1);}
+.sc-icon{font-size:2.2rem;margin-bottom:.8rem;display:block;}
+.sc-name{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+.sc-range{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.62rem;color:var(--slate-l);letter-spacing:.06em;}
+.sc-card.active .sc-name{color:inherit;}
+.sc-crash.active .sc-name{color:var(--ruby);}
+.sc-bull.active .sc-name{color:var(--emerald);}
+.sc-side.active .sc-name{color:var(--sapphire);}
+.sc-infla.active .sc-name{color:var(--copper);}
+.sc-rate.active .sc-name{color:var(--amethyst);}
+.sc-black.active .sc-name{color:var(--slate);}
+
+/* SIMULATOR ENGINE */
+.sim-engine{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-xl);overflow:hidden;margin:2.5rem 0;}
+.sim-hd{background:var(--navy-mid);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.07);}
+.sim-hd-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.28rem;font-weight:600;color:#fff;}
+.sim-badge{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--ruby-l);letter-spacing:.18em;border:1px solid rgba(168,40,40,.4);padding:.28rem .8rem;text-transform:uppercase;}
+.sim-cols{display:grid;grid-template-columns:1fr 1fr;}
+.sim-left{padding:2.5rem;border-right:1px solid var(--border);}
+.sim-right{padding:2.5rem;background:var(--off-white);}
+
+/* INPUTS */
+.ig{margin-bottom:1.7rem;}
+.ig-label{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-m);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.48rem;display:block;}
+.ig-field{width:100%;padding:.72rem 1rem;border:1.5px solid var(--bsoft);background:var(--white);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.9rem;outline:none;transition:all .2s;}
+.ig-field:focus{border-color:var(--ruby-l);box-shadow:0 0 0 3px rgba(168,40,40,.08);}
+.ig-sel{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235A7090' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem;}
+
+/* SCENARIO MINI SELECTOR */
+.sc-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1.5px solid var(--bsoft);overflow:hidden;}
+.sc-m{padding:.65rem .5rem;text-align:center;cursor:pointer;transition:all .18s;border-right:1px solid var(--bsoft);background:var(--white);}
+.sc-m:last-child{border-right:none;}
+.sc-m:hover{background:var(--off-white);}
+.sc-m.sel-crash{background:var(--ruby-p);border-bottom:2px solid var(--ruby);}
+.sc-m.sel-bull{background:var(--em-p);border-bottom:2px solid var(--emerald);}
+.sc-m.sel-side{background:var(--sapp-p);border-bottom:2px solid var(--sapphire);}
+.sc-m.sel-infla{background:var(--cop-p);border-bottom:2px solid var(--copper);}
+.sc-m.sel-rate{background:var(--am-p);border-bottom:2px solid var(--amethyst);}
+.sc-m.sel-black{background:rgba(58,80,112,.08);border-bottom:2px solid var(--slate);}
+.sc-m-ico{font-size:1.15rem;display:block;margin-bottom:.12rem;}
+.sc-m-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;letter-spacing:.08em;color:var(--slate);text-transform:uppercase;display:block;}
+
+/* RANGE */
+.rng-wrap{margin-top:.45rem;}
+.rng-num{text-align:right;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.72rem;color:var(--ruby);font-weight:500;margin-bottom:.28rem;}
+.rng-track{position:relative;height:4px;background:var(--border);margin:.9rem 0 .42rem;}
+.rng-fill{position:absolute;left:0;top:0;bottom:0;pointer-events:none;transition:width .08s;}
+.rng-inp{position:absolute;inset:-8px 0;opacity:0;cursor:pointer;width:100%;height:20px;}
+.rng-knob{position:absolute;top:-8px;width:18px;height:18px;background:var(--white);border:2px solid var(--ruby);box-shadow:var(--sh-sm);transform:translateX(-50%);pointer-events:none;transition:left .08s;}
+.rng-ends{display:flex;justify-content:space-between;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);}
+
+/* RUN BTN */
+.btn-run{width:100%;padding:1rem 1.5rem;background:var(--navy);color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.84rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;margin-top:.5rem;}
+.btn-run::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--ruby),var(--gold),var(--sapphire));transform:scaleX(0);transition:transform .35s;}
+.btn-run:hover{background:var(--navy-light);transform:translateY(-1px);box-shadow:var(--sh-md);}
+.btn-run:hover::after{transform:scaleX(1);}
+
+/* OUTPUT */
+.out-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;text-align:center;gap:1rem;}
+.out-ph-ico{font-size:2.8rem;opacity:.16;}
+.out-ph p{font-size:.82rem;color:var(--slate-l);max-width:220px;line-height:1.65;}
+.out-res{display:none;}
+.out-res.show{display:block;}
+.out-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:var(--ruby);letter-spacing:.24em;text-transform:uppercase;margin-bottom:.9rem;padding-bottom:.45rem;border-bottom:1px solid var(--bsoft);}
+
+/* GAUGE */
+.gauge-wrap{display:flex;justify-content:center;margin:1.5rem 0;}
+.gauge-outer{position:relative;width:200px;}
+.gauge-svg{display:block;margin:0 auto;}
+.gauge-center{position:absolute;bottom:0;width:100%;text-align:center;}
+.gauge-val{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.2rem;font-weight:700;line-height:1;display:block;}
+.gauge-sub{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;margin-top:.15rem;display:block;}
+
+/* IMPACT ROW */
+.impact-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bsoft);}
+.impact-row:last-child{border-bottom:none;}
+.ir-key{font-size:.8rem;color:var(--slate-m);}
+.ir-val{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.82rem;font-weight:500;}
+.iv-pos{color:var(--emerald);}
+.iv-neg{color:var(--ruby);}
+.iv-gold{color:var(--gold);}
+.iv-navy{color:var(--navy);}
+
+/* MONTHLY CHART */
+.chart-wrap{margin:1.5rem 0;}
+.chart-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;text-align:center;}
+.bar-chart{display:flex;align-items:flex-end;gap:3px;height:80px;background:var(--off-white);padding:0 .5rem .5rem;}
+.bar{flex:1;min-height:3px;transition:height .5s cubic-bezier(.4,0,.2,1),background .2s;cursor:pointer;position:relative;}
+.bar:hover{opacity:.75;}
+.bar-pos{background:linear-gradient(180deg,var(--em-l),var(--emerald));}
+.bar-neg{background:linear-gradient(0deg,var(--ruby-l),var(--ruby));}
+.bar-neut{background:linear-gradient(180deg,var(--sapp-l),var(--sapphire));}
+.bar-zero{background:var(--slate-l);}
+
+/* ENGINE FOOTER */
+.sim-ft{border-top:1px solid var(--border);background:var(--navy);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;}
+.ef-cell{padding:1.2rem 1.4rem;text-align:center;position:relative;}
+.ef-cell:not(:last-child)::after{content:'';position:absolute;right:0;top:22%;bottom:22%;width:1px;background:rgba(255,255,255,.09);}
+.ef-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:rgba(255,255,255,.28);letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:.28rem;}
+.ef-val{font-size:.84rem;color:#fff;font-weight:500;display:block;}
+.ef-red{color:var(--ruby-l);}
+.ef-green{color:var(--em-l);}
+.ef-gold{color:var(--gold-l);}
+
+/* HISTORICAL CRASHES TABLE */
+.h-table{width:100%;border-collapse:collapse;margin:2rem 0;background:var(--white);box-shadow:var(--sh-sm);}
+.h-table th{background:var(--navy);color:#fff;padding:.95rem 1.3rem;text-align:left;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;font-weight:400;}
+.h-table td{padding:.88rem 1.3rem;border-bottom:1px solid var(--bsoft);font-size:.84rem;color:var(--slate);vertical-align:top;}
+.h-table tr:last-child td{border-bottom:none;}
+.h-table tr:hover td{background:var(--off-white);}
+.td-b{font-weight:600;color:var(--navy);}
+.badge{display:inline-block;padding:.2rem .58rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid;}
+.bk-red{background:var(--ruby-p);border-color:var(--ruby);color:var(--ruby);}
+.bk-green{background:var(--em-p);border-color:var(--emerald);color:var(--emerald);}
+.bk-gold{background:var(--gold-pale);border-color:var(--gold);color:var(--gold-d);}
+.bk-blue{background:var(--sapp-p);border-color:var(--sapphire);color:var(--sapphire);}
+.bk-pur{background:var(--am-p);border-color:var(--amethyst);color:var(--amethyst);}
+.bk-copper{background:var(--cop-p);border-color:var(--copper);color:var(--copper);}
+
+/* PHASE DIAGRAM */
+.phase-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.phase-card{padding:2rem;background:var(--white);border:1px solid var(--bsoft);position:relative;overflow:hidden;transition:all .22s;}
+.phase-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.phase-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.phase-card:hover::after{transform:scaleX(1);}
+.pc-crash::after{background:linear-gradient(90deg,var(--ruby),var(--crim-l));}
+.pc-recovery::after{background:linear-gradient(90deg,var(--gold-d),var(--gold-l));}
+.pc-bull::after{background:linear-gradient(90deg,var(--emerald),var(--em-l));}
+.pc-peak::after{background:linear-gradient(90deg,var(--amethyst),var(--am-l));}
+.phase-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.8rem;font-weight:700;color:rgba(8,21,42,.05);position:absolute;top:.9rem;right:1.3rem;line-height:1;}
+.phase-icon{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.phase-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.4rem;}
+.phase-body{font-size:.82rem;color:var(--slate);line-height:1.75;}
+.phase-action{margin-top:1rem;padding:.6rem .9rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid;display:inline-block;}
+.pa-crash{border-color:var(--ruby);color:var(--ruby);background:var(--ruby-p);}
+.pa-recovery{border-color:var(--gold);color:var(--gold-d);background:var(--gold-pale);}
+.pa-bull{border-color:var(--emerald);color:var(--emerald);background:var(--em-p);}
+.pa-peak{border-color:var(--amethyst);color:var(--amethyst);background:var(--am-p);}
+
+/* PSYCHOLOGY SECTION */
+.psych-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.psych-card{padding:1.8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:all .22s;position:relative;overflow:hidden;}
+.psych-card:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.psych-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.psych-card:hover::after{transform:scaleX(1);}
+.pp-red::after{background:var(--ruby-l);}
+.pp-gold::after{background:var(--gold-l);}
+.pp-blue::after{background:var(--sapp-l);}
+.pp-green::after{background:var(--em-l);}
+.pp-pur::after{background:var(--am-l);}
+.pp-teal::after{background:var(--teal-l);}
+.p-ico{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.p-ttl{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-weight:700;color:#fff;margin-bottom:.45rem;}
+.p-bdy{font-size:.8rem;color:rgba(255,255,255,.48);line-height:1.72;}
+
+/* STRESS TEST GRID */
+.stress-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem;}
+.stress-card{padding:1.8rem 1.5rem;border:1px solid var(--bsoft);background:var(--white);text-align:center;transition:all .22s;position:relative;overflow:hidden;}
+.stress-card:hover{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.stress-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.st-crash::before{background:linear-gradient(90deg,var(--ruby),var(--crim-l));}
+.st-infla::before{background:linear-gradient(90deg,var(--copper),var(--cop-l));}
+.st-rate::before{background:linear-gradient(90deg,var(--amethyst),var(--am-l));}
+.st-black::before{background:linear-gradient(90deg,var(--navy),var(--slate-m));}
+.st-ico{font-size:1.8rem;margin-bottom:.8rem;display:block;}
+.st-name{font-weight:700;font-size:.9rem;color:var(--navy);margin-bottom:.3rem;}
+.st-impact{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.72rem;color:var(--ruby);margin-bottom:.5rem;}
+.st-desc{font-size:.76rem;color:var(--slate-m);line-height:1.62;}
+
+/* WORKSHEET */
+.ws{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-lg);overflow:hidden;margin:2.5rem 0;}
+.ws-head{background:linear-gradient(135deg,var(--navy-mid),var(--navy-light));padding:1.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.ws-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.2rem;color:#fff;font-weight:600;}
+.ws-body{padding:2.5rem;}
+.ws-row{display:grid;grid-template-columns:240px 1fr;align-items:start;gap:1.5rem;padding:1.2rem 0;border-bottom:1px solid var(--bsoft);}
+.ws-row:last-child{border-bottom:none;}
+.ws-lbl{font-size:.84rem;font-weight:600;color:var(--navy);padding-top:.15rem;}
+.ws-hint{font-size:.7rem;color:var(--slate-l);margin-top:.1rem;font-style:italic;font-weight:300;}
+.ws-inp{width:100%;padding:.65rem 1rem;border:1.5px solid var(--bsoft);background:var(--off-white);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.88rem;outline:none;transition:all .2s;}
+.ws-inp:focus{border-color:var(--ruby-l);background:var(--white);box-shadow:0 0 0 3px rgba(168,40,40,.07);}
+.ws-ta{min-height:78px;resize:vertical;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.62;}
+.ws-radios{display:flex;gap:.65rem;flex-wrap:wrap;}
+.wr{display:none;}
+.wrl{padding:.4rem .88rem;border:1.5px solid var(--bsoft);font-size:.72rem;cursor:pointer;transition:all .2s;color:var(--slate);font-weight:500;}
+.wr:checked+.wrl{background:var(--navy);border-color:var(--navy);color:#fff;}
+.ws-foot{padding:1.5rem 2.5rem;background:var(--off-white);border-top:1px solid var(--bsoft);display:flex;justify-content:space-between;align-items:center;}
+.ws-save{padding:.7rem 2rem;background:var(--navy);color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.ws-save:hover{background:var(--ruby);}
+.ws-note{font-size:.72rem;color:var(--slate-l);font-style:italic;}
+
+/* CHECKLIST */
+.chk{list-style:none;margin:1.5rem 0;}
+.chk li{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bsoft);font-size:.86rem;color:var(--slate);line-height:1.62;cursor:pointer;}
+.chk li:last-child{border-bottom:none;}
+.chk li:hover{color:var(--navy);}
+.chk-box{width:18px;height:18px;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;background:var(--white);position:relative;transition:all .2s;}
+.chk li.done .chk-box{background:var(--emerald);border-color:var(--emerald);}
+.chk li.done .chk-box::after{content:'';position:absolute;left:4px;top:5px;width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-3px);}
+.chk li.done .chk-txt{text-decoration:line-through;color:var(--slate-l);}
+
+/* CLOSING */
+.closing{background:var(--navy);color:#fff;padding:7rem 6rem;text-align:center;position:relative;overflow:hidden;}
+.closing::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;border:1px solid rgba(168,40,40,.07);}
+.closing::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:450px;border-radius:50%;border:1px solid rgba(200,146,42,.07);}
+.cl-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.cl-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:3.2rem;font-weight:600;color:#fff;margin-bottom:1rem;}
+.cl-title em{color:var(--gold-l);font-style:italic;}
+.cl-div{width:40px;height:1px;background:var(--ruby);margin:2rem auto;}
+.cl-body{font-size:.94rem;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:2.5rem;}
+.cl-next{display:inline-block;padding:1rem 2.5rem;border:1px solid rgba(168,40,40,.4);color:var(--ruby-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:all .22s;cursor:pointer;background:transparent;}
+.cl-next:hover{background:rgba(168,40,40,.1);border-color:var(--ruby-l);}
+.cl-brand{display:block;margin-top:2.5rem;font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;color:var(--gold);letter-spacing:.3em;text-transform:uppercase;}
+.cl-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:rgba(255,255,255,.18);margin-top:.4rem;letter-spacing:.13em;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+@media(max-width:1100px){
+  .wrap{margin-left:0;} .sb{display:none;}
+  .sec{padding:4.5rem 3.5rem;} .cv-body{padding:4rem 3.5rem;} .cv-foot{padding:1.8rem 3.5rem;}
+  .sim-cols{grid-template-columns:1fr;} .sim-left{border-right:none;border-bottom:1px solid var(--bsoft);}
+  .scenario-selector{grid-template-columns:1fr 1fr 1fr;} .phase-grid{grid-template-columns:1fr;}
+  .stress-grid{grid-template-columns:1fr 1fr;} .psych-grid{grid-template-columns:1fr 1fr;}
+  .sim-ft{grid-template-columns:1fr 1fr;} .closing{padding:5rem 3.5rem;} .divider{margin:0 3.5rem;}
+}
+@media(max-width:680px){
+  .sec{padding:3.5rem 1.5rem;} .cv-body{padding:3.5rem 1.5rem;} .cv-foot{padding:1.5rem 1.5rem;}
+  .scenario-selector{grid-template-columns:1fr 1fr;} .stress-grid{grid-template-columns:1fr;}
+  .psych-grid{grid-template-columns:1fr;} .ws-row{grid-template-columns:1fr;}
+  .sim-ft{grid-template-columns:1fr;} .ef-cell:not(:last-child)::after{display:none;}
+  .closing{padding:4rem 1.5rem;} .divider{margin:0 1.5rem;}
+}
+</style>
+
+<script>
+// iPad/Safari fix: reveal all sections immediately on load
+window.addEventListener('load', function() {
+  document.querySelectorAll('.sec').forEach(function(s) {
+    s.classList.add('vis');
+    s.style.opacity = '1';
+    s.style.transform = 'none';
+  });
+});
+</script>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav class="sb">
+  <div class="sb-brand">TCC</div>
+  <div class="sb-dots">
+    <div class="sd on"  data-tip="Cover"             onclick="toTop()"></div>
+    <div class="sd"     data-tip="Introduction"      onclick="goTo('s-intro')"></div>
+    <div class="sd"     data-tip="Market Cycles"     onclick="goTo('s-cycles')"></div>
+    <div class="sd"     data-tip="Simulator"         onclick="goTo('s-sim')"></div>
+    <div class="sd"     data-tip="Historical Crashes" onclick="goTo('s-history')"></div>
+    <div class="sd"     data-tip="Stress Tests"      onclick="goTo('s-stress')"></div>
+    <div class="sd"     data-tip="Psychology"        onclick="goTo('s-psych')"></div>
+    <div class="sd"     data-tip="Action Protocol"   onclick="goTo('s-action')"></div>
+    <div class="sd"     data-tip="Worksheet"         onclick="goTo('s-ws')"></div>
+    <div class="sd"     data-tip="Closing"           onclick="goTo('s-close')"></div>
+  </div>
+  <div class="sb-num">02 / 05</div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════ COVER ══════ -->
+<section class="cover">
+  <div class="cv-bg"></div><div class="cv-mesh"></div>
+  <div class="cv-ring1"></div><div class="cv-ring2"></div><div class="cv-ring3"></div>
+
+  <div class="cv-body">
+    <div class="cv-pre">
+      <div class="cv-pre-line"></div>
+      <div class="cv-pre-txt">The Capital Code · Playbook 02 of 05 · Architect Edition</div>
+    </div>
+    <h1 class="cv-title">Market<br><span class="c-red">Scenario</span><br><em>Simulator</em></h1>
+    <p class="cv-sub">Simulate crashes, bull runs, inflationary spirals, and black swan events. See exactly how your portfolio responds — before risking a single euro in the real market.</p>
+    <div class="cv-tags">
+      <div class="cv-tag">Crash Simulation</div>
+      <div class="cv-tag">Bull Market Analysis</div>
+      <div class="cv-tag">Stress Testing</div>
+      <div class="cv-tag">Risk Visualization</div>
+      <div class="cv-tag">Behavioral Finance</div>
+    </div>
+    <div class="cv-metrics">
+      <div><span class="cv-mval">6</span><span class="cv-mlbl">Market Scenarios</span></div>
+      <div><span class="cv-mval">−54%</span><span class="cv-mlbl">2008 Crash Depth</span></div>
+      <div><span class="cv-mval">100%</span><span class="cv-mlbl">Risk Free Testing</span></div>
+    </div>
+  </div>
+  <div class="cv-bignum">02</div>
+  <div class="cv-foot">
+    <div class="cv-brand">The Capital Code</div>
+    <div class="cv-meta"><div>ARCHITECT EDITION — PLAYBOOK 02 OF 05</div><div>EXCLUSIVE · NOT FOR REDISTRIBUTION</div></div>
+  </div>
+</section>
+
+<!-- ══════ INTRODUCTION ══════ -->
+<section class="sec s-white" id="s-intro">
+  <div class="sec-label"><span class="sec-label-txt">Introduction</span></div>
+  <h2 class="sec-title">The test you <em>must run</em><br>before the market runs it for you.</h2>
+
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start;">
+    <div>
+      <p class="sec-body">Every investor will face a market crash. Every investor will live through a bull market that feels like it will never end. Every investor will experience a period of grinding sideways frustration. These are not possibilities — they are certainties. The only question is: when they arrive, will you be prepared?</p>
+      <p class="sec-body" style="margin-top:1.2rem;">The vast majority of investors discover how their portfolio behaves under stress only after it has already happened. They watch 30%, 40%, 50% of their capital evaporate in real time — and then, driven by raw emotion, they sell at the exact worst moment, locking in permanent losses they would have recovered from had they simply held.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">This playbook gives you the laboratory. You will simulate every major market condition against your personal portfolio before a single real euro is at risk. You will know your drawdown numbers. You will have a pre-written response protocol. When the real crash comes, it will not be a surprise — it will be a plan already in motion.</p>
+
+      <div class="callout co-red" style="margin-top:2rem;">
+        <span class="co-icon">⚡</span>
+        <div class="co-title">The Core Insight</div>
+        <div class="co-body">The investors who systematically outperform over 20+ year horizons are not smarter than the market. They are simply the ones who do not panic during crashes. Preparation — not intelligence — is the differentiating variable. This playbook builds that preparation.</div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--navy);padding:2.8rem 2.5rem;color:#fff;margin-bottom:1.5rem;">
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--ruby-l);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1rem;">Historical Perspective</div>
+        <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.35rem;font-style:italic;font-weight:300;line-height:1.72;margin-bottom:1.4rem;">"In the 20th century, the United States endured a world war, a great depression, dozens of recessions, a flu pandemic, and countless crises. Yet the Dow Jones rose from 66 to 11,497. Don't predict. Prepare."</div>
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;">— Warren Buffett</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--ruby);display:block;line-height:1;margin-bottom:.25rem;">−54<span style="color:var(--ruby)">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">S&P 500 peak-to-trough<br>2007–2009 crisis</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--emerald);display:block;line-height:1;margin-bottom:.25rem;">+530<span style="color:var(--gold)">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">S&P 500 recovery<br>2009–2021 bull run</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--gold);display:block;line-height:1;margin-bottom:.25rem;">4.5<span style="color:var(--gold)">yr</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Average recovery time<br>after major crashes</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--sapphire);display:block;line-height:1;margin-bottom:.25rem;">∞<span style="color:var(--sapphire)"></span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Long-term return if<br>you don't panic sell</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ MARKET CYCLE PHASES ══════ -->
+<section class="sec s-off" id="s-cycles">
+  <div class="sec-label"><span class="sec-label-txt">Market Cycle Theory</span></div>
+  <h2 class="sec-title">The four phases every<br><em>market moves through</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Understanding market cycles is not about predicting the future — it is about recognizing the present. Markets move through identifiable phases, each with distinct characteristics, optimal investor behaviors, and common psychological traps. Knowing where you are in the cycle changes how you act.</p>
+
+  <div class="callout co-gold">
+    <span class="co-icon">🔄</span>
+    <div class="co-title">The Most Important Insight About Cycles</div>
+    <div class="co-body">You do not need to call the exact top or bottom to profit from cycle awareness. You simply need to know: "We are likely in the late expansion phase — now is not the time to add risk" or "We are in the early recovery — this is when fortunes are made." Rough cycle positioning beats precise prediction every time.</div>
+  </div>
+
+  <div class="phase-grid">
+    <div class="phase-card pc-crash">
+      <div class="phase-num">01</div>
+      <span class="phase-icon">📉</span>
+      <div class="phase-title">Phase 1 — Crash & Capitulation</div>
+      <div class="phase-body">Prices fall sharply as fear dominates. Retail investors panic-sell. Fundamentals become irrelevant as forced liquidations drive prices below intrinsic value. Volume spikes, volatility reaches extreme levels. This phase typically lasts 6–18 months and ends when the last sellers have sold. The news is uniformly terrible. This is historically the optimal entry point — which is precisely why almost no one enters here.</div>
+      <span class="phase-action pa-crash">Action: Begin staged entry. Do not sell.</span>
+    </div>
+    <div class="phase-card pc-recovery">
+      <div class="phase-num">02</div>
+      <span class="phase-icon">🌅</span>
+      <div class="phase-title">Phase 2 — Recovery & Disbelief</div>
+      <div class="phase-body">Prices begin recovering from the bottom, but most investors do not trust the move. Headlines remain negative. Volume is low. The smart money accumulates quietly while retail investors wait for "confirmation." This phase is characterized by disbelief and skepticism — the wall of worry that great bull markets climb. Deploy remaining capital systematically during this phase.</div>
+      <span class="phase-action pa-recovery">Action: Continue systematic buying. Stay the course.</span>
+    </div>
+    <div class="phase-card pc-bull">
+      <div class="phase-num">03</div>
+      <span class="phase-icon">🚀</span>
+      <div class="phase-title">Phase 3 — Expansion & Optimism</div>
+      <div class="phase-body">The recovery becomes undeniable. Economic data improves. Corporate earnings beat expectations. Broad participation enters the market. This is the longest and most rewarding phase for disciplined holders. The temptation is to add excessive risk as confidence builds. Maintain your allocation plan and begin slowly trimming the most overvalued positions toward the end of this phase.</div>
+      <span class="phase-action pa-bull">Action: Hold, rebalance, begin trimming overextended positions.</span>
+    </div>
+    <div class="phase-card pc-peak">
+      <div class="phase-num">04</div>
+      <span class="phase-icon">⚠️</span>
+      <div class="phase-title">Phase 4 — Peak & Euphoria</div>
+      <div class="phase-body">Everyone is bullish. Valuations are stretched. New investors flood in. People quit jobs to trade full-time. Speculative assets with no fundamentals surge. This is when experienced investors quietly reduce risk, raise cash, and prepare for Phase 1. The most dangerous mindset here is "this time it's different." It never is. The exact peak is unknowable, but the signs of euphoria are not.</div>
+      <span class="phase-action pa-peak">Action: Reduce risk. Raise cash. Prepare exit protocols.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ SIMULATOR ENGINE ══════ -->
+<section class="sec s-white" id="s-sim">
+  <div class="sec-label"><span class="sec-label-txt">Interactive Simulator</span></div>
+  <h2 class="sec-title">Your Portfolio<br><em>Under Any Market Condition</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">Configure your portfolio, select a scenario, and simulate exactly how your capital responds. Use these results to stress-test your risk tolerance, validate your allocation, and write your crisis response protocol — before the crisis happens.</p>
+
+  <div class="callout co-copper">
+    <span class="co-icon">🧪</span>
+    <div class="co-title">How to Use This Simulator</div>
+    <div class="co-body">Run every scenario against your portfolio, not just the ones that feel comfortable. The crash simulation will feel uncomfortable — that discomfort is information. If the projected drawdown causes visceral anxiety, your risk allocation is too high for your actual (not theoretical) risk tolerance. Adjust your allocation before the market forces you to.</div>
+  </div>
+
+  <div class="sim-engine">
+    <div class="sim-hd">
+      <span class="sim-hd-title">Market Scenario Simulator</span>
+      <span class="sim-badge">Live Risk Analysis</span>
+    </div>
+
+    <div class="sim-cols">
+      <div class="sim-left">
+        <div class="ig">
+          <label class="ig-label">Total Portfolio Value (€)</label>
+          <input type="number" class="ig-field" id="pv" value="50000" min="1000" step="1000">
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="ig">
+            <label class="ig-label">Equities / ETFs (%)</label>
+            <input type="number" class="ig-field" id="p-eq" value="60" min="0" max="100">
+          </div>
+          <div class="ig">
+            <label class="ig-label">Bonds (%)</label>
+            <input type="number" class="ig-field" id="p-bo" value="15" min="0" max="100">
+          </div>
+          <div class="ig">
+            <label class="ig-label">Crypto (%)</label>
+            <input type="number" class="ig-field" id="p-cr" value="10" min="0" max="100">
+          </div>
+          <div class="ig">
+            <label class="ig-label">Real Estate / REITs (%)</label>
+            <input type="number" class="ig-field" id="p-re" value="10" min="0" max="100">
+          </div>
+          <div class="ig" style="grid-column:1/-1;">
+            <label class="ig-label">Cash / Money Market (%)</label>
+            <input type="number" class="ig-field" id="p-ca" value="5" min="0" max="100">
+          </div>
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Select Market Scenario</label>
+          <div class="sc-mini">
+            <div class="sc-m sel-crash" id="sm-crash" onclick="pickScene('crash',this)"><span class="sc-m-ico">📉</span><span class="sc-m-lbl">Crash</span></div>
+            <div class="sc-m" id="sm-bull" onclick="pickScene('bull',this)"><span class="sc-m-ico">🚀</span><span class="sc-m-lbl">Bull</span></div>
+            <div class="sc-m" id="sm-side" onclick="pickScene('side',this)"><span class="sc-m-ico">↔</span><span class="sc-m-lbl">Sideways</span></div>
+            <div class="sc-m" id="sm-infla" onclick="pickScene('infla',this)"><span class="sc-m-ico">🔥</span><span class="sc-m-lbl">Inflation</span></div>
+            <div class="sc-m" id="sm-rate" onclick="pickScene('rate',this)"><span class="sc-m-ico">📊</span><span class="sc-m-lbl">Rate Hike</span></div>
+            <div class="sc-m" id="sm-black" onclick="pickScene('black',this)"><span class="sc-m-ico">🦢</span><span class="sc-m-lbl">Black Swan</span></div>
+          </div>
+        </div>
+
+        <div class="ig">
+          <label class="ig-label">Time Horizon for Simulation (months)</label>
+          <div class="rng-wrap">
+            <div class="rng-num" id="rh-num">12 months</div>
+            <div class="rng-track">
+              <div class="rng-fill" id="rh-fill" style="width:18%;background:linear-gradient(90deg,var(--ruby),var(--gold));"></div>
+              <div class="rng-knob" id="rh-knob" style="left:18%;"></div>
+              <input type="range" class="rng-inp" id="rh" min="1" max="60" value="12" oninput="updRh()">
+            </div>
+            <div class="rng-ends"><span>1 month</span><span>60 months</span></div>
+          </div>
+        </div>
+
+        <button class="btn-run" onclick="runSim()">▶ Run Simulation</button>
+      </div>
+
+      <div class="sim-right">
+        <div class="out-ph" id="s-ph">
+          <div class="out-ph-ico">📊</div>
+          <p>Configure your portfolio, select a scenario, and run the simulation to see your results.</p>
+        </div>
+
+        <div class="out-res" id="s-res">
+          <div class="out-lbl" id="s-scenario-lbl">◆ Scenario Results</div>
+
+          <div class="gauge-wrap">
+            <div class="gauge-outer">
+              <svg class="gauge-svg" viewBox="0 0 200 110" width="200" height="110">
+                <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#EAE7E0" stroke-width="14" stroke-linecap="butt"/>
+                <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gGrad)" stroke-width="14" stroke-linecap="butt"
+                  stroke-dasharray="251.3" stroke-dashoffset="251.3" id="g-arc" style="transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1)"/>
+                <defs>
+                  <linearGradient id="gGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" id="g-stop1" style="stop-color:#A82828"/>
+                    <stop offset="50%" id="g-stop2" style="stop-color:#C8922A"/>
+                    <stop offset="100%" id="g-stop3" style="stop-color:#186848"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="gauge-center">
+                <span class="gauge-val" id="g-val">—</span>
+                <span class="gauge-sub">Portfolio Impact</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="s-impact-rows"></div>
+
+          <div class="out-lbl" style="margin-top:1.5rem;">◆ 12-Month Simulated Return</div>
+          <div class="chart-wrap">
+            <div class="bar-chart" id="s-chart"></div>
+            <div class="chart-lbl">Monthly portfolio return simulation</div>
+          </div>
+
+          <div class="out-lbl" style="margin-top:1rem;">◆ Recommended Response Protocol</div>
+          <div id="s-protocol"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sim-ft">
+      <div class="ef-cell"><span class="ef-lbl">Scenario Type</span><span class="ef-val" id="ef-sc">—</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Projected Drawdown</span><span class="ef-val ef-red" id="ef-dd">—</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Recovery Estimate</span><span class="ef-val ef-gold" id="ef-rec">—</span></div>
+      <div class="ef-cell"><span class="ef-lbl">Risk Level</span><span class="ef-val" id="ef-rl">—</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ 6 SCENARIOS DEEP DIVE ══════ -->
+<section class="sec s-off" id="s-history">
+  <div class="sec-label"><span class="sec-label-txt">Historical Crash Analysis</span></div>
+  <h2 class="sec-title">Every major crash in history —<br><em>and what actually happened after</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">The most powerful antidote to crash-fear is crash-history. Every single major market collapse in modern history has been followed by full recovery and new all-time highs — for patient, system-driven investors. The data is not ambiguous.</p>
+
+  <div class="callout co-blue">
+    <span class="co-icon">📚</span>
+    <div class="co-title">The Pattern That Never Fails</div>
+    <div class="co-body">In 100% of historical cases, a globally diversified equity portfolio held for 15+ years has produced positive real returns — including investors who bought at the worst possible moment, immediately before each crash. Time in the market, backed by a written plan, is the supreme risk management tool.</div>
+  </div>
+
+  <table class="h-table">
+    <thead>
+      <tr>
+        <th>Event</th>
+        <th>Period</th>
+        <th>Peak Drawdown</th>
+        <th>Duration</th>
+        <th>Recovery Time</th>
+        <th>10yr Return After</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-b">Great Depression</td>
+        <td>1929–1932</td>
+        <td style="color:var(--ruby);font-weight:600;">−89%</td>
+        <td>34 months</td>
+        <td>~25 years</td>
+        <td style="color:var(--emerald);font-weight:600;">+480%</td>
+        <td><span class="badge bk-red">SYSTEMIC</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">Black Monday</td>
+        <td>Oct 1987</td>
+        <td style="color:var(--ruby);font-weight:600;">−34%</td>
+        <td>3 months</td>
+        <td>~2 years</td>
+        <td style="color:var(--emerald);font-weight:600;">+380%</td>
+        <td><span class="badge bk-red">FLASH</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">Dot-Com Bubble</td>
+        <td>2000–2002</td>
+        <td style="color:var(--ruby);font-weight:600;">−49%</td>
+        <td>30 months</td>
+        <td>~7 years</td>
+        <td style="color:var(--emerald);font-weight:600;">+210%</td>
+        <td><span class="badge bk-pur">VALUATION</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">Global Financial Crisis</td>
+        <td>2007–2009</td>
+        <td style="color:var(--ruby);font-weight:600;">−54%</td>
+        <td>17 months</td>
+        <td>~5.5 years</td>
+        <td style="color:var(--emerald);font-weight:600;">+530%</td>
+        <td><span class="badge bk-red">SYSTEMIC</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">COVID-19 Crash</td>
+        <td>Feb–Mar 2020</td>
+        <td style="color:var(--ruby);font-weight:600;">−34%</td>
+        <td>33 days</td>
+        <td>~5 months</td>
+        <td style="color:var(--emerald);font-weight:600;">+115%</td>
+        <td><span class="badge bk-copper">EXTERNAL</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">2022 Bear Market</td>
+        <td>Jan–Oct 2022</td>
+        <td style="color:var(--ruby);font-weight:600;">−25%</td>
+        <td>9 months</td>
+        <td>~18 months</td>
+        <td style="color:var(--emerald);font-weight:600;">+89%</td>
+        <td><span class="badge bk-gold">RATE-DRIVEN</span></td>
+      </tr>
+      <tr>
+        <td class="td-b">Crypto Winter 2022</td>
+        <td>Nov 2021 – Nov 2022</td>
+        <td style="color:var(--ruby);font-weight:600;">−77%</td>
+        <td>12 months</td>
+        <td>~2.5 years</td>
+        <td style="color:var(--gold);font-weight:600;">TBD</td>
+        <td><span class="badge bk-pur">SPECULATIVE</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout co-green" style="margin-top:2rem;">
+    <span class="co-icon">✅</span>
+    <div class="co-title">The Single Most Important Lesson from History</div>
+    <div class="co-body">The investors who lost permanently were not those who held through crashes — they were those who sold during crashes and either never re-entered, or re-entered too late to capture the recovery. Permanent capital loss from a diversified portfolio comes from one source: selling in panic. The system you built in Playbook 01 exists precisely to prevent this.</div>
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ STRESS TEST SCENARIOS ══════ -->
+<section class="sec s-white" id="s-stress">
+  <div class="sec-label"><span class="sec-label-txt">Stress Test Scenarios</span></div>
+  <h2 class="sec-title">The six scenarios your<br><em>portfolio must survive</em></h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">Professional risk management requires testing your portfolio against multiple distinct market regimes — not just market direction, but the underlying macro forces driving each scenario. Here are the six scenarios every serious investor must simulate.</p>
+
+  <div class="scenario-selector">
+    <div class="sc-card sc-crash">
+      <span class="sc-icon">📉</span>
+      <div class="sc-name">Market Crash</div>
+      <div class="sc-range">Equities: −30% to −60%</div>
+    </div>
+    <div class="sc-card sc-bull">
+      <span class="sc-icon">🚀</span>
+      <div class="sc-name">Bull Market</div>
+      <div class="sc-range">Equities: +20% to +80%</div>
+    </div>
+    <div class="sc-card sc-side">
+      <span class="sc-icon">↔</span>
+      <div class="sc-name">Sideways Market</div>
+      <div class="sc-range">Equities: −5% to +8%</div>
+    </div>
+    <div class="sc-card sc-infla">
+      <span class="sc-icon">🔥</span>
+      <div class="sc-name">Inflation Spiral</div>
+      <div class="sc-range">Real returns: −10% to −20%</div>
+    </div>
+    <div class="sc-card sc-rate">
+      <span class="sc-icon">📊</span>
+      <div class="sc-name">Rate Hike Cycle</div>
+      <div class="sc-range">Bonds: −15% to −30%</div>
+    </div>
+    <div class="sc-card sc-black">
+      <span class="sc-icon">🦢</span>
+      <div class="sc-name">Black Swan Event</div>
+      <div class="sc-range">Portfolio: −20% to −70%</div>
+    </div>
+  </div>
+
+  <div class="stress-grid">
+    <div class="stress-card st-crash">
+      <span class="st-ico">📉</span>
+      <div class="st-name">Market Crash</div>
+      <div class="st-impact">Equities: −35 to −55%</div>
+      <div class="st-desc">Financial panic, forced deleveraging, institutional selling. Equities fall hard; bonds rally; crypto collapses; cash is king. Duration: 6–18 months. Historical frequency: every 7–10 years.</div>
+    </div>
+    <div class="stress-card st-infla">
+      <span class="st-ico">🔥</span>
+      <div class="st-name">Inflation Spiral</div>
+      <div class="st-impact">Real returns: −10 to −20%</div>
+      <div class="st-desc">Sustained high inflation erodes purchasing power. Real assets (gold, real estate, commodities, TIPS) outperform. Cash and bonds lose real value. Duration: 1–5 years. Frequency: generational.</div>
+    </div>
+    <div class="stress-card st-rate">
+      <span class="st-ico">📊</span>
+      <div class="st-name">Rate Hike Cycle</div>
+      <div class="st-impact">Bonds: −15 to −30%</div>
+      <div class="st-desc">Central banks raise rates rapidly. Long-duration bonds collapse. Growth stocks re-rate lower. Value and dividend stocks relatively outperform. Duration: 1–3 years. Most recent: 2022.</div>
+    </div>
+    <div class="stress-card st-black">
+      <span class="st-ico">🦢</span>
+      <div class="st-name">Black Swan</div>
+      <div class="st-impact">Portfolio: −20 to −70%</div>
+      <div class="st-desc">Unpredictable, high-impact event outside normal models. COVID-19, 9/11, Fukushima. Cannot be predicted — can only be survived. Cash reserve and broad diversification are the only defenses.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PSYCHOLOGY ══════ -->
+<section class="sec s-navy" id="s-psych">
+  <div class="sec-label"><span class="sec-label-txt" style="color:var(--ruby-l)">Behavioral Finance</span></div>
+  <div class="sec-label" style="margin-top:0;padding-top:0;border-top:none;"></div>
+  <h2 class="sec-title">The 6 psychological traps<br><em>that destroy portfolios</em></h2>
+  <p class="sec-body" style="margin-bottom:.5rem;">Market knowledge protects you from market risk. Behavioral self-knowledge protects you from yourself — and that is the more dangerous of the two threats. These are the six psychological biases that kill more portfolios than any market crash ever has.</p>
+
+  <div class="psych-grid">
+    <div class="psych-card pp-red">
+      <div class="p-ico">😱</div>
+      <div class="p-ttl">Loss Aversion Bias</div>
+      <div class="p-bdy">The pain of a €1,000 loss is psychologically twice as powerful as the pleasure of a €1,000 gain. This asymmetry causes investors to hold losing positions too long (hoping for recovery) and sell winning positions too early (locking in gains). The result: you compound losses and cap wins — the exact opposite of optimal investing.</div>
+    </div>
+    <div class="psych-card pp-gold">
+      <div class="p-ico">🐑</div>
+      <div class="p-ttl">Herd Mentality</div>
+      <div class="p-bdy">The instinct to follow the crowd is hardwired into human psychology. When everyone is buying, it feels safe to buy. When everyone is selling, it feels dangerous to hold. Markets peak precisely when this feeling is strongest. The written investment plan from Playbook 01 is your only reliable defense against herd behavior.</div>
+    </div>
+    <div class="psych-card pp-blue">
+      <div class="p-ico">📰</div>
+      <div class="p-ttl">Recency Bias</div>
+      <div class="p-bdy">The human brain dramatically overweights recent events when predicting the future. After a crash, the brain extrapolates "the market will keep falling." After a bull run, it extrapolates "the market will keep rising." Both predictions are wrong at exactly the moments they feel most certain. Your system must override this bias automatically.</div>
+    </div>
+    <div class="psych-card pp-green">
+      <div class="p-ico">🎯</div>
+      <div class="p-ttl">Overconfidence Bias</div>
+      <div class="p-bdy">After a period of gains, investors systematically overestimate their skill (versus luck) and take on more risk than their actual profile supports. This is most dangerous during bull markets — when the strategy feels infallible, the position sizes grow, and the stage is set for catastrophic loss when the cycle turns.</div>
+    </div>
+    <div class="psych-card pp-pur">
+      <div class="p-ico">🔒</div>
+      <div class="p-ttl">Anchoring Bias</div>
+      <div class="p-bdy">Investors anchor to irrelevant reference points: the price they paid for a position, a recent all-time high, or an arbitrary round number. A stock trading at €50 that you bought at €100 is not "cheap" — it requires an independent valuation assessment. The anchor price is emotionally powerful but analytically meaningless.</div>
+    </div>
+    <div class="psych-card pp-teal">
+      <div class="p-ico">⚡</div>
+      <div class="p-ttl">FOMO — Fear of Missing Out</div>
+      <div class="p-bdy">The most powerful market destroyer of the digital age. Social media amplifies stories of extraordinary gains, creating unbearable urgency to enter positions regardless of valuation or fit with your allocation. FOMO-driven investments always enter at the wrong time. Your allocation plan is the FOMO firewall — positions not in your plan do not get capital.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider navy"><div class="div-line" style="background:rgba(255,255,255,.1);"></div><div class="div-diamond"></div><div class="div-line" style="background:rgba(255,255,255,.1);"></div></div>
+
+<!-- ══════ ACTION PROTOCOL ══════ -->
+<section class="sec s-off" id="s-action">
+  <div class="sec-label green"><span class="sec-label-txt">Crisis Response Protocol</span></div>
+  <h2 class="sec-title">Your pre-written response<br><em>to every market condition</em></h2>
+  <p class="sec-body" style="margin-bottom:1rem;">The most valuable document you will write this year is not your investment plan — it is your crisis response protocol. Pre-written rules, made in a calm and rational state, that override emotional reactions when the market is in free fall. Write these now, before you need them.</p>
+
+  <div class="callout co-pur">
+    <span class="co-icon">🧠</span>
+    <div class="co-title">The Psychology of Pre-Commitment</div>
+    <div class="co-body">Research in behavioral economics shows that pre-commitment — writing specific actions for specific scenarios in advance — dramatically increases rational behavior under stress. When the crash arrives and you feel panic, your written protocol shifts the question from "what should I do?" (unanswerable under stress) to "what did the rational version of me decide?" (already answered).</div>
+  </div>
+
+  <div style="margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;">
+
+    <div class="callout co-red" style="margin:0;">
+      <span class="co-icon">📉</span>
+      <div class="co-title">If Market Falls −10%</div>
+      <div class="co-body">Do nothing. This is normal volatility. Review your allocation. Do not read financial news. Confirm that your stop-loss levels have not been triggered. Continue monthly contributions unchanged. Write in your investment journal: "I held my plan."</div>
+    </div>
+
+    <div class="callout co-copper" style="margin:0;">
+      <span class="co-icon">📉</span>
+      <div class="co-title">If Market Falls −20%</div>
+      <div class="co-body">This is a correction. Deploy 25–50% of your cash reserve into your core ETF position. Review each position: confirm nothing has changed fundamentally. Rebalance if allocation has drifted more than 7%. Do not attempt to call the bottom. Continue all contributions.</div>
+    </div>
+
+    <div class="callout co-crimson" style="margin:0;">
+      <span class="co-icon">📉</span>
+      <div class="co-title">If Market Falls −35%+</div>
+      <div class="co-body">This is a crash — and it is an opportunity. Deploy remaining cash reserve. Begin adding aggressively to core positions via cost-averaging. Identify 2–3 high-quality positions on your watchlist and begin staged entry. This is the moment your preparation is rewarded. Do not sell.</div>
+    </div>
+
+    <div class="callout co-gold" style="margin:0;">
+      <span class="co-icon">📈</span>
+      <div class="co-title">If Market Rises +20%</div>
+      <div class="co-body">Review allocation. If equities have grown to >60% of your target, trim 5–10% back to your plan. Resist the urge to add risk. Replenish your cash reserve if it was deployed during a recent correction. Update your investment journal. Continue systematic contributions.</div>
+    </div>
+
+    <div class="callout co-green" style="margin:0;">
+      <span class="co-icon">📈</span>
+      <div class="co-title">If Portfolio Hits +50% Gain</div>
+      <div class="co-body">Congratulations — now protect it. Execute your pre-planned partial exit: sell 20–30% of your most concentrated positions. Diversify gains. Consider shifting a portion into a lower-risk allocation. Your risk profile may have changed — re-run Stage 1 of the Playbook 01 framework.</div>
+    </div>
+
+    <div class="callout co-blue" style="margin:0;">
+      <span class="co-icon">⚡</span>
+      <div class="co-title">On Any Day You Feel Fear/Greed</div>
+      <div class="co-body">Close all financial apps. Do not trade. Re-read your investment plan. Call your accountability partner. Wait 48 hours before taking any action. Ask: "Is this decision driven by my plan or by emotion?" If the honest answer is emotion — stop. Act in 48 hours when calm returns.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ══════ WORKSHEET ══════ -->
+<section class="sec s-parch" id="s-ws">
+  <div class="sec-label"><span class="sec-label-txt">Interactive Worksheet</span></div>
+  <h2 class="sec-title">Your Scenario Response<br><em>Playbook — Fill In Now</em></h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">Complete this worksheet before your next investment action. These are the responses your future emotional self will follow when the market creates the conditions you have now simulated — calmly and rationally.</p>
+
+  <div class="ws">
+    <div class="ws-head">
+      <span class="ws-title">Market Scenario Response Plan — Personal & Confidential</span>
+      <span style="font-size:1.4rem;">🛡</span>
+    </div>
+    <div class="ws-body">
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Current Portfolio Value</div><div class="ws-hint">Your baseline for all scenario calculations</div></div>
+        <input class="ws-inp" type="number" placeholder="Total portfolio value (€)">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Maximum Tolerable Loss</div><div class="ws-hint">The number at which you would sell emotionally</div></div>
+        <div class="ws-radios">
+          <input type="radio" name="tol" id="t1" class="wr"><label for="t1" class="wrl">−10% (€ value)</label>
+          <input type="radio" name="tol" id="t2" class="wr" checked><label for="t2" class="wrl">−20%</label>
+          <input type="radio" name="tol" id="t3" class="wr"><label for="t3" class="wrl">−30%</label>
+          <input type="radio" name="tol" id="t4" class="wr"><label for="t4" class="wrl">−40%+</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">If Portfolio Falls −15%</div><div class="ws-hint">Your exact pre-written action</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Do nothing. Review allocation. Do not sell. Continue contributions. Write in journal..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">If Portfolio Falls −30%</div><div class="ws-hint">Your exact pre-written action</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Deploy 50% of cash reserve into core ETF. Begin staged entry on watchlist positions. Continue contributions..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">If Portfolio Falls −50%</div><div class="ws-hint">Your exact pre-written action for a major crash</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Deploy all remaining cash. Maximum buying mode. Review every position fundamentally. Hold everything that hasn't changed fundamentally..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">If Portfolio Gains +40%</div><div class="ws-hint">Your pre-planned partial exit strategy</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Trim 20% of most overweighted positions. Replenish cash reserve. Rebalance to target allocation. Do not add new risk..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">My Crisis Contact</div><div class="ws-hint">Who do I call before making any panic decision?</div></div>
+        <input class="ws-inp" type="text" placeholder="Name + phone number of your accountability partner">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Cash Reserve Level</div><div class="ws-hint">How much dry powder you maintain for opportunities</div></div>
+        <div class="ws-radios">
+          <input type="radio" name="cash" id="c1" class="wr"><label for="c1" class="wrl">5% of portfolio</label>
+          <input type="radio" name="cash" id="c2" class="wr" checked><label for="c2" class="wrl">10–15%</label>
+          <input type="radio" name="cash" id="c3" class="wr"><label for="c3" class="wrl">20%+</label>
+        </div>
+      </div>
+
+    </div>
+    <div class="ws-foot">
+      <span class="ws-note">Your entries are stored locally only — never transmitted.</span>
+      <button class="ws-save" onclick="saveW(this)">Save My Response Plan ↓</button>
+    </div>
+  </div>
+
+  <div style="margin-top:4rem;">
+    <div class="sec-label"><span class="sec-label-txt">Scenario Readiness Checklist</span></div>
+    <h3 style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.65rem;color:var(--navy);margin-bottom:.5rem;font-weight:600;">Are You Truly Prepared?</h3>
+    <p style="font-size:.87rem;color:var(--slate);margin-bottom:1.8rem;line-height:1.72;">Only check items that are fully completed — not planned or intended. Partially prepared is not prepared.</p>
+    <ul class="chk">
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have run all 6 scenarios against my current portfolio using the simulator above</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I know my exact projected drawdown in a −40% equity crash scenario</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">My written crisis response protocol covers all levels: −10%, −20%, −30%, −50%</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have an accountability partner who I will call before any panic-driven action</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">My cash reserve is at my target level and available for deployment during corrections</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have reviewed all 6 historical crashes and understand the post-crash return data</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have identified my primary behavioral bias (e.g. loss aversion, FOMO) and have a plan to counter it</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">My stop-loss levels are documented and would require written confirmation to override</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have removed financial news notifications from my phone to reduce emotional noise</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have reviewed my actual (not theoretical) reaction to the last major market drawdown I experienced</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════ CLOSING ══════ -->
+<div class="closing" id="s-close">
+  <div class="cl-inner">
+    <div class="sec-label" style="justify-content:center;margin-bottom:1.5rem;"><span class="sec-label-txt">Closing</span></div>
+    <h2 class="cl-title">The crash will come.<br><em>Will you be ready?</em></h2>
+    <div class="cl-div"></div>
+    <p class="cl-body">
+      You have now simulated the market conditions that destroy the unprepared. You have seen the historical evidence that rewards the disciplined. You have written your crisis response protocol — the document that will override your future emotional self at the most critical financial moments of your life.
+      <br><br>
+      When the next crash arrives — and it will arrive, with certainty, at a time and via a trigger that no one predicted — you will not be discovering your plan in the middle of the storm. You will be executing it. That is the difference between panic and performance.
+      <br><br>
+      In Playbook 03: <strong style="color:var(--gold-l)">Personal Finance & Tax Optimizer</strong> — we optimize your income, expenses, and tax structure so that every euro you deploy into your investment system is working at maximum efficiency.
+    </p>
+    <div class="cl-div"></div>
+    <button class="cl-next">Proceed to Playbook 03: Finance & Tax Optimizer →</button>
+    <span class="cl-brand">The Capital Code · Architect Edition</span>
+    <div class="cl-meta">PLAYBOOK 02 OF 05 — MARKET SCENARIO SIMULATOR</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// SCROLL
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(window.scrollY/h*100)+'%';
+  document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.87)s.classList.add('vis');});
+  updDots();
+});
+setTimeout(()=>document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight)s.classList.add('vis');}),80);
+
+window.toTop = function(){window.scrollTo({top:0,behavior:'smooth'});}
+window.goTo = function(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+
+window.updDots = function(){
+  const ids=['','s-intro','s-cycles','s-sim','s-history','s-stress','s-psych','s-action','s-ws','s-close'];
+  let a=0;
+  ids.forEach((id,i)=>{if(id&&document.getElementById(id)?.getBoundingClientRect().top<=220)a=i;});
+  document.querySelectorAll('.sd').forEach((d,i)=>d.classList.toggle('on',i===a));
+}
+
+// RANGE
+window.updRh = function(){
+  const inp=document.getElementById('rh');
+  const pct=(inp.value-1)/(60-1)*100;
+  document.getElementById('rh-fill').style.width=pct+'%';
+  document.getElementById('rh-knob').style.left=pct+'%';
+  document.getElementById('rh-num').textContent=inp.value+' month'+(inp.value>1?'s':'');
+}
+
+// SCENARIO SELECTION
+let scene='crash';
+window.pickScene = function(type,el){
+  scene=type;
+  document.querySelectorAll('.sc-m').forEach(m=>{
+    m.className=m.className.replace(/sel-\w+/,'');
+  });
+  el.classList.add('sel-'+type);
+}
+
+// SIMULATOR DATA
+const SCENES={
+  crash:{
+    eq:-0.40,bo:0.08,cr:-0.68,re:-0.32,ca:0.0,
+    label:'📉 Market Crash',color:'var(--ruby)',
+    months:[-4,-8,-12,-10,-7,-5,-9,-6,-4,-3,-2,1],
+    recovery:'18–36 months',risk:'EXTREME',
+    protocol:[
+      'Do NOT sell any core positions — this is the most dangerous moment to act emotionally',
+      'Deploy 25–50% of your pre-allocated cash reserve into your core ETF',
+      'Review each position: has anything changed fundamentally? If not — hold.',
+      'Begin a watchlist review — identify 2–3 quality positions to add on further weakness',
+      'Increase your monthly contribution temporarily if cash flow allows'
+    ]
+  },
+  bull:{
+    eq:0.38,bo:-0.03,cr:0.85,re:0.22,ca:0.04,
+    label:'🚀 Bull Market',color:'var(--emerald)',
+    months:[3,5,4,7,6,8,5,9,7,8,10,6],
+    recovery:'N/A',risk:'LOW',
+    protocol:[
+      'Stay fully invested — the biggest mistake in bull markets is cashing out early',
+      'Rebalance: if equities drift above your target %, trim back to plan',
+      'Resist the urge to add speculative positions — stick to your written allocation',
+      'Replenish cash reserve if you deployed it during a previous correction',
+      'Begin noting signs of euphoria: IPO frenzy, narrative stocks, social media hype'
+    ]
+  },
+  side:{
+    eq:0.03,bo:0.04,cr:-0.12,re:0.05,ca:0.04,
+    label:'↔ Sideways Market',color:'var(--sapphire)',
+    months:[1,-1,2,0,-2,3,1,-1,2,0,2,1],
+    recovery:'N/A',risk:'LOW-MEDIUM',
+    protocol:[
+      'Sideways markets are where cost-averaging compounds quietly — continue all contributions',
+      'Use volatility for rebalancing: buy the asset classes that dip below target allocation',
+      'This is the best environment to research new positions without FOMO pressure',
+      'Review your allocation plan and update assumptions with current data',
+      'Patience is the primary skill required — do not chase returns outside your plan'
+    ]
+  },
+  infla:{
+    eq:-0.12,bo:-0.18,cr:-0.25,re:0.08,ca:-0.07,
+    label:'🔥 Inflation Spiral',color:'var(--copper)',
+    months:[-2,-3,-1,-4,-2,-3,-2,-1,-3,-2,-1,-2],
+    recovery:'24–48 months',risk:'MEDIUM-HIGH',
+    protocol:[
+      'Shift allocation toward real assets: commodities, gold, real estate, TIPS',
+      'Reduce long-duration bond exposure — it is most impacted by inflation',
+      'Review cash positions: holding large cash in high inflation destroys real value',
+      'Consider I-Bonds or inflation-linked securities for the fixed income portion',
+      'Companies with pricing power (consumer staples, energy) outperform — review equity mix'
+    ]
+  },
+  rate:{
+    eq:-0.18,bo:-0.24,cr:-0.35,re:-0.20,ca:0.04,
+    label:'📊 Rate Hike Cycle',color:'var(--amethyst)',
+    months:[-2,-4,-3,-5,-2,-4,-3,-2,-3,-1,-2,-1],
+    recovery:'12–24 months',risk:'MEDIUM',
+    protocol:[
+      'Reduce exposure to long-duration bonds immediately — they fall furthest in rate hike cycles',
+      'Rotate toward value equities and dividend stocks which are more rate-resilient',
+      'Short-duration bonds and money market funds benefit from rising rates — consider increasing',
+      'Growth stocks with far-future cash flows are most vulnerable — review all tech positions',
+      'Higher cash yield makes holding dry powder more attractive — maintain or increase reserve'
+    ]
+  },
+  black:{
+    eq:-0.38,bo:0.05,cr:-0.55,re:-0.38,ca:0.0,
+    label:'🦢 Black Swan',color:'var(--slate)',
+    months:[-6,-12,-8,-5,-3,-7,-4,-2,-3,-1,1,2],
+    recovery:'6–48 months (scenario-dependent)',risk:'EXTREME',
+    protocol:[
+      'Hold. Do not trade on incomplete information in the first 48–72 hours of a shock event',
+      'Assess: is this a temporary external shock (COVID, 9/11) or a structural market failure (2008)?',
+      'Maintain absolute liquidity — cash reserve is non-negotiable in this scenario',
+      'Begin watchlist preparation for recovery entry — but do not rush deployment',
+      'Review portfolio for positions with maximum correlation — reduce concentration risk'
+    ]
+  }
+};
+
+window.runSim = function(){
+  const pv=parseFloat(document.getElementById('pv').value)||50000;
+  const eq=parseFloat(document.getElementById('p-eq').value)/100||.6;
+  const bo=parseFloat(document.getElementById('p-bo').value)/100||.15;
+  const cr=parseFloat(document.getElementById('p-cr').value)/100||.1;
+  const re=parseFloat(document.getElementById('p-re').value)/100||.1;
+  const ca=parseFloat(document.getElementById('p-ca').value)/100||.05;
+
+  const s=SCENES[scene];
+  const impact=eq*s.eq+bo*s.bo+cr*s.cr+re*s.re+ca*s.ca;
+  const nv=pv*(1+impact);
+  const diff=nv-pv;
+  const pct=(impact*100).toFixed(1);
+
+  // Gauge
+  const arc=document.getElementById('g-arc');
+  const norm=(impact+0.8)/1.6;
+  arc.style.strokeDashoffset=251.3*(1-Math.min(1,Math.max(0,norm)));
+  const gv=document.getElementById('g-val');
+  gv.textContent=(impact>=0?'+':'')+pct+'%';
+  gv.style.color=impact>=0?'var(--emerald)':'var(--ruby)';
+
+  // Impact rows
+  document.getElementById('s-scenario-lbl').textContent='◆ '+s.label;
+  document.getElementById('s-impact-rows').innerHTML=`
+    <div class="impact-row"><span class="ir-key">Portfolio Before</span><span class="ir-val iv-navy">€${pv.toLocaleString('de-DE')}</span></div>
+    <div class="impact-row"><span class="ir-key">Projected Value</span><span class="ir-val ${impact>=0?'iv-pos':'iv-neg'}">€${Math.round(nv).toLocaleString('de-DE')}</span></div>
+    <div class="impact-row"><span class="ir-key">Absolute Change</span><span class="ir-val ${diff>=0?'iv-pos':'iv-neg'}">${diff>=0?'+':''}€${Math.round(diff).toLocaleString('de-DE')}</span></div>
+    <div class="impact-row"><span class="ir-key">Total Impact</span><span class="ir-val ${impact>=0?'iv-pos':'iv-neg'}">${impact>=0?'+':''}${pct}%</span></div>
+    <div class="impact-row"><span class="ir-key">Equity Impact</span><span class="ir-val ${s.eq>=0?'iv-pos':'iv-neg'}">${(s.eq*100).toFixed(0)}%</span></div>
+    <div class="impact-row"><span class="ir-key">Crypto Impact</span><span class="ir-val ${s.cr>=0?'iv-pos':'iv-neg'}">${(s.cr*100).toFixed(0)}%</span></div>
+    <div class="impact-row"><span class="ir-key">Bond Impact</span><span class="ir-val ${s.bo>=0?'iv-pos':'iv-neg'}">${s.bo>=0?'+':''}${(s.bo*100).toFixed(0)}%</span></div>
+  `;
+
+  // Bar chart
+  const maxAbs=Math.max(...s.months.map(Math.abs));
+  document.getElementById('s-chart').innerHTML=s.months.map(m=>{
+    const h=Math.abs(m)/maxAbs*100;
+    const cls=m>2?'bar-pos':m<-2?'bar-neg':m===0?'bar-zero':'bar-neut';
+    return `<div class="bar ${cls}" style="height:${h}%" title="${m>0?'+':''}${m}%"></div>`;
+  }).join('');
+
+  // Protocol
+  document.getElementById('s-protocol').innerHTML=s.protocol.map(p=>`
+    <div style="display:flex;gap:.6rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid var(--bsoft);font-size:.8rem;color:var(--slate);line-height:1.6;">
+      <span style="color:var(--gold);font-weight:700;flex-shrink:0;">→</span>${p}</div>`).join('');
+
+  document.getElementById('s-ph').style.display='none';
+  document.getElementById('s-res').classList.add('show');
+  document.getElementById('ef-sc').textContent=s.label.replace(/^\S+\s/,'');
+  document.getElementById('ef-dd').textContent=(impact*100).toFixed(1)+'%';
+  document.getElementById('ef-rec').textContent=s.recovery;
+  document.getElementById('ef-rl').textContent=s.risk;
+  document.getElementById('ef-dd').className='ef-val '+(impact<0?'ef-red':'ef-green');
+}
+
+window.tick = function(li){li.classList.toggle('done');}
+window.saveW = function(btn){
+  const orig=btn.textContent;
+  btn.textContent='✓ Saved!';
+  btn.style.background='var(--emerald)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2500);
+}
+</script>
+</body>
+</html>

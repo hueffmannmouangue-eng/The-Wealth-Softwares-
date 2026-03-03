@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Code — Playbook 04: Investment Case Library</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   THE CAPITAL CODE — Self-Contained Font System
+   No internet connection required
+═══════════════════════════════════════════════════ */
+
+/* ─── SYSTEM FONT STACK: NO INTERNET REQUIRED ─── */
+:root {
+  --font-serif: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;
+  --font-sans:  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:  'Courier New', Consolas, Monaco, 'Lucida Console', monospace;
+}
+
+
+/* Display / Serif → Palatino family (elegant, available on all OS) */
+/* Body → System UI font stack (crisp on all platforms) */
+/* Mono → Courier/Consolas family */
+
+</style>
+<style>
+:root {
+  --navy:#08152A; --navy-mid:#0F2040; --navy-light:#183060;
+  --white:#FFFFFF; --off:#F7F6F2; --cream:#F0EDE4; --parch:#EAE5D8;
+  --gold:#C8922A; --gold-l:#E4AF56; --gold-p:#F5E6C0; --gold-d:#9A6E1A;
+  --sapp:#1A52A8; --sapp-l:#3B7FD4; --sapp-p:#E8F0FB;
+  --em:#186848; --em-l:#28A870; --em-p:#E4F5ED;
+  --ruby:#A82828; --ruby-l:#D84848; --ruby-p:#FAEAEA;
+  --am:#5C2A8C; --am-l:#8C4FBF; --am-p:#F0E8F8;
+  --cop:#B05020; --cop-l:#D87040; --cop-p:#FAEEE8;
+  --teal:#0E6B6B; --teal-l:#1A9A9A; --teal-p:#E4F4F4;
+  --amber:#B87800; --amb-l:#E0A020; --amb-p:#FDF5E0;
+  --indigo:#2A1880; --ind-l:#4A38C0; --ind-p:#ECEAF8;
+  --slate:#3A5070; --slate-m:#5A7090; --slate-l:#8AAABB;
+  --border:#DDD8CC; --bsoft:#EAE7E0;
+  --sh-sm:0 2px 16px rgba(8,21,42,.07);
+  --sh-md:0 8px 48px rgba(8,21,42,.11);
+  --sh-lg:0 20px 80px rgba(8,21,42,.15);
+  --sh-xl:0 32px 120px rgba(8,21,42,.20);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--off);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.72;overflow-x:hidden;}
+
+#prog{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--amber),var(--gold),var(--cop));z-index:9999;}
+
+/* SIDEBAR */
+.sb{position:fixed;left:0;top:0;bottom:0;width:66px;background:var(--navy);z-index:200;display:flex;flex-direction:column;align-items:center;padding:2rem 0;}
+.sb-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:var(--gold);font-size:.95rem;font-weight:700;letter-spacing:.08em;writing-mode:vertical-lr;transform:rotate(180deg);margin-bottom:auto;}
+.sb-dots{display:flex;flex-direction:column;gap:1rem;margin-bottom:auto;}
+.sd{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .25s;position:relative;}
+.sd:hover,.sd.on{background:var(--gold);transform:scale(1.5);}
+.sd::after{content:attr(data-tip);position:absolute;left:17px;top:50%;transform:translateY(-50%);background:var(--navy-mid);color:#fff;font-size:.58rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.08em;padding:.22rem .6rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .18s;border-left:2px solid var(--amber);}
+.sd:hover::after{opacity:1;}
+.sb-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;color:rgba(255,255,255,.22);font-size:.62rem;writing-mode:vertical-lr;transform:rotate(180deg);letter-spacing:.22em;margin-top:.5rem;}
+
+.wrap{margin-left:66px;}
+
+/* COVER */
+.cover{min-height:100vh;background:var(--navy);position:relative;display:flex;flex-direction:column;overflow:hidden;}
+.cv-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 70% 55% at 65% 30%,rgba(184,120,0,.28) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 40% at 15% 75%,rgba(92,42,140,.18) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 35% at 85% 78%,rgba(26,82,168,.16) 0%,transparent 50%),
+  linear-gradient(160deg,#08152A 0%,#0F2040 45%,#0A1820 100%);}
+.cv-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:68px 68px;}
+.cv-ring1{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:640px;height:640px;border-radius:50%;border:1px solid rgba(184,120,0,.1);}
+.cv-ring2{position:absolute;right:-75px;top:50%;transform:translateY(-50%);width:470px;height:470px;border-radius:50%;border:1px solid rgba(200,146,42,.07);}
+.cv-ring3{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;border:1px solid rgba(92,42,140,.06);}
+.cv-body{position:relative;z-index:5;padding:5.5rem 6rem;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.cv-pre{display:flex;align-items:center;gap:1rem;margin-bottom:2.8rem;animation:fadeUp .8s ease both;}
+.cv-pre-line{width:34px;height:1px;background:var(--amb-l);}
+.cv-pre-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--amb-l);letter-spacing:.35em;text-transform:uppercase;}
+.cv-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(3.2rem,6vw,6.5rem);font-weight:600;color:#fff;line-height:1.02;margin-bottom:1.6rem;animation:fadeUp .8s ease .1s both;max-width:780px;}
+.cv-title em{font-style:italic;color:var(--gold-l);}
+.cv-title .c-amber{color:var(--amb-l);}
+.cv-sub{font-size:1.02rem;color:rgba(255,255,255,.48);font-weight:300;max-width:520px;line-height:1.84;margin-bottom:3.2rem;animation:fadeUp .8s ease .2s both;}
+.cv-tags{display:flex;gap:.7rem;flex-wrap:wrap;animation:fadeUp .8s ease .3s both;margin-bottom:4rem;}
+.cv-tag{padding:.38rem .95rem;border:1px solid rgba(184,120,0,.35);color:rgba(255,255,255,.55);font-size:.62rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;letter-spacing:.14em;text-transform:uppercase;}
+.cv-metrics{display:flex;gap:3rem;animation:fadeUp .8s ease .4s both;}
+.cv-mval{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.4rem;font-weight:700;color:var(--amb-l);display:block;line-height:1;}
+.cv-mlbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;display:block;}
+.cv-bignum{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(8rem,16vw,16rem);font-weight:300;color:rgba(255,255,255,.025);position:absolute;right:5rem;bottom:3rem;line-height:1;letter-spacing:-.03em;animation:fadeUp 1.4s ease .5s both;pointer-events:none;}
+.cv-foot{position:relative;z-index:5;padding:1.8rem 6rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;}
+.cv-brand{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.1em;}
+.cv-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;color:rgba(255,255,255,.2);letter-spacing:.1em;text-align:right;line-height:1.9;}
+
+/* SECTIONS */
+.sec{padding:6rem;transition:opacity .7s ease,transform .7s ease;position:relative;}
+.sec.vis{opacity:1;transform:none;}
+.s-white{background:var(--white);}
+.s-off{background:var(--off);}
+.s-cream{background:var(--cream);}
+.s-parch{background:var(--parch);}
+.s-navy{background:var(--navy);color:#fff;}
+.s-dark{background:#120F06;color:#fff;}
+
+/* LABELS */
+.lbl{display:flex;align-items:center;gap:.9rem;margin-bottom:1.1rem;}
+.lbl::before{content:'';width:24px;height:2px;background:var(--amber);flex-shrink:0;}
+.lbl-txt{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--amber);letter-spacing:.32em;text-transform:uppercase;}
+.lbl.sapp::before{background:var(--sapp);}
+.lbl.sapp .lbl-txt{color:var(--sapp);}
+.lbl.ruby::before{background:var(--ruby);}
+.lbl.ruby .lbl-txt{color:var(--ruby);}
+.lbl.green::before{background:var(--em);}
+.lbl.green .lbl-txt{color:var(--em);}
+.lbl.pur::before{background:var(--am);}
+.lbl.pur .lbl-txt{color:var(--am);}
+
+.sec-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:clamp(2.1rem,3.6vw,3.4rem);font-weight:600;line-height:1.12;color:var(--navy);margin-bottom:1.4rem;}
+.s-navy .sec-title,.s-dark .sec-title{color:#fff;}
+.sec-title em{font-style:italic;color:var(--gold);}
+.sec-title .c-amb{color:var(--amb-l);}
+.sec-body{font-size:.96rem;line-height:1.86;color:var(--slate);max-width:700px;}
+.s-navy .sec-body,.s-dark .sec-body{color:rgba(255,255,255,.52);}
+
+/* DIVIDER */
+.div{display:flex;align-items:center;gap:2rem;margin:0 6rem;padding:3rem 0;}
+.dl{flex:1;height:1px;background:var(--bsoft);}
+.dd{width:8px;height:8px;background:var(--amber);transform:rotate(45deg);flex-shrink:0;}
+.div.dk .dl{background:rgba(255,255,255,.1);}
+
+/* CALLOUTS */
+.co{padding:1.8rem 2rem;border-left:4px solid;margin:2rem 0;}
+.co-gold{background:var(--gold-p);border-color:var(--gold);}
+.co-amb{background:var(--amb-p);border-color:var(--amber);}
+.co-blue{background:var(--sapp-p);border-color:var(--sapp);}
+.co-green{background:var(--em-p);border-color:var(--em);}
+.co-pur{background:var(--am-p);border-color:var(--am);}
+.co-teal{background:var(--teal-p);border-color:var(--teal);}
+.co-red{background:var(--ruby-p);border-color:var(--ruby);}
+.co-cop{background:var(--cop-p);border-color:var(--cop);}
+.co-ind{background:var(--ind-p);border-color:var(--indigo);}
+.co-ico{font-size:1.1rem;margin-bottom:.4rem;display:block;}
+.co-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.35rem;}
+.co-body{font-size:.84rem;color:var(--slate);line-height:1.76;}
+
+/* ═══ CASE STUDY CARDS ═══ */
+.case-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2.5rem 0;}
+.cs-btn{padding:1.8rem 1.5rem;border:2px solid var(--bsoft);background:var(--white);cursor:pointer;transition:all .25s;position:relative;overflow:hidden;text-align:left;}
+.cs-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;transform:scaleX(0);transition:transform .3s;transform-origin:left;}
+.cs-btn:hover,.cs-btn.active{transform:translateY(-3px);box-shadow:var(--sh-md);}
+.cs-amazon::before{background:linear-gradient(90deg,#FF9900,#E47911);}
+.cs-amazon:hover,.cs-amazon.active{border-color:#FF9900;}
+.cs-tesla::before{background:linear-gradient(90deg,var(--ruby),var(--ruby-l));}
+.cs-tesla:hover,.cs-tesla.active{border-color:var(--ruby);}
+.cs-berkshire::before{background:linear-gradient(90deg,var(--sapp),var(--sapp-l));}
+.cs-berkshire:hover,.cs-berkshire.active{border-color:var(--sapp);}
+.cs-dotcom::before{background:linear-gradient(90deg,var(--am),var(--am-l));}
+.cs-dotcom:hover,.cs-dotcom.active{border-color:var(--am);}
+.cs-bitcoin::before{background:linear-gradient(90deg,#F7931A,#E57A10);}
+.cs-bitcoin:hover,.cs-bitcoin.active{border-color:#F7931A;}
+.cs-gfc::before{background:linear-gradient(90deg,var(--slate),var(--slate-m));}
+.cs-gfc:hover,.cs-gfc.active{border-color:var(--slate);}
+.cs-btn:hover::before,.cs-btn.active::before{transform:scaleX(1);}
+.cs-year{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-l);letter-spacing:.12em;margin-bottom:.5rem;display:block;}
+.cs-name{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:.25rem;}
+.cs-ret{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.72rem;font-weight:500;margin-bottom:.5rem;}
+.cs-tag{font-size:.62rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;padding:.18rem .5rem;border:1px solid;letter-spacing:.07em;text-transform:uppercase;}
+
+/* CASE DISPLAY */
+.case-display{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-xl);overflow:hidden;margin-bottom:2.5rem;}
+.cd-hd{padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:flex-start;}
+.cd-hd-left{flex:1;}
+.cd-num{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:rgba(255,255,255,.4);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.5rem;}
+.cd-name{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.2rem;font-weight:700;color:#fff;margin-bottom:.3rem;}
+.cd-tagline{font-size:.9rem;color:rgba(255,255,255,.5);font-style:italic;}
+.cd-meta-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,.08);}
+.cd-meta-cell{padding:1rem 1.4rem;}
+.cd-ml{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.2rem;}
+.cd-mv{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.4rem;font-weight:700;line-height:1;}
+
+/* CASE BODY */
+.cd-body{display:grid;grid-template-columns:1.2fr 1fr;gap:0;}
+.cd-left{padding:2.5rem;border-right:1px solid var(--border);}
+.cd-right{padding:2.5rem;background:var(--off);}
+.cd-section-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem;padding-bottom:.45rem;border-bottom:2px solid;}
+.cd-text{font-size:.88rem;color:var(--slate);line-height:1.82;margin-bottom:1.2rem;}
+
+/* LESSON CARDS */
+.lesson-list{margin-top:1rem;}
+.lesson-item{display:flex;gap:.7rem;align-items:flex-start;padding:.65rem 0;border-bottom:1px solid var(--bsoft);font-size:.82rem;color:var(--slate);line-height:1.65;}
+.lesson-item:last-child{border-bottom:none;}
+.li-arrow{font-weight:700;flex-shrink:0;margin-top:.05rem;}
+
+/* METRICS BAR */
+.metrics-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);}
+.mb-cell{padding:1.2rem 1.5rem;text-align:center;border-right:1px solid var(--border);}
+.mb-cell:last-child{border-right:none;}
+.mb-lbl{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;color:var(--slate-l);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;}
+.mb-val{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.35rem;font-weight:700;line-height:1;}
+
+/* TIMELINE */
+.case-timeline{margin:1.2rem 0;position:relative;padding-left:1.5rem;}
+.case-timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;}
+.ct-item{padding:0 0 1.4rem 1.8rem;position:relative;}
+.ct-item:last-child{padding-bottom:0;}
+.ct-dot{position:absolute;left:-1.45rem;top:.3rem;width:10px;height:10px;border-radius:50%;border:2px solid;}
+.ct-year{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;letter-spacing:.15em;margin-bottom:.2rem;}
+.ct-event{font-size:.82rem;color:var(--slate);line-height:1.62;}
+
+/* COMPARISON TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin:2rem 0;background:var(--white);box-shadow:var(--sh-sm);}
+.comp-table th{background:var(--navy);color:#fff;padding:.95rem 1.3rem;text-align:left;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;font-weight:400;}
+.comp-table td{padding:.88rem 1.3rem;border-bottom:1px solid var(--bsoft);font-size:.84rem;color:var(--slate);}
+.comp-table tr:last-child td{border-bottom:none;}
+.comp-table tr:hover td{background:var(--off);}
+.td-b{font-weight:600;color:var(--navy);}
+.td-green{color:var(--em);font-weight:600;}
+.td-red{color:var(--ruby);font-weight:600;}
+.td-gold{color:var(--gold-d);font-weight:600;}
+.badge{display:inline-block;padding:.2rem .55rem;font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.52rem;letter-spacing:.07em;text-transform:uppercase;border:1px solid;}
+.bk-g{background:var(--em-p);border-color:var(--em);color:var(--em);}
+.bk-r{background:var(--ruby-p);border-color:var(--ruby);color:var(--ruby);}
+.bk-b{background:var(--sapp-p);border-color:var(--sapp);color:var(--sapp);}
+.bk-gold{background:var(--gold-p);border-color:var(--gold);color:var(--gold-d);}
+.bk-pur{background:var(--am-p);border-color:var(--am);color:var(--am);}
+.bk-amb{background:var(--amb-p);border-color:var(--amber);color:var(--amber);}
+
+/* PRINCIPLE GRID (dark) */
+.prin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
+.pc{padding:2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:all .22s;position:relative;overflow:hidden;}
+.pc:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.pc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.pc:hover::after{transform:scaleX(1);}
+.pc-amb::after{background:var(--amb-l);}
+.pc-gold::after{background:var(--gold-l);}
+.pc-blue::after{background:var(--sapp-l);}
+.pc-green::after{background:var(--em-l);}
+.pc-pur::after{background:var(--am-l);}
+.pc-red::after{background:var(--ruby-l);}
+.p-num{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2.8rem;font-weight:700;color:rgba(255,255,255,.05);position:absolute;top:.8rem;right:1.2rem;line-height:1;}
+.p-ico{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.p-ttl{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-weight:700;color:#fff;margin-bottom:.45rem;}
+.p-bdy{font-size:.8rem;color:rgba(255,255,255,.48);line-height:1.72;}
+
+/* WORKSHEET */
+.ws{background:var(--white);border:1px solid var(--border);box-shadow:var(--sh-lg);overflow:hidden;margin:2.5rem 0;}
+.ws-head{background:linear-gradient(135deg,#2A1A06,#4A2C0A);padding:1.9rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.ws-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.2rem;color:#fff;font-weight:600;}
+.ws-body{padding:2.5rem;}
+.ws-row{display:grid;grid-template-columns:240px 1fr;align-items:start;gap:1.5rem;padding:1.2rem 0;border-bottom:1px solid var(--bsoft);}
+.ws-row:last-child{border-bottom:none;}
+.ws-lbl{font-size:.84rem;font-weight:600;color:var(--navy);}
+.ws-hint{font-size:.7rem;color:var(--slate-l);margin-top:.1rem;font-style:italic;font-weight:300;}
+.ws-inp{width:100%;padding:.65rem 1rem;border:1.5px solid var(--bsoft);background:var(--off);color:var(--navy);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.88rem;outline:none;transition:all .2s;}
+.ws-inp:focus{border-color:var(--amb-l);background:var(--white);box-shadow:0 0 0 3px rgba(184,120,0,.08);}
+.ws-ta{min-height:78px;resize:vertical;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;line-height:1.62;}
+.ws-radios{display:flex;gap:.65rem;flex-wrap:wrap;}
+.wr{display:none;}
+.wrl{padding:.4rem .88rem;border:1.5px solid var(--bsoft);font-size:.72rem;cursor:pointer;transition:all .2s;color:var(--slate);font-weight:500;}
+.wr:checked+.wrl{background:var(--navy);border-color:var(--navy);color:#fff;}
+.ws-foot{padding:1.5rem 2.5rem;background:var(--off);border-top:1px solid var(--bsoft);display:flex;justify-content:space-between;align-items:center;}
+.ws-save{padding:.7rem 2rem;background:var(--navy);color:#fff;border:none;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.ws-save:hover{background:var(--amber);}
+.ws-note{font-size:.72rem;color:var(--slate-l);font-style:italic;}
+
+/* CHECKLIST */
+.chk{list-style:none;margin:1.5rem 0;}
+.chk li{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bsoft);font-size:.86rem;color:var(--slate);line-height:1.62;cursor:pointer;}
+.chk li:last-child{border-bottom:none;}
+.chk li:hover{color:var(--navy);}
+.chk-box{width:18px;height:18px;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;background:var(--white);position:relative;transition:all .2s;}
+.chk li.done .chk-box{background:var(--em);border-color:var(--em);}
+.chk li.done .chk-box::after{content:'';position:absolute;left:4px;top:5px;width:4px;height:7px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-3px);}
+.chk li.done .chk-txt{text-decoration:line-through;color:var(--slate-l);}
+
+/* CLOSING */
+.closing{background:var(--navy);color:#fff;padding:7rem 6rem;text-align:center;position:relative;overflow:hidden;}
+.closing::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;border:1px solid rgba(184,120,0,.07);}
+.closing::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:450px;border-radius:50%;border:1px solid rgba(200,146,42,.07);}
+.cl-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;}
+.cl-title{font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:3.2rem;font-weight:600;color:#fff;margin-bottom:1rem;}
+.cl-title em{color:var(--gold-l);font-style:italic;}
+.cl-div{width:40px;height:1px;background:var(--amber);margin:2rem auto;}
+.cl-body{font-size:.94rem;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:2.5rem;}
+.cl-next{display:inline-block;padding:1rem 2.5rem;border:1px solid rgba(184,120,0,.4);color:var(--amb-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .22s;background:transparent;}
+.cl-next:hover{background:rgba(184,120,0,.1);border-color:var(--amb-l);}
+.cl-brand{display:block;margin-top:2.5rem;font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1rem;color:var(--gold);letter-spacing:.3em;text-transform:uppercase;}
+.cl-meta{font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.55rem;color:rgba(255,255,255,.18);margin-top:.4rem;letter-spacing:.13em;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+@media(max-width:1100px){
+  .wrap{margin-left:0;}.sb{display:none;}
+  .sec{padding:4.5rem 3.5rem;}.cv-body{padding:4rem 3.5rem;}.cv-foot{padding:1.8rem 3.5rem;}
+  .case-selector{grid-template-columns:1fr 1fr 1fr;}.cd-body{grid-template-columns:1fr;}.cd-left{border-right:none;border-bottom:1px solid var(--border);}
+  .prin-grid{grid-template-columns:1fr 1fr;}.metrics-bar{grid-template-columns:1fr 1fr;}
+  .cd-meta-grid{grid-template-columns:1fr 1fr;}.closing{padding:5rem 3.5rem;}.div{margin:0 3.5rem;}
+}
+@media(max-width:680px){
+  .sec{padding:3.5rem 1.5rem;}.cv-body{padding:3.5rem 1.5rem;}.cv-foot{padding:1.5rem 1.5rem;}
+  .case-selector{grid-template-columns:1fr 1fr;}.prin-grid{grid-template-columns:1fr;}
+  .ws-row{grid-template-columns:1fr;}.cd-meta-grid{grid-template-columns:1fr 1fr;}
+  .metrics-bar{grid-template-columns:1fr 1fr;}.mb-cell:nth-child(2n){border-right:none;}
+  .closing{padding:4rem 1.5rem;}.div{margin:0 1.5rem;}
+}
+</style>
+
+<script>
+// iPad/Safari fix: reveal all sections immediately on load
+window.addEventListener('load', function() {
+  document.querySelectorAll('.sec').forEach(function(s) {
+    s.classList.add('vis');
+    s.style.opacity = '1';
+    s.style.transform = 'none';
+  });
+});
+</script>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav class="sb">
+  <div class="sb-brand">TCC</div>
+  <div class="sb-dots">
+    <div class="sd on"  data-tip="Cover"            onclick="toTop()"></div>
+    <div class="sd"     data-tip="Introduction"     onclick="goTo('s-intro')"></div>
+    <div class="sd"     data-tip="Amazon"           onclick="goTo('s-amazon')"></div>
+    <div class="sd"     data-tip="Tesla"            onclick="goTo('s-tesla')"></div>
+    <div class="sd"     data-tip="Berkshire"        onclick="goTo('s-berk')"></div>
+    <div class="sd"     data-tip="Dot-Com Bubble"   onclick="goTo('s-dotcom')"></div>
+    <div class="sd"     data-tip="Bitcoin"          onclick="goTo('s-btc')"></div>
+    <div class="sd"     data-tip="2008 GFC"         onclick="goTo('s-gfc')"></div>
+    <div class="sd"     data-tip="Extracted Laws"   onclick="goTo('s-laws')"></div>
+    <div class="sd"     data-tip="Worksheet"        onclick="goTo('s-ws')"></div>
+    <div class="sd"     data-tip="Closing"          onclick="goTo('s-close')"></div>
+  </div>
+  <div class="sb-num">04 / 05</div>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════ COVER ══════ -->
+<section class="cover">
+  <div class="cv-bg"></div><div class="cv-mesh"></div>
+  <div class="cv-ring1"></div><div class="cv-ring2"></div><div class="cv-ring3"></div>
+  <div class="cv-body">
+    <div class="cv-pre"><div class="cv-pre-line"></div><div class="cv-pre-txt">The Capital Code · Playbook 04 of 05 · Architect Edition</div></div>
+    <h1 class="cv-title">Investment<br><em>Case</em><br><span class="c-amber">Library</span></h1>
+    <p class="cv-sub">Six of the most instructive real-world investment cases in modern history — each dissected for the exact decision frameworks, timing signals, and lessons that separate winners from losers.</p>
+    <div class="cv-tags">
+      <div class="cv-tag">Amazon (1997–2024)</div>
+      <div class="cv-tag">Tesla Thesis</div>
+      <div class="cv-tag">Berkshire Method</div>
+      <div class="cv-tag">Dot-Com Collapse</div>
+      <div class="cv-tag">Bitcoin Cycles</div>
+      <div class="cv-tag">2008 GFC</div>
+    </div>
+    <div class="cv-metrics">
+      <div><span class="cv-mval">6</span><span class="cv-mlbl">Case Studies</span></div>
+      <div><span class="cv-mval">×2,400</span><span class="cv-mlbl">Amazon 25yr Return</span></div>
+      <div><span class="cv-mval">∞</span><span class="cv-mlbl">Lessons Extracted</span></div>
+    </div>
+  </div>
+  <div class="cv-bignum">04</div>
+  <div class="cv-foot">
+    <div class="cv-brand">The Capital Code</div>
+    <div class="cv-meta"><div>ARCHITECT EDITION — PLAYBOOK 04 OF 05</div><div>EXCLUSIVE · NOT FOR REDISTRIBUTION</div></div>
+  </div>
+</section>
+
+<!-- ══════ INTRO ══════ -->
+<section class="sec s-white" id="s-intro">
+  <div class="lbl"><span class="lbl-txt">Introduction</span></div>
+  <h2 class="sec-title">Theory is rehearsal.<br><em>History is the actual game.</em></h2>
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start;">
+    <div>
+      <p class="sec-body">Every investment framework in existence was built by studying what actually happened — not by constructing elegant theories in isolation. The investors who consistently outperform are not those with the most sophisticated models; they are those who have most deeply internalized the patterns, signals, and traps revealed by real market history.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">This playbook is your accelerated market education. Rather than spending decades accumulating personal experience — including expensive personal mistakes — you will study six defining investment cases with the analytical rigor of a professional fund manager. For each case, you will see the entry signals, the thesis, the execution, the key decision points, and the extractable lessons.</p>
+      <p class="sec-body" style="margin-top:1.2rem;">Most importantly: every case contains both a winning and a losing dimension. The Amazon story is incomplete without understanding the investors who bought in 1999 and sold in 2002 at a loss. The Bitcoin story is incomplete without understanding the 2022 investors who entered at $60,000. The lesson is always in the full picture — not just the highlight reel.</p>
+      <div class="co co-amb" style="margin-top:2rem;">
+        <span class="co-ico">🎓</span>
+        <div class="co-title">How to Use This Case Library</div>
+        <div class="co-body">Read each case as an analyst, not as a fan or critic. Ask: what was knowable at the time? What were the key decision points? What distinguished the investors who profited from those who lost? At the end of each case, apply the extracted lesson immediately to your current portfolio.</div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--navy);padding:2.8rem 2.5rem;color:#fff;margin-bottom:1.5rem;">
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--amb-l);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1rem;">The Master Investor's Method</div>
+        <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.35rem;font-style:italic;font-weight:300;line-height:1.72;margin-bottom:1.4rem;">"It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price. The key is to identify the wonderful companies before the rest of the market does — and the key to that is pattern recognition from history."</div>
+        <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.6rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;">— Charlie Munger, Berkshire Hathaway</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);">
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--amber);display:block;line-height:1;margin-bottom:.25rem;">6</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Defining cases<br>across 3 decades</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--sapp);display:block;line-height:1;margin-bottom:.25rem;">×2,400</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Amazon return<br>from 1999 IPO</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--ruby);display:block;line-height:1;margin-bottom:.25rem;">−77%</span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Worst drawdown<br>studied in this library</span>
+        </div>
+        <div style="background:var(--white);padding:1.5rem;text-align:center;">
+          <span style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:2rem;font-weight:700;color:var(--em);display:block;line-height:1;margin-bottom:.25rem;">3.2M<span style="font-size:1.2rem;">%</span></span>
+          <span style="font-size:.62rem;color:var(--slate-l);font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;">Berkshire Hathaway<br>60-year return</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ CASE 01: AMAZON ══════ -->
+<section class="sec s-off" id="s-amazon">
+  <div class="lbl"><span class="lbl-txt">Case Study 01</span></div>
+  <h2 class="sec-title"><em>Amazon</em> — The Company<br>Everyone Underestimated</h2>
+
+  <div class="case-display">
+    <div class="cd-hd" style="background:linear-gradient(135deg,#1A0C00,#2E1800);">
+      <div class="cd-hd-left">
+        <div class="cd-num">CASE 01 OF 06</div>
+        <div class="cd-name">Amazon (AMZN)</div>
+        <div class="cd-tagline">From online bookstore to trillion-dollar infrastructure empire</div>
+      </div>
+    </div>
+    <div class="cd-meta-grid" style="background:linear-gradient(135deg,#2A1400,#3A1C00);border-top:1px solid rgba(255,165,0,.15);">
+      <div class="cd-meta-cell"><div class="cd-ml">IPO Price (1997)</div><div class="cd-mv" style="color:#FF9900;">$18</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2024 Price (approx)</div><div class="cd-mv" style="color:var(--em-l);">$185+</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">25-Year Return</div><div class="cd-mv" style="color:var(--gold-l);">×2,400%+</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">Worst Drawdown</div><div class="cd-mv" style="color:var(--ruby-l);">−93% (2001)</div></div>
+    </div>
+
+    <div class="cd-body">
+      <div class="cd-left">
+        <div class="cd-section-lbl" style="border-color:#FF9900;color:#E07700;">THE INVESTMENT THESIS (1997–2002)</div>
+        <div class="cd-text">Jeff Bezos founded Amazon as an online bookstore in 1994, going public in 1997 at $18/share with a market cap of approximately $438 million. The core thesis was elegantly simple: the internet would fundamentally change retail, and a first-mover with a customer-obsessed culture would compound its advantage exponentially over time.</div>
+        <div class="cd-text">What made Amazon unusual — and what caused most investors to dismiss it — was Bezos's explicit and deliberate policy of sacrificing short-term profitability for long-term market position. Amazon reinvested every dollar of revenue back into infrastructure, logistics, and new categories. Analysts trained on P/E ratios had no framework for evaluating this.</div>
+        <div class="cd-text">The investors who held from IPO through the dot-com crash of 2001 — when Amazon fell from $113 to $5.97, a 94% drawdown — and continued to hold through Amazon's transformation from retailer to cloud infrastructure giant (AWS launched 2006) generated one of the greatest returns in investment history.</div>
+
+        <div class="cd-section-lbl" style="border-color:#FF9900;color:#E07700;margin-top:1.5rem;">THE KEY TIMELINE</div>
+        <div class="case-timeline" style="border-color:rgba(255,153,0,.25);">
+          <div class="ct-item">
+            <div class="ct-dot" style="background:#FF9900;border-color:#FF9900;"></div>
+            <div class="ct-year" style="color:#E07700;">1997 — IPO</div>
+            <div class="ct-event">Listed at $18/share. Profitable bookseller with $147M revenue. Growth-at-all-costs strategy announced clearly in Year 1 shareholder letter.</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--am);border-color:var(--am);"></div>
+            <div class="ct-year" style="color:var(--am);">1999 — Peak Bubble</div>
+            <div class="ct-event">Reaches $113/share as dot-com euphoria inflates all internet stocks. Amazon's fundamentals do not support this valuation. This is the first critical decision point: trim or hold?</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--ruby);border-color:var(--ruby);"></div>
+            <div class="ct-year" style="color:var(--ruby);">2001 — $5.97 Bottom</div>
+            <div class="ct-event">−94% from peak. The Wall Street Journal publishes "Amazon.bomb." Most analysts predict bankruptcy. This is the greatest buying opportunity of the dot-com era — but recognizing it required vision beyond the noise.</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--sapp);border-color:var(--sapp);"></div>
+            <div class="ct-year" style="color:var(--sapp);">2006 — AWS Launches</div>
+            <div class="ct-event">Amazon Web Services makes its public debut. The market largely ignores it. This is Amazon's greatest strategic pivot — a bookstore becomes the world's largest cloud computing provider.</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--em);border-color:var(--em);"></div>
+            <div class="ct-year" style="color:var(--em);">2018–2024 — $1T+ Market Cap</div>
+            <div class="ct-event">Amazon reaches and sustains trillion-dollar market cap. $1,000 invested at IPO is worth $240,000+. The patient investor who understood the thesis and held through all volatility is rewarded beyond any rational 1997 projection.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-right">
+        <div class="cd-section-lbl" style="border-color:var(--amber);color:var(--amber);">EXTRACTED LESSONS</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:#FF9900;">→</span>Businesses that deliberately sacrifice near-term profits for long-term moat-building deserve a different analytical framework than traditional P/E analysis. Learn to evaluate path-dependency and network effects.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#FF9900;">→</span>A −94% drawdown in a fundamentally sound business is not a reason to sell — it is a buying signal. The thesis, not the price, must determine your action. But this requires having written and tested your thesis before the crash.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#FF9900;">→</span>Management quality and culture compound as powerfully as financial returns. Bezos's "Day 1" philosophy — maintaining founder intensity regardless of company size — was the most predictive signal available at IPO.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#FF9900;">→</span>The greatest returns come from businesses whose full scope of impact is not yet visible to the market. AWS was invisible in 1997. The lesson: evaluate what a business could become, not just what it currently is.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#FF9900;">→</span>Position sizing discipline matters even for your highest-conviction positions. Amazon's volatility would have forced most investors out if they were overweight. A 5–8% position allows you to hold through −90% drawdowns.</div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1.2rem;background:linear-gradient(135deg,#1A0C00,#2A1400);border:1px solid rgba(255,153,0,.2);">
+          <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:#FF9900;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;">THE CORE QUESTION</div>
+          <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-style:italic;color:rgba(255,255,255,.8);line-height:1.65;">Could you have held Amazon from $113 to $5.97 without selling? If not — your position was too large, or your conviction thesis too weak. Fix both before the next opportunity arrives.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics-bar">
+      <div class="mb-cell"><div class="mb-lbl">Entry Signal</div><div class="mb-val" style="color:var(--amber);">First-Mover Moat</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Key Risk</div><div class="mb-val" style="color:var(--ruby);">Valuation Bubble</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Holding Requirement</div><div class="mb-val" style="color:var(--sapp);">Conviction + Time</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Exit Strategy</div><div class="mb-val" style="color:var(--em);">Never (if still growing)</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ CASE 02: TESLA ══════ -->
+<section class="sec s-white" id="s-tesla">
+  <div class="lbl ruby"><span class="lbl-txt">Case Study 02</span></div>
+  <h2 class="sec-title"><em>Tesla</em> — The Most Divisive<br>Investment Thesis of the Decade</h2>
+
+  <div class="case-display">
+    <div class="cd-hd" style="background:linear-gradient(135deg,#1A0808,#2E0808);">
+      <div class="cd-hd-left">
+        <div class="cd-num">CASE 02 OF 06</div>
+        <div class="cd-name">Tesla (TSLA)</div>
+        <div class="cd-tagline">From near-bankruptcy to world's most valuable automaker — and back again</div>
+      </div>
+    </div>
+    <div class="cd-meta-grid" style="background:linear-gradient(135deg,#220808,#300808);border-top:1px solid rgba(200,40,40,.15);">
+      <div class="cd-meta-cell"><div class="cd-ml">IPO Price (2010)</div><div class="cd-mv" style="color:var(--ruby-l);">$17</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2021 Peak</div><div class="cd-mv" style="color:var(--gold-l);">$407</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">Peak-to-Trough (2022)</div><div class="cd-mv" style="color:var(--ruby-l);">−75%</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2024 Return from IPO</div><div class="cd-mv" style="color:var(--em-l);">×50+</div></div>
+    </div>
+
+    <div class="cd-body">
+      <div class="cd-left">
+        <div class="cd-section-lbl" style="border-color:var(--ruby);color:var(--ruby);">THE INVESTMENT THESIS (2010–2021)</div>
+        <div class="cd-text">Tesla's investment thesis was extraordinarily polarizing from the outset — and that polarization was itself an investment signal. When the market is deeply divided on a company with genuine innovation, the emotional noise creates pricing inefficiencies in both directions. Tesla was simultaneously overvalued by believers and undervalued by skeptics at different points in its history.</div>
+        <div class="cd-text">The core bull thesis rested on three compounding advantages: energy density improvements in battery technology (a genuine structural trend), Elon Musk as a once-in-a-generation product and operations leader, and the defensibility of Tesla's software-first vehicle architecture versus legacy auto's hardware-first approach. None of these were guaranteed — but all were identifiable by 2013.</div>
+        <div class="cd-text">The critical lesson in Tesla's history is not the peak-to-trough drama — it is the position sizing discipline required to benefit from the multi-decade thesis without being destroyed by the volatility. Tesla experienced six separate drawdowns exceeding 30% between 2010 and 2024. Only investors with correctly sized positions and written theses survived all six.</div>
+
+        <div class="cd-section-lbl" style="border-color:var(--ruby);color:var(--ruby);margin-top:1.5rem;">DECISION POINTS</div>
+        <div class="case-timeline" style="border-color:rgba(200,40,40,.2);">
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--ruby);border-color:var(--ruby);"></div>
+            <div class="ct-year" style="color:var(--ruby);">2013 — Near Bankruptcy Avoided</div>
+            <div class="ct-event">Tesla was weeks from bankruptcy. Musk personally invested to save it. Model S launch transforms the narrative. Stock moves from $4 to $18 in 90 days. First major asymmetric entry point.</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--amber);border-color:var(--amber);"></div>
+            <div class="ct-year" style="color:var(--amber);">2019 — Production Hell Resolved</div>
+            <div class="ct-event">Model 3 mass production finally achieved profitability. Bears who shorted the stock through production hell are covered at large losses. Stock moves from $18 to $88 adjusted. Second major entry point for patient thesis holders.</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--am);border-color:var(--am);"></div>
+            <div class="ct-year" style="color:var(--am);">2020–2021 — S&P 500 Inclusion + Bubble</div>
+            <div class="ct-event">S&P 500 inclusion forces index funds to buy $80B+ in Tesla shares. Combined with retail FOMO and EV optimism, stock rises 8× in 12 months. This is the time to trim, not add. Valuations reach 200× forward earnings.</div>
+          </div>
+          <div class="ct-item">
+            <div class="ct-dot" style="background:var(--ruby);border-color:var(--ruby);"></div>
+            <div class="ct-year" style="color:var(--ruby);">2022 — −75% Drawdown</div>
+            <div class="ct-event">Rate hike environment, Twitter acquisition distraction, and valuation normalization combine. From $407 peak to $101. Investors who trimmed in 2021 now have capital to re-enter. Those who added in 2021 are severely underwater.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-right">
+        <div class="cd-section-lbl" style="border-color:var(--ruby);color:var(--ruby);">EXTRACTED LESSONS</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--ruby);">→</span>High-conviction, high-volatility positions require explicit position sizing rules BEFORE purchase. Tesla at 15% of a portfolio becomes 40% on a 3× move and 5% on a −75% drawdown. Define your max allocation and rebalancing trigger in advance.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--ruby);">→</span>When a company you own becomes a cultural phenomenon and every news anchor is recommending it — this is the signal to reduce, not add. True investment edge disappears when the thesis becomes consensus.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--ruby);">→</span>CEO-as-brand is a double-edged risk. Musk's leadership created enormous value AND enormous volatility. Evaluate this risk explicitly in any company where founder identity is inseparable from the investment thesis.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--ruby);">→</span>Polarization as a signal: when smart analysts deeply disagree about a business, mispricing often exists. The disagreement itself creates opportunity for the investor who has done the deepest independent research.</div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1.2rem;background:linear-gradient(135deg,#1A0808,#2E0808);border:1px solid rgba(200,40,40,.2);">
+          <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--ruby-l);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;">THE CORE QUESTION</div>
+          <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-style:italic;color:rgba(255,255,255,.8);line-height:1.65;">At what valuation does the Tesla thesis break? Define it. An investor without a valuation exit criterion cannot distinguish conviction from denial when the price falls — or euphoria from analysis when it rises.</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-bar">
+      <div class="mb-cell"><div class="mb-lbl">Entry Signal</div><div class="mb-val" style="color:var(--ruby);">Tech Disruption + Crisis</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Key Risk</div><div class="mb-val" style="color:var(--am);">Valuation + CEO Risk</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Position Size</div><div class="mb-val" style="color:var(--amber);">Max 5–8%</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Exit Signal</div><div class="mb-val" style="color:var(--sapp);">200× P/E = Trim</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ CASE 03: BERKSHIRE ══════ -->
+<section class="sec s-off" id="s-berk">
+  <div class="lbl sapp"><span class="lbl-txt">Case Study 03</span></div>
+  <h2 class="sec-title"><em>Berkshire Hathaway</em> — What<br>60 Years of Compounding Looks Like</h2>
+
+  <div class="case-display">
+    <div class="cd-hd" style="background:linear-gradient(135deg,#060E1A,#0A1828);">
+      <div class="cd-hd-left">
+        <div class="cd-num">CASE 03 OF 06</div>
+        <div class="cd-name">Berkshire Hathaway (BRK.A)</div>
+        <div class="cd-tagline">The definitive proof that discipline and patience compound into dynasty</div>
+      </div>
+    </div>
+    <div class="cd-meta-grid" style="background:linear-gradient(135deg,#08101E,#101C30);border-top:1px solid rgba(59,127,212,.15);">
+      <div class="cd-meta-cell"><div class="cd-ml">1964 Book Value</div><div class="cd-mv" style="color:var(--sapp-l);">$19/share</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2024 Book Value</div><div class="cd-mv" style="color:var(--gold-l);">$630,000+</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">60-Year Return</div><div class="cd-mv" style="color:var(--em-l);">3,200,000%</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">vs S&P 500 (same period)</div><div class="cd-mv" style="color:var(--gold-l);">31,223%</div></div>
+    </div>
+
+    <div class="cd-body">
+      <div class="cd-left">
+        <div class="cd-section-lbl" style="border-color:var(--sapp);color:var(--sapp);">THE BERKSHIRE METHOD</div>
+        <div class="cd-text">Berkshire Hathaway under Warren Buffett and Charlie Munger represents the most comprehensively documented wealth-compounding operation in history. Unlike most investment case studies, Berkshire is remarkable not for a single extraordinary decision, but for six decades of extraordinarily consistent decision-making — which is itself the lesson.</div>
+        <div class="cd-text">The Berkshire method rests on five pillars that Buffett and Munger have stated explicitly in every annual letter since 1965: (1) Buy wonderful businesses at fair prices. (2) Hold forever when the competitive moat remains intact. (3) Never use leverage that can force a sale. (4) Maintain massive cash reserves for opportunistic buying during crises. (5) Trust the management you invest in.</div>
+        <div class="cd-text">What distinguishes Berkshire is not sophistication — it is the extraordinary discipline of doing obvious things consistently for decades, while most investors are distracted by complexity, novelty, and short-term thinking. The boring path, executed perfectly, beats the exciting path every time over a 30-year horizon.</div>
+
+        <div class="cd-section-lbl" style="border-color:var(--sapp);color:var(--sapp);margin-top:1.5rem;">THE KEY PRINCIPLES IN ACTION</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span><strong>1988: Coca-Cola Purchase.</strong> Buffett buys $1B of Coca-Cola — 33% of Berkshire's equity — at 15× earnings when analysts thought the brand was mature. Today that position is worth $25B+. The insight: brands with pricing power in consumer staples compound over generations.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span><strong>2008: Bank of America During Crisis.</strong> While others panic-sold financials, Buffett invested $5B in Bank of America preferred shares with 6% dividend plus warrants. Returns exceeded $20B. Lesson: crisis creates asymmetry for the prepared and liquid investor.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span><strong>2016: Apple Position Built.</strong> Buffett — who famously avoided tech — begins building Apple position. By 2024 it represents 40%+ of Berkshire's public portfolio. He recognizes Apple not as a technology company but as a consumer loyalty and ecosystem business. The lesson: mental model flexibility matters more than rigid category thinking.</div>
+        </div>
+      </div>
+
+      <div class="cd-right">
+        <div class="cd-section-lbl" style="border-color:var(--sapp);color:var(--sapp);">EXTRACTED LESSONS</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span>The greatest compounding happens in businesses with enduring competitive moats — consumer brands, network effects, switching costs, and regulatory advantages. Learn to identify these before the market prices them fully.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span>Cash is not dead money — it is a call option on future opportunities. Berkshire's persistent cash hoard (often $100B+) is not conservatism but strategic optionality for moments when crisis creates decade-defining buying opportunities.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span>The single most powerful sentence in investing is "I don't know, and that's okay." Buffett passed on Microsoft, Google, and Amazon — and still outperformed 99% of managers. Staying within your circle of competence beats swinging at everything.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--sapp);">→</span>Temperament beats intelligence in investing. The analytical skill to identify a great business is meaningless if you cannot hold through the inevitable drawdowns and public skepticism. Build your temperament like you build your analytical skills.</div>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1.2rem;background:linear-gradient(135deg,#060E1A,#0A1828);border:1px solid rgba(59,127,212,.2);">
+          <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--sapp-l);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;">THE CORE QUESTION</div>
+          <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-style:italic;color:rgba(255,255,255,.8);line-height:1.65;">Which businesses in your current watchlist would you hold for 20 years? If the answer is "none," your portfolio is built for trading, not investing. The Berkshire method requires identifying businesses you would own regardless of market conditions.</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-bar">
+      <div class="mb-cell"><div class="mb-lbl">Core Method</div><div class="mb-val" style="color:var(--sapp);">Quality + Patience</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Key Insight</div><div class="mb-val" style="color:var(--amber);">Cash = Optionality</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Moat Types</div><div class="mb-val" style="color:var(--em);">Brand, Network, Cost</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Time Horizon</div><div class="mb-val" style="color:var(--gold);">Permanent if moat holds</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ CASE 04: DOT-COM ══════ -->
+<section class="sec s-white" id="s-dotcom">
+  <div class="lbl pur"><span class="lbl-txt">Case Study 04</span></div>
+  <h2 class="sec-title">The <em>Dot-Com Bubble</em> — What<br>Narrative-Driven Investing Costs</h2>
+
+  <div class="case-display">
+    <div class="cd-hd" style="background:linear-gradient(135deg,#120A1E,#200E30);">
+      <div class="cd-hd-left">
+        <div class="cd-num">CASE 04 OF 06</div>
+        <div class="cd-name">The Dot-Com Bubble (1995–2002)</div>
+        <div class="cd-tagline">When narrative replaced analysis — and $5 trillion was destroyed in 30 months</div>
+      </div>
+    </div>
+    <div class="cd-meta-grid" style="background:linear-gradient(135deg,#180C22,#220F30);border-top:1px solid rgba(140,79,191,.15);">
+      <div class="cd-meta-cell"><div class="cd-ml">NASDAQ Peak (2000)</div><div class="cd-mv" style="color:var(--am-l);">5,048</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">NASDAQ Bottom (2002)</div><div class="cd-mv" style="color:var(--ruby-l);">1,114</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">Peak-to-Trough</div><div class="cd-mv" style="color:var(--ruby-l);">−78%</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">Capital Destroyed</div><div class="cd-mv" style="color:var(--am-l);">~$5 Trillion</div></div>
+    </div>
+
+    <div class="cd-body">
+      <div class="cd-left">
+        <div class="cd-section-lbl" style="border-color:var(--am);color:var(--am);">ANATOMY OF A BUBBLE</div>
+        <div class="cd-text">The dot-com bubble of the late 1990s is the definitive modern case study in narrative-driven investing — and the most important cautionary tale for any investor holding growth assets in an era of technological disruption. Understanding exactly how the bubble formed, sustained itself, and collapsed is prerequisite knowledge for surviving the next one.</div>
+        <div class="cd-text">The core psychological mechanism was the replacement of fundamental analysis with narrative. "The internet changes everything" was simultaneously true (long-term) and valuationally irrelevant (short-term). Companies were valued at 200–500× revenues — not earnings, revenues — based on projected user growth in markets that didn't yet exist. The metrics changed because the old metrics produced the "wrong" answer.</div>
+        <div class="cd-text">The red flags were visible and ignored: companies with no path to profitability burning cash at extraordinary rates; analyst price targets based on "market share of the internet"; IPOs that doubled on opening day despite zero revenue. Each individual investor rationalized their position as different. None were.</div>
+
+        <div class="cd-section-lbl" style="border-color:var(--am);color:var(--am);margin-top:1.5rem;">THE ANATOMY OF A BUBBLE — 5 STAGES</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">①</span><strong>Displacement:</strong> A genuine technological innovation (the internet) creates legitimate excitement and early winners (Cisco, Amazon, eBay). The underlying trend is real — the valuations are not.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">②</span><strong>Boom:</strong> Easy credit, IPO fever, and media amplification attract capital from outside traditional investor classes. "Day trading" becomes a cultural phenomenon. Everyone has a stock tip.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">③</span><strong>Euphoria:</strong> Risk perception collapses entirely. New metrics are invented to justify valuations. Skeptics are publicly ridiculed. This is the stage when professional investors quietly reduce exposure.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">④</span><strong>Profit Taking:</strong> Insiders and institutions begin selling. Price still rising but on decreasing volume. Distribution disguised as continued enthusiasm.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">⑤</span><strong>Panic:</strong> First cracks appear. Cascade of selling follows. The companies that were "worth" $50 billion on narrative are now exposed as worth $50 million on fundamentals.</div>
+        </div>
+      </div>
+
+      <div class="cd-right">
+        <div class="cd-section-lbl" style="border-color:var(--am);color:var(--am);">EXTRACTED LESSONS</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">→</span>When new metrics are invented to justify valuations ("eyeballs," "clicks," "network reach"), this is not innovation — it is warning. Fundamental analysis exists because it captures real economic value. Metrics that cannot connect to eventual cash flows are not investments.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">→</span>The correct response to a genuine transformative technology is not to refuse to invest — it is to invest in the infrastructure beneficiaries (which survive regardless of winners) and maintain strict valuation discipline on the application layer.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">→</span>Euphoria is identifiable. When your taxi driver, barber, and parents ask about a specific stock category — you are in Phase 3 or 4 of a bubble. Reduce exposure systematically regardless of what the narrative says next.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--am);">→</span>The dot-com crash proved that being early and being right are not the same thing. Many investors who identified the bubble in 1998 were two years early — and destroyed by margin calls. Never short a mania with leverage.</div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1.2rem;background:linear-gradient(135deg,#120A1E,#200E30);border:1px solid rgba(140,79,191,.2);">
+          <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--am-l);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;">THE CORE QUESTION</div>
+          <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-style:italic;color:rgba(255,255,255,.8);line-height:1.65;">For each position in your portfolio: what is the path to cash generation that justifies the current price? If you cannot answer this in a sentence, you are holding a narrative, not an investment.</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-bar">
+      <div class="mb-cell"><div class="mb-lbl">Bubble Stage ID</div><div class="mb-val" style="color:var(--am);">Invented Metrics</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Warning Signal</div><div class="mb-val" style="color:var(--ruby);">Taxi Driver Tips</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Correct Response</div><div class="mb-val" style="color:var(--amber);">Reduce Systematically</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Never Do</div><div class="mb-val" style="color:var(--ruby);">Short with Leverage</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ CASE 05: BITCOIN ══════ -->
+<section class="sec s-off" id="s-btc">
+  <div class="lbl"><span class="lbl-txt">Case Study 05</span></div>
+  <h2 class="sec-title"><em>Bitcoin</em> — The Asymmetric<br>Bet That Changed Asset Classes</h2>
+
+  <div class="case-display">
+    <div class="cd-hd" style="background:linear-gradient(135deg,#1A0E00,#2A1800);">
+      <div class="cd-hd-left">
+        <div class="cd-num">CASE 05 OF 06</div>
+        <div class="cd-name">Bitcoin (BTC)</div>
+        <div class="cd-tagline">The greatest asymmetric opportunity in financial history — and the hardest to hold</div>
+      </div>
+    </div>
+    <div class="cd-meta-grid" style="background:linear-gradient(135deg,#221200,#301A00);border-top:1px solid rgba(247,147,26,.15);">
+      <div class="cd-meta-cell"><div class="cd-ml">2013 Price</div><div class="cd-mv" style="color:#F7931A;">$100</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2021 ATH</div><div class="cd-mv" style="color:var(--gold-l);">$69,000</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2022 Low</div><div class="cd-mv" style="color:var(--ruby-l);">$15,500</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">2024 New ATH</div><div class="cd-mv" style="color:var(--em-l);">$100,000+</div></div>
+    </div>
+
+    <div class="cd-body">
+      <div class="cd-left">
+        <div class="cd-section-lbl" style="border-color:#F7931A;color:#E07700;">THE BITCOIN THESIS (2013–2024)</div>
+        <div class="cd-text">Bitcoin presents the most instructive case study in asymmetric investing and position sizing discipline. The investment thesis was simultaneously straightforward and unprovable: a decentralized, fixed-supply digital asset would become a store of value in an era of monetary expansion, attracting institutional and sovereign adoption over a 10–20 year horizon.</div>
+        <div class="cd-text">The challenge was not identifying the thesis — by 2015, sophisticated investors understood the fundamental proposition. The challenge was maintaining appropriate position sizing through a volatility profile unlike any traditional asset: four separate cycles of −70% to −85% drawdowns, each followed by new all-time highs. The investors who profited most were not those who traded the cycles but those who sized appropriately (3–10% of portfolio) and held through all four winters.</div>
+        <div class="cd-text">The 2022 cycle was particularly instructive: Bitcoin fell −77% from $69,000 to $15,500, accompanied by systemic failures (FTX, Luna/Terra, Celsius) that created genuine fundamental uncertainty. Separating the protocol thesis from the ecosystem failures required precise analytical thinking under maximum emotional stress.</div>
+
+        <div class="cd-section-lbl" style="border-color:#F7931A;color:#E07700;margin-top:1.5rem;">HALVING CYCLE FRAMEWORK</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:#F7931A;">→</span><strong>The 4-Year Cycle:</strong> Bitcoin's supply halves approximately every 4 years. Historically, the 12–18 months following each halving have produced the strongest bull markets. This is not guaranteed — but it is structural. Entry in the 6 months after a halving has historically been the optimal risk/reward window.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#F7931A;">→</span><strong>Fear & Greed Index as Exit Signal:</strong> When the Crypto Fear & Greed Index exceeds 85 (extreme greed), begin systematic partial exits. When it falls below 15 (extreme fear), begin systematic entries. This simple rule has avoided every bubble peak and captured every major bottom.</div>
+        </div>
+      </div>
+
+      <div class="cd-right">
+        <div class="cd-section-lbl" style="border-color:#F7931A;color:#E07700;">EXTRACTED LESSONS</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:#F7931A;">→</span>Position sizing is the only risk management tool that works for assets with −80% drawdown potential. At 5% portfolio allocation, even a total loss is survivable. At 30% allocation, a −80% drawdown is psychologically and financially catastrophic.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#F7931A;">→</span>Distinguish between ecosystem risk (exchanges, tokens, leverage protocols) and protocol risk (Bitcoin itself). FTX's collapse was not a thesis-breaking event for BTC — it was an exchange failure. Conflating the two caused many investors to sell the right asset for the wrong reason.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#F7931A;">→</span>Halving cycles are the most reliable pattern in Bitcoin's history — but they are not guaranteed and should not be used for precision timing. Use them to inform bias (bullish post-halving, cautious at 12-month post-halving peak), not as mechanical trading rules.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:#F7931A;">→</span>Define your exit before you enter. Bitcoin at 5× your cost — take 50% off. At 10× — take another 30%. Leaving some forever. Written profit-taking rules are the only protection against greed at the top of a parabolic move.</div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1.2rem;background:linear-gradient(135deg,#1A0E00,#2A1800);border:1px solid rgba(247,147,26,.2);">
+          <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:#F7931A;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;">THE CORE QUESTION</div>
+          <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-style:italic;color:rgba(255,255,255,.8);line-height:1.65;">Could you hold Bitcoin at $69,000 as it falls to $15,500 without selling? If your honest answer is no — your Bitcoin allocation is above your psychological maximum. Reduce to the level at which you can hold through −80%. That level is your real position size.</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-bar">
+      <div class="mb-cell"><div class="mb-lbl">Position Limit</div><div class="mb-val" style="color:#F7931A;">Max 5–10%</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Entry Signal</div><div class="mb-val" style="color:var(--sapp);">Post-Halving + Fear</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Exit Signal</div><div class="mb-val" style="color:var(--em);">F&G >85 = Trim</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Never Do</div><div class="mb-val" style="color:var(--ruby);">Leverage in Crypto</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+
+<!-- ══════ CASE 06: GFC ══════ -->
+<section class="sec s-white" id="s-gfc">
+  <div class="lbl green"><span class="lbl-txt">Case Study 06</span></div>
+  <h2 class="sec-title">The 2008 <em>Global Financial Crisis</em> —<br>The Anatomy of a Systemic Collapse</h2>
+
+  <div class="case-display">
+    <div class="cd-hd" style="background:linear-gradient(135deg,#0A0F0A,#121812);">
+      <div class="cd-hd-left">
+        <div class="cd-num">CASE 06 OF 06</div>
+        <div class="cd-name">Global Financial Crisis (2007–2009)</div>
+        <div class="cd-tagline">The moment the global financial system stopped — and what the prepared investor did</div>
+      </div>
+    </div>
+    <div class="cd-meta-grid" style="background:linear-gradient(135deg,#0E150E,#141E14);border-top:1px solid rgba(90,112,144,.15);">
+      <div class="cd-meta-cell"><div class="cd-ml">S&P 500 Peak (Oct 2007)</div><div class="cd-mv" style="color:var(--slate-l);">1,565</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">S&P 500 Bottom (Mar 2009)</div><div class="cd-mv" style="color:var(--ruby-l);">666</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">Peak-to-Trough</div><div class="cd-mv" style="color:var(--ruby-l);">−57%</div></div>
+      <div class="cd-meta-cell"><div class="cd-ml">Recovery to New ATH</div><div class="cd-mv" style="color:var(--em-l);">2013 (4yr)</div></div>
+    </div>
+
+    <div class="cd-body">
+      <div class="cd-left">
+        <div class="cd-section-lbl" style="border-color:var(--slate);color:var(--slate-m);">ANATOMY OF THE SYSTEMIC COLLAPSE</div>
+        <div class="cd-text">The 2008 Global Financial Crisis was the most severe financial disruption since the Great Depression and the definitive test of every investment system built before it. Its cause — the intersection of mortgage securitization, leverage, rating agency failure, and regulatory blindness — was complex. Its lesson for the individual investor was simple: leverage kills, diversification saves, and patience wins.</div>
+        <div class="cd-text">The investors who navigated 2008 successfully shared three characteristics: they held no leverage in their personal portfolios, they maintained meaningful cash reserves before the crisis, and they had pre-written protocols that prevented panic selling at the bottom. The investors who were permanently damaged held leveraged positions and sold in March 2009 — the precise bottom — locking in losses that became permanent rather than temporary.</div>
+        <div class="cd-text">The most instructive sub-case within the GFC is Warren Buffett's response. While the financial system was in free-fall, Berkshire deployed capital into Goldman Sachs, GE, and Bank of America on highly favorable terms. The lesson: the crisis was not a threat to the prepared investor — it was the opportunity of a generation.</div>
+
+        <div class="cd-section-lbl" style="border-color:var(--slate);color:var(--slate-m);margin-top:1.5rem;">THREE INVESTOR ARCHETYPES — SAME CRASH, DIFFERENT OUTCOMES</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--ruby);">✗</span><strong>The Leveraged Investor:</strong> Held equities with 50% margin. At −30%, received margin calls. Was forced to sell at worst possible prices. Permanent capital destruction. Never recovered to pre-crisis position.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--amber);">≈</span><strong>The Underprepared But Patient Investor:</strong> Held unleveraged equities, no cash reserve. Watched portfolio fall −54%. Held through fear. Recovered to new highs by 2013. Full recovery but zero opportunistic buying.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--em);">✓</span><strong>The Prepared Investor:</strong> Held 15–20% cash reserve. Had pre-written deployment rules. Bought S&P 500 at 666 in March 2009. Combined recovery with opportunistic buying to generate 3× the unleveraged return by 2015.</div>
+        </div>
+      </div>
+
+      <div class="cd-right">
+        <div class="cd-section-lbl" style="border-color:var(--slate);color:var(--slate-m);">EXTRACTED LESSONS</div>
+        <div class="lesson-list">
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--slate-m);">→</span>Leverage is the single most common cause of permanent capital loss. No portfolio should ever hold borrowed capital beyond what can be maintained through a −50% drawdown without a margin call.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--slate-m);">→</span>The cash reserve is not dead money — it is crisis ammunition. 15–20% cash, deployed at S&P 500 =666, generated returns unavailable to fully-invested portfolios. This is the structural advantage of maintaining dry powder.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--slate-m);">→</span>The bottom is always invisible in real time. No investor knows when −50% becomes −57%. The rule: begin systematic deployment at −20%, −30%, −40%, −50% — not all at once at an arbitrary predicted bottom.</div>
+          <div class="lesson-item"><span class="li-arrow" style="color:var(--slate-m);">→</span>Systemic crises produce the most fear — and the best risk/reward opportunities. The financial system did not end in 2009. It recovered. Every prior systemic shock has been followed by recovery. This knowledge is your most powerful tool when the next one arrives.</div>
+        </div>
+        <div style="margin-top:1.5rem;padding:1.2rem;background:linear-gradient(135deg,#0A0F0A,#141E14);border:1px solid rgba(90,112,144,.2);">
+          <div style="font-family:'Courier New', Consolas, Monaco, 'Lucida Console', monospace;font-size:.58rem;color:var(--slate-l);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem;">THE CORE QUESTION</div>
+          <div style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.08rem;font-style:italic;color:rgba(255,255,255,.8);line-height:1.65;">In the next major financial crisis, which archetype will you be? The answer is determined entirely by your preparation — specifically: your leverage, your cash position, and whether you have a pre-written deployment protocol.</div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-bar">
+      <div class="mb-cell"><div class="mb-lbl">Primary Killer</div><div class="mb-val" style="color:var(--ruby);">Leverage + Panic</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Primary Saviour</div><div class="mb-val" style="color:var(--em);">Cash + Protocol</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Optimal Entry</div><div class="mb-val" style="color:var(--amber);">Staged −20 to −50%</div></div>
+      <div class="mb-cell"><div class="mb-lbl">Recovery Time</div><div class="mb-val" style="color:var(--sapp);">4 Years (Patient)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ EXTRACTED UNIVERSAL LAWS ══════ -->
+<section class="sec s-dark" id="s-laws">
+  <div class="lbl"><span class="lbl-txt" style="color:var(--amb-l);">Universal Laws</span></div>
+  <h2 class="sec-title">The 8 laws extracted<br><em>from 6 decades of market history</em></h2>
+  <p class="sec-body" style="margin-bottom:.5rem;">These are the principles that appear consistently across every case in this library — and in every major study of long-term investment performance. They are not theoretical. Each has been demonstrated by real outcomes, real capital, and real consequences.</p>
+
+  <div class="prin-grid">
+    <div class="pc pc-amb">
+      <div class="p-num">01</div>
+      <span class="p-ico">🎯</span>
+      <div class="p-ttl">The Thesis Must Precede the Position</div>
+      <div class="p-bdy">Every successful case study began with a written thesis before capital was deployed. Amazon investors who held through −94% had a thesis about long-term e-commerce and cloud dominance. Without the thesis, a −30% drawdown becomes a reason to exit rather than a reason to add.</div>
+    </div>
+    <div class="pc pc-gold">
+      <div class="p-num">02</div>
+      <span class="p-ico">📏</span>
+      <div class="p-ttl">Position Sizing is Risk Management</div>
+      <div class="p-bdy">No matter how strong the conviction, maximum 5–8% in any single position for high-volatility assets. A position that grows to 20% of your portfolio from appreciation should be trimmed back to 8–10%. The return does not compensate for the concentration risk you are carrying.</div>
+    </div>
+    <div class="pc pc-blue">
+      <div class="p-num">03</div>
+      <span class="p-ico">💰</span>
+      <div class="p-ttl">Cash Converts Crashes into Opportunities</div>
+      <div class="p-bdy">In every case study, the investors who outperformed most dramatically were those with pre-positioned cash when the crash arrived. Not because they predicted the crash — but because they maintained the discipline to hold 15–20% cash at all times, accepting lower returns in calm periods for transformative optionality in crises.</div>
+    </div>
+    <div class="pc pc-green">
+      <div class="p-num">04</div>
+      <span class="p-ico">🧠</span>
+      <div class="p-ttl">Narrative is a Warning Signal</div>
+      <div class="p-bdy">When a new investment narrative reaches cultural saturation — when it appears in mainstream media, when non-investors discuss it, when new metrics are invented to justify valuations — this is the signal to reduce exposure, not increase it. The greatest opportunities always exist before the narrative forms, not after.</div>
+    </div>
+    <div class="pc pc-pur">
+      <div class="p-num">05</div>
+      <span class="p-ico">⏳</span>
+      <div class="p-ttl">Time Horizon is the Ultimate Edge</div>
+      <div class="p-bdy">The structural advantage of the private investor over institutional capital is holding period. Funds must report quarterly; private investors can hold for decades. Amazon's extraordinary return required holding through three multi-year periods of extreme negative sentiment. Only unlimited time horizon investors could capture this return.</div>
+    </div>
+    <div class="pc pc-red">
+      <div class="p-num">06</div>
+      <span class="p-ico">⚡</span>
+      <div class="p-ttl">Leverage Ends Investment Careers</div>
+      <div class="p-bdy">In every major crisis in this case library, the investors who suffered permanent, unrecoverable losses were those holding leveraged positions. Market corrections that are temporary and recoverable for unleveraged investors become permanent capital destruction for leveraged ones. Never hold borrowed capital you cannot sustain through a −50% drawdown.</div>
+    </div>
+    <div class="pc pc-amb">
+      <div class="p-num">07</div>
+      <span class="p-ico">🔍</span>
+      <div class="p-ttl">Independent Research Beats Consensus</div>
+      <div class="p-bdy">The Berkshire method, the Amazon early investors, the post-2008 deployers — all shared the characteristic of reaching independent conclusions that diverged from the consensus at the moment of investment. Consensus-following produces consensus returns. Alpha requires doing the analytical work to hold a well-reasoned, differentiated view.</div>
+    </div>
+    <div class="pc pc-gold">
+      <div class="p-num">08</div>
+      <span class="p-ico">📋</span>
+      <div class="p-ttl">The Plan Written Before the Storm Saves You</div>
+      <div class="p-bdy">The single consistent factor in every profitable case study outcome is the pre-existence of a written investment plan. Not the sophistication of the plan — the existence of it. A written plan transforms every market event from a crisis requiring improvised decision-making into a scenario already considered, with a response already determined.</div>
+    </div>
+  </div>
+</section>
+
+<div class="div dk"><div class="dl" style="background:rgba(255,255,255,.1)"></div><div class="dd"></div><div class="dl" style="background:rgba(255,255,255,.1)"></div></div>
+
+<!-- ══════ WORKSHEET ══════ -->
+<section class="sec s-parch" id="s-ws">
+  <div class="lbl"><span class="lbl-txt">Worksheet</span></div>
+  <h2 class="sec-title">Your Investment Analysis<br><em>Framework — Apply It Now</em></h2>
+  <p class="sec-body" style="margin-bottom:.8rem;">Use this framework to analyze any investment you are currently holding or considering. Every serious investment decision deserves this level of structured analysis — before capital is deployed.</p>
+
+  <div class="ws">
+    <div class="ws-head">
+      <span class="ws-title">Investment Case Analysis — Personal & Confidential</span>
+      <span style="font-size:1.4rem;">📊</span>
+    </div>
+    <div class="ws-body">
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Investment Being Analyzed</div><div class="ws-hint">Company, ETF, or asset name</div></div>
+        <input class="ws-inp" type="text" placeholder="e.g. Microsoft (MSFT), MSCI World ETF, Bitcoin...">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">The Core Thesis</div><div class="ws-hint">Why will this be worth more in 5 years?</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="State the thesis in 3 sentences or fewer. If you cannot, you do not yet have a thesis — you have a hope. e.g. 'Microsoft is building the dominant AI infrastructure layer via Azure + Copilot. AI adoption will increase cloud spending by 30%+ annually. Microsoft's enterprise relationships are a 20-year moat.'"></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">What Makes This Wrong</div><div class="ws-hint">The best case for the bear argument</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="State the strongest bear case honestly. e.g. 'Open-source AI models commoditize cloud AI, destroying pricing power. Antitrust action breaks up Microsoft's bundling. A serious recession causes enterprise IT budget cuts of 30%+'"></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Historical Parallel</div><div class="ws-hint">Which case in this library is most similar?</div></div>
+        <div class="ws-radios">
+          <input type="radio" name="par" id="p1" class="wr"><label for="p1" class="wrl">Amazon (growth + patience)</label>
+          <input type="radio" name="par" id="p2" class="wr"><label for="p2" class="wrl">Tesla (polarized thesis)</label>
+          <input type="radio" name="par" id="p3" class="wr"><label for="p3" class="wrl">Berkshire (moat + hold)</label>
+          <input type="radio" name="par" id="p4" class="wr"><label for="p4" class="wrl">Dot-com (narrative risk)</label>
+          <input type="radio" name="par" id="p5" class="wr"><label for="p5" class="wrl">Bitcoin (asymmetric)</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Position Size</div><div class="ws-hint">% of total portfolio</div></div>
+        <div class="ws-radios">
+          <input type="radio" name="ps" id="ps1" class="wr"><label for="ps1" class="wrl">&lt;3% (speculative)</label>
+          <input type="radio" name="ps" id="ps2" class="wr" checked><label for="ps2" class="wrl">3–8% (conviction)</label>
+          <input type="radio" name="ps" id="ps3" class="wr"><label for="ps3" class="wrl">8–15% (high conviction)</label>
+          <input type="radio" name="ps" id="ps4" class="wr"><label for="ps4" class="wrl">&gt;15% (concentration risk)</label>
+        </div>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Entry Criteria</div><div class="ws-hint">What price or signal triggers entry?</div></div>
+        <input class="ws-inp" type="text" placeholder="e.g. P/E below 25, post-earnings dip >10%, after halving + 3 months...">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Stop-Loss Level</div><div class="ws-hint">The price that invalidates the thesis</div></div>
+        <input class="ws-inp" type="text" placeholder="e.g. If price falls 20% below entry AND quarterly revenue growth turns negative...">
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Profit-Taking Plan</div><div class="ws-hint">When and how much do you sell?</div></div>
+        <textarea class="ws-inp ws-ta" placeholder="e.g. Sell 25% at 2× cost. Sell another 25% at 4× cost. Let remaining 50% run with trailing stop. Full exit if P/E exceeds 60×..."></textarea>
+      </div>
+
+      <div class="ws-row">
+        <div><div class="ws-lbl">Thesis Review Date</div><div class="ws-hint">When will you formally re-evaluate?</div></div>
+        <input class="ws-inp" type="text" placeholder="e.g. After every quarterly earnings report + annual comprehensive review in January">
+      </div>
+
+    </div>
+    <div class="ws-foot">
+      <span class="ws-note">Your entries are stored locally only — never transmitted.</span>
+      <button class="ws-save" onclick="saveW(this)">Save Analysis ↓</button>
+    </div>
+  </div>
+
+  <div style="margin-top:4rem;">
+    <div class="lbl"><span class="lbl-txt">Case Study Mastery Checklist</span></div>
+    <h3 style="font-family:'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Georgia, serif;font-size:1.65rem;color:var(--navy);margin-bottom:.5rem;font-weight:600;">Have You Truly Learned These Cases?</h3>
+    <p style="font-size:.87rem;color:var(--slate);margin-bottom:1.8rem;line-height:1.72;">These are not theoretical exercises — check only when you have applied each lesson to your actual portfolio.</p>
+    <ul class="chk">
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have a written investment thesis for every position currently in my portfolio</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have defined the maximum position size for every holding (Amazon/Tesla lesson: position sizing = risk management)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have cash reserve of 10–20% ready for crisis deployment (GFC lesson: cash = crisis ammunition)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have checked each current position for narrative saturation (dot-com lesson: consensus = warning signal)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have zero leveraged positions in my portfolio (GFC lesson: leverage ends investment careers)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have defined the "thesis invalidation" level for every position (at what point would I sell regardless of price?)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have a written profit-taking plan for my highest-conviction positions (Bitcoin lesson: define exit before entry)</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have identified which of the 6 case study patterns most closely matches my current portfolio's primary risk</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I have completed the Investment Case Analysis worksheet above for at least one current position</span></li>
+      <li onclick="tick(this)"><div class="chk-box"></div><span class="chk-txt">I can articulate the core lesson from each of the 6 cases in one sentence without referencing this playbook</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════ CLOSING ══════ -->
+<div class="closing" id="s-close">
+  <div class="cl-inner">
+    <div class="lbl" style="justify-content:center;margin-bottom:1.5rem;"><span class="lbl-txt">Closing</span></div>
+    <h2 class="cl-title">History doesn't repeat.<br><em>But it rhymes — loudly.</em></h2>
+    <div class="cl-div"></div>
+    <p class="cl-body">
+      You have now studied Amazon, Tesla, Berkshire, the Dot-Com Bubble, Bitcoin, and the 2008 Global Financial Crisis through the lens of an analytical investor — not a fan, not a victim, not a spectator. You have extracted the transferable principles that will govern your decisions when the next version of these scenarios arrives.
+      <br><br>
+      And they will arrive. The patterns repeat because the fundamental mechanism is always the same: human psychology responding to uncertainty, greed, and fear in predictable ways. Your advantage is that you have now seen the movie before it plays. You know how each archetype ends.
+      <br><br>
+      In Playbook 05: <strong style="color:var(--gold-l)">Wealth Optimization Templates</strong> — we bring together all five playbooks into a unified, actionable system: your complete Wealth Architecture with ready-to-use templates for tracking, reviewing, and continuously optimizing your financial life.
+    </p>
+    <div class="cl-div"></div>
+    <button class="cl-next">Proceed to Playbook 05: Wealth Optimization Templates →</button>
+    <span class="cl-brand">The Capital Code · Architect Edition</span>
+    <div class="cl-meta">PLAYBOOK 04 OF 05 — INVESTMENT CASE LIBRARY</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(window.scrollY/h*100)+'%';
+  document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight*.87)s.classList.add('vis');});
+  updDots();
+});
+setTimeout(()=>document.querySelectorAll('.sec').forEach(s=>{if(s.getBoundingClientRect().top<window.innerHeight)s.classList.add('vis');}),80);
+
+window.toTop = function(){window.scrollTo({top:0,behavior:'smooth'});}
+window.goTo = function(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});}
+
+window.updDots = function(){
+  const ids=['','s-intro','s-amazon','s-tesla','s-berk','s-dotcom','s-btc','s-gfc','s-laws','s-ws','s-close'];
+  let a=0;
+  ids.forEach((id,i)=>{if(id&&document.getElementById(id)?.getBoundingClientRect().top<=220)a=i;});
+  document.querySelectorAll('.sd').forEach((d,i)=>d.classList.toggle('on',i===a));
+}
+
+window.tick = function(li){li.classList.toggle('done');}
+window.saveW = function(btn){
+  const orig=btn.textContent;
+  btn.textContent='✓ Saved!';
+  btn.style.background='var(--em)';
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2500);
+}
+</script>
+</body>
+</html>
