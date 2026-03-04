@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Capital Code — Architect Edition</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:#08152A;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;}
+.wrap{max-width:680px;width:100%;text-align:center;}
+.brand{font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:1rem;font-weight:600;color:#C8922A;letter-spacing:.4em;text-transform:uppercase;margin-bottom:1rem;}
+h1{font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:600;color:#fff;line-height:1.08;margin-bottom:.8rem;}
+h1 em{font-style:italic;color:#E4AF56;}
+.sub{font-size:.95rem;color:rgba(255,255,255,.42);line-height:1.8;max-width:480px;margin:0 auto 3rem;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
+@media(max-width:500px){.grid{grid-template-columns:1fr;}}
+.pb-link{display:block;padding:1.6rem 1.5rem;text-decoration:none;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);transition:all .22s;text-align:left;position:relative;overflow:hidden;}
+.pb-link::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.pb-link:hover{background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.pb-1::before{background:linear-gradient(90deg,#1A52A8,#3B7FD4);}
+.pb-2::before{background:linear-gradient(90deg,#A82828,#D84848);}
+.pb-3::before{background:linear-gradient(90deg,#186848,#28A870);}
+.pb-4::before{background:linear-gradient(90deg,#B87800,#E0A020);}
+.pb-5::before{background:linear-gradient(90deg,#C8922A,#E4AF56);}
+.pb-5{grid-column:1/-1;}
+.pb-num{font-family:'Courier New',monospace;font-size:.58rem;color:rgba(255,255,255,.25);letter-spacing:.18em;text-transform:uppercase;display:block;margin-bottom:.4rem;}
+.pb-title{font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:1.05rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.pb-desc{font-size:.75rem;color:rgba(255,255,255,.38);line-height:1.6;}
+.pb-arrow{position:absolute;right:1.2rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.2);font-size:1.1rem;}
+.footer{font-family:'Courier New',monospace;font-size:.56rem;color:rgba(255,255,255,.15);letter-spacing:.12em;text-transform:uppercase;margin-top:1.5rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">The Capital Code</div>
+  <h1>Architect<br><em>Edition</em></h1>
+  <p class="sub">Five playbooks. One integrated wealth-building system. Select a playbook to open it fully interactive.</p>
+  
+  <div class="grid">
+    <a href="playbook-01.html" class="pb-link pb-1">
+      <span class="pb-num">Playbook 01</span>
+      <div class="pb-title">Investment Playbooks</div>
+      <div class="pb-desc">Strategy engine, asset allocation, 8 principles</div>
+      <span class="pb-arrow">→</span>
+    </a>
+    <a href="playbook-02.html" class="pb-link pb-2">
+      <span class="pb-num">Playbook 02</span>
+      <div class="pb-title">Scenario Simulator</div>
+      <div class="pb-desc">Market crash simulator, 6 scenarios, crisis protocol</div>
+      <span class="pb-arrow">→</span>
+    </a>
+    <a href="playbook-03.html" class="pb-link pb-3">
+      <span class="pb-num">Playbook 03</span>
+      <div class="pb-title">Finance & Tax Optimizer</div>
+      <div class="pb-desc">Income planner, tax calculator, FI number</div>
+      <span class="pb-arrow">→</span>
+    </a>
+    <a href="playbook-04.html" class="pb-link pb-4">
+      <span class="pb-num">Playbook 04</span>
+      <div class="pb-title">Investment Case Library</div>
+      <div class="pb-desc">Amazon, Tesla, Bitcoin, GFC — 6 cases, 8 laws</div>
+      <span class="pb-arrow">→</span>
+    </a>
+    <a href="playbook-05.html" class="pb-link pb-5">
+      <span class="pb-num">Playbook 05</span>
+      <div class="pb-title">Wealth Optimization Templates</div>
+      <div class="pb-desc">Live dashboard, 8 templates, wealth score engine, master manifest</div>
+      <span class="pb-arrow">→</span>
+    </a>
+  </div>
+  
+  <div class="footer">Architect Edition · 5 of 5 Playbooks · Not for Redistribution</div>
+</div>
+</body>
+</html>
